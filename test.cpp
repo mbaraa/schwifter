@@ -25,9 +25,11 @@ int main () {
              switch (menu) {
 		case '1': 
 			system("mkdir fuck");
+                        g--;
 			break;
 		case '2':
 			system("vim fuck.txt");
+                        g--;
 			break;
 		}
 	}
