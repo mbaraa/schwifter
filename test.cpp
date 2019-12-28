@@ -9,8 +9,11 @@ int main () {
 		<< "-----------------------------------------------------------------------------\n"
 		<< "https://github.com/hexagon16rpm/gupi\n"
 		<< "-----------------------------------------------------------------------------"<<endl;
+	system("clear");
+	cout << "Updating Repos....\n";
 	system("emerge-webrsync && emerge --sync");
 	char profile1 ,profile2;
+	system("clear");
 	while(true){
 	cout << "Select A Profile :\n PS choose init system that matches your installation DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
 		<< "1. Proced with the current profile \n"
@@ -41,7 +44,9 @@ int main () {
 		system("eselect profile set default/linux/amd64/17.1/no-multilib");
 	}else {
 		cout << "\nselect only from the menu !!!!\n"
+		
 	}
+	system("clear");
 	char proced1;
 	cout << "your selected profile is : ";
 	system("eselect profile show");
@@ -54,8 +59,8 @@ int main () {
 	}else{
 		cout << "\nselect only yes or no";
 	}
-}
-
+}//loop's
+	system("clear");
 	
 
 
@@ -85,11 +90,11 @@ int main () {
             g++;
              switch (menu) {
 		case '1': 
-			system("mkdir fuck");
+			system("mkdir lol ");
                         g--;
 			break;
 		case '2':
-			system("vim fuck.txt");
+			system("vim lol.txt");
                         g--;
 			break;
 		}
