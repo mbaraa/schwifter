@@ -27,6 +27,7 @@ using namespace std;
 void header1();
 void header2();
 void presetup();
+void emerge(string use , string package);
 int main () {
 	system("clear");	
 	header1();
@@ -45,7 +46,7 @@ int main () {
 	header2();
 	cout << endl << endl ;
 	
-	char profile1 ,profile2;
+	char profile1 ,initsys;
 	while(true){
 	header2();
 	cout << "Select A Profile :\n PS choose init system that matches your installation \n DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
@@ -58,23 +59,23 @@ int main () {
 		cout << "Now select initial system :\n"
 		<< "1. openRC\n"
 		<< "2. SystemD\n";
-		cin >> profile2;
+		cin >> initsys;
 	if(profile1 == '1'){
 		cout << "go on \n";
 		break;
-	}else if (profile1 == '2' && profile2 == '1'){
+	}else if (profile1 == '2' && initsys == '1'){
 		system("eselect profile set default/linux/amd64/17.1/desktop");
-	}else if (profile1 == '2' && profile2 == '2'){
+	}else if (profile1 == '2' && initsys == '2'){
 		system("eselect profile set default/linux/amd64/17.1/systemd");
-	}else if (profile1 == '3' && profile2 == '1'){
+	}else if (profile1 == '3' && initsys == '1'){
 		system("eselect profile set default/linux/amd64/17.1/desktop/gnome ");
-	}else if (profile1 == '3' && profile2 == '2'){
+	}else if (profile1 == '3' && initsys == '2'){
 		system("eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd");
-	}else if (profile1 == '4' && profile2 == '1'){
+	}else if (profile1 == '4' && initsys == '1'){
 		system("eselect profile set default/linux/amd64/17.1/desktop/plasma");
-	}else if (profile1 == '4' && profile2 == '2'){
+	}else if (profile1 == '4' && initsys == '2'){
 		system("eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd");
-	}else if (profile1 == '5' && (profile2 == '1' || profile2 == '2')){
+	}else if (profile1 == '5' && (initsys == '1' || initsys == '2')){
 		system("eselect profile set default/linux/amd64/17.1/no-multilib");
 	}else {
 		cout << "\nselect only from the menu !!!!\n";
@@ -209,32 +210,72 @@ int main () {
 		continue;
 	}
 }//Loop's
+
+//PRE-SETUP
+//NECESSARY-PACKAGES
+//BASH-TOOLS
+	header2();
+	presetup();
+	cout << "Installing Some Shell Tools ....\n";
+	emerge("" , " bc bash-completion rsync mlocate");
+//ARCHIVE-TOOLS
+	header2();
+	presetup();
+	cout << "Installing archive tools ....\n";
+	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils");
+//AVAHI
+	header2();
+	presetup();
+	cout << "Installing avahi a zero configuration networking implementation ....\n";
+	emerge(""," net-dns/avahi nss-mdns");
+	system("rc-update add avahi-daemon default");
+	system("rc-service avahi-daemon start");
+//ALSA & PUSLEAUDIO
+	header2();
+	presetup();
+	cout << "Installing ALSA (Advanced Linux Sound Architecture ....\n";
+	emerge("alsip thread-safety python", "alsa-lib alsa-utils");
+	emerge("ffmpeg","alsa-plugins");
+	system("cp ./configuration_files/asound.conf /etc/asound.conf");
+	system("rc-service alsasound start");
+	system("rc-update add alsasound boot");
+	cout << "Installing Pulseaudio ....\n";
+	emerge("pulseaudio X alsa-plugin elogind equalizer gconf gdbm glib native-headset ofono-headset realtime webrtc-aec alsa bluetooth caps dbus jack orc sox tcpd zerocon", "pulseaudio");
+	system("rc-update add pulseaudio default");
+	system("rc-update add pulseaudio default");
+//FILESYSTEMS
+	header2();
+	presetup();
+	cout << "Installing Some Useful Filesystems ....\n";
+	emerge("", " ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso");
+
+
+
 //CUSTOM REPOS(OVERLAYS)
 	while(true){
 	header2();
 	presetup();
-	cout << "Installing Layman ....\n";
-	string layman = ("USE=\"git\" emerge -qv git layman");
-	const char *laymanin = layman.c_str();
-	system(laymanin);
-	string repo;
+	string repolayman = ("layman -a ");
+	string reponame;
 	header2();
 	presetup();
 	cout << "Do you want to add a custom repo (overlay) ? \n";
 	char proced3;
 	cin >> proced3;
 	if(proced3 == 'y' || proced3 == 'Y'){
-		cout << "Enter Repo\'s Name : ";
-		cin >> repo;
+		cout << "Installing Layman ....\n";
+		emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
+		cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
+		cin >> reponame;
+		repolayman = repolayman + reponame;
+		const char *addrepo = repolayman.c_str();
+		system(addrepo);
+		system("emerge --sync");
 		break;
-	}else if(proced3 == 'n' || proced3 == 'N'){
-		continue;
-	}else{
-		cout << "\nselect only yes or no !!!! \n";
-	}
+	}else{break;}
 }//Loop's  */
-	return 0;	
-}
+		
+};
 void header1(){
 	cout << "Welcome to the Gentoo Linux Ultimate Post Installer program by Hexagon16\n"
 		<< "-----------------------------------------------------------------------------\n"
@@ -249,10 +290,24 @@ void header1(){
 }
 void header2(){
 	system("clear");
-	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Hexagon16 \n-----------------------------------------------------------------------------\n \n \n";
+	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Hexagon16 \n-----------------------------------------------------------------------------\n \n \n"<<endl;
 }
 void presetup(){
 	system("clear");
 	cout << endl;
-	cout << "################ \n## Pre-Setup: ##\n################\n";
+	cout << "################ \n## Pre-Setup: ##\n################\n"<<endl;
+}
+void emerge(string use , string package){
+        string install =("emerge -qv ");
+        string USE = ("USE=\" "), USE2 = (" \"  ");
+        install = USE + use + USE2 + install + package;
+        const char *in = install.c_str();
+        system(in);
+	/*to input a package name from keyboard 
+	  and use it with this function use
+	string pkgs,uses ;
+        getline(cin, pkgs);
+	getline(cin, uses);
+        emerge(uses,pkgs);
+	*/
 }
