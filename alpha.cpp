@@ -27,7 +27,9 @@ using namespace std;
 void header1();
 void header2();
 void presetup();
-void emerge(string use , string package);
+void emerge(string, string);
+void mainmenu(string);
+void basicsetup();
 int main () {
 	system("clear");	
 	header1();
@@ -101,7 +103,7 @@ int main () {
 //USER CREATION:
 	system("clear");
 	//hey hexagon16 never declare a variable inside a loop and expect using it late
-	string user2;
+	string username;
 
 	while(true){
 	header2();
@@ -115,15 +117,15 @@ int main () {
 	if(proced2 == 'y' || proced2 == 'Y'){
 		cout << ("Enter username ");
         	string user1 = ("useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash ");
-       		cin >> user2;
-       		user1 = user1 + user2;
+       		cin >> username;
+       		user1 = user1 + username;
 		const char *user = user1.c_str();
 		system(user);
 		//user details
 		string uconf = ("chfn ");
 		string passwd = ("passwd ");
-		uconf = uconf + user2;
-		passwd = passwd + user2;
+		uconf = uconf + username;
+		passwd = passwd + username;
 		const char *uconf0 = uconf.c_str();
 		const char *upasswd = passwd.c_str();
 		system(upasswd);
@@ -157,10 +159,18 @@ int main () {
 		string sudoprompt = ("echo \"Defaults passprompt=\"[sudo] password for %u: \" >> /etc/sudoers");
 		const char *prompt = sudoprompt.c_str();
 		system(prompt);
+		cout << "\n Press enter to continue"<<endl;
+		cin.ignore();
+		system("clear");
 		break;
 
         }else if(proced2 == 'n' || proced2 == 'N'){
-		continue;
+		cout << "Enter your username : ";
+		cin >> username;
+		cout << "\n Press enter to continue"<<endl;
+		cin.ignore();
+		system("clear");
+		break;
 		
 	}else{
                 cout << "\nselect only yes or no";
@@ -181,27 +191,27 @@ int main () {
 	if(editor == '1'){
 		system("emerge -qvt vim ctags");
 		string vim = ("\"echo export EDITOR='vim' >> ~/.bashrc \"");
-		swuser = swuser + user2 + dashc + vim;
+		swuser = swuser + username + dashc + vim;
 		const char *editorvim = swuser.c_str();
 		system(editorvim);
 		break;
 	}else if(editor == '2'){
 		string vi = ("\"echo export EDITOR='vi' >> ~/.bashrc \"");
-		swuser = swuser + user2 + dashc + vi;
+		swuser = swuser + username + dashc + vi;
 		const char *editorvi = swuser.c_str();
 		system(editorvi);
 		break;
 	}else if(editor == '3'){
 		system("emerge -qvt nano");
 		string nano = ("\"echo export EDITOR='nano' >> ~/.bashrc \"");
-		swuser = swuser + user2 + dashc + nano;
+		swuser = swuser + username + dashc + nano;
 		const char *editornano = swuser.c_str();
 		system(editornano);
 		break;
 	}else if(editor == '4'){ 	
 		system("emerge -qvt emacs");
 		string emacs = ("\"echo export EDITOR='emacs' >> ~/.bashrc \"");
-		swuser = swuser + user2 + dashc + emacs;
+		swuser = swuser + username + dashc + emacs;
 		const char *editoremacs = swuser.c_str();
 		system(editoremacs);
 		break;
@@ -217,12 +227,18 @@ int main () {
 	header2();
 	presetup();
 	cout << "Installing Some Shell Tools ....\n";
-	emerge("" , " bc bash-completion rsync mlocate");
+	emerge("" , " git bc bash-completion rsync mlocate");
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
 //ARCHIVE-TOOLS
 	header2();
 	presetup();
 	cout << "Installing archive tools ....\n";
 	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils");
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
 //AVAHI
 	header2();
 	presetup();
@@ -230,6 +246,9 @@ int main () {
 	emerge(""," net-dns/avahi nss-mdns");
 	system("rc-update add avahi-daemon default");
 	system("rc-service avahi-daemon start");
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
 //ALSA & PUSLEAUDIO
 	header2();
 	presetup();
@@ -248,34 +267,55 @@ int main () {
 	presetup();
 	cout << "Installing Some Useful Filesystems ....\n";
 	emerge("", " ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso");
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
 
-
-
-//CUSTOM REPOS(OVERLAYS)
+//MAIN-MENU
 	while(true){
 	header2();
-	presetup();
-	string repolayman = ("layman -a ");
-	string reponame;
-	header2();
-	presetup();
-	cout << "Do you want to add a custom repo (overlay) ? \n";
-	char proced3;
-	cin >> proced3;
-	if(proced3 == 'y' || proced3 == 'Y'){
-		cout << "Installing Layman ....\n";
-		emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
-		cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
-		cin >> reponame;
-		repolayman = repolayman + reponame;
-		const char *addrepo = repolayman.c_str();
-		system(addrepo);
-		system("emerge --sync");
-		break;
-	}else{break;}
-}//Loop's  */
+	mainmenu(username);
+	int menu;
+	cin >> menu;
+	if(menu == 1){	
+		//BASICSETUP
+			//CUSTOM REPOS(OVERLAYS)
+			while(true){
+			header2();
+			basicsetup();
+			string repolayman = ("layman -a ");
+			string reponame;
+			header2();
+			presetup();
+			cout << "Do you want to add a custom repo (overlay) ? \n";
+			char proced3;
+			cin >> proced3;
+			if(proced3 == 'y' || proced3 == 'Y'){
+				cout << "Installing Layman ....\n";
+				emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
+				cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
+				cin >> reponame;
+				repolayman = repolayman + reponame;
+				const char *addrepo = repolayman.c_str();
+				system(addrepo);
+				system("emerge --sync");
+				cout << "\n Press enter to continue"<<endl;
+				cin.ignore();
+				system("clear");
+				break;
+			}else{break;}
+			}//Loop's of Layman's
+			
+
+	}
+		//DE & WM
+	}//Loop's Mainmenu
+
+
 		
-};
+};//MAIN FUNCTION'S
+
+//FUNCTIONS
 void header1(){
 	cout << "Welcome to the Gentoo Linux Ultimate Post Installer program by Hexagon16\n"
 		<< "-----------------------------------------------------------------------------\n"
@@ -293,7 +333,6 @@ void header2(){
 	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Hexagon16 \n-----------------------------------------------------------------------------\n \n \n"<<endl;
 }
 void presetup(){
-	system("clear");
 	cout << endl;
 	cout << "################ \n## Pre-Setup: ##\n################\n"<<endl;
 }
@@ -310,4 +349,29 @@ void emerge(string use , string package){
 	getline(cin, uses);
         emerge(uses,pkgs);
 	*/
+}
+void basicsetup(){
+	cout << endl;
+	cout << "################ \n# Basic-Setup: #\n################\n"<<endl;
+}
+void mainmenu(string un){
+	system("clear");
+	cout << "################################ \n## Main Menu: ## User : " << un << "\n################################\n";
+	cout << "\n\n";
+	cout << "1. Basic Setup \n";
+  	/*cout << "2. Desktop Environments | Window Managers \n";
+  	cout << "3. Accessories Apps \n";
+  	cout << "4. Development Apps \n";
+	cout << "5. Office Apps \n";
+  	cout << "6. System Apps \n";
+  	cout << "7. Graphics Apps \n";
+  	cout << "8. Internet Apps \n";
+  	cout << "9. Audio Apps \n";
+ 	cout << "10. Video Apps \n";
+ 	cout << "11. Games \n";
+ 	cout << "12. Web server \n";
+ 	cout << "13. Fonts \n";
+ 	cout << "14. Cleaning Up \n";*/
+ 	/*   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
+	 */
 }
