@@ -1,8 +1,8 @@
 /*
 -----------------------------------------------------------------------------
-Created by hexagon16 | E-Mail : hexagon16rpm@yandex.com | Twitter : @Larry_Gentoo
-Grab me a cup of coffee : PayPal.Me/larrygentoo
-Contributer: hexagon16
+Created by Baraa Al-Masri | E-Mail : baraa.masri@asu.edu.jo | Twitter : @Baraa_Da_Boss
+Grab me a cup of coffee : https://www.paypal.me/baraamasri
+Contributer: Baraa Al-Masri
 -------------------------------------------------------------------------------
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
