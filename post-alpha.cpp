@@ -102,7 +102,7 @@ int main () {
 
 //USER CREATION:
 	system("clear");
-	//hey hexagon16 never declare a variable inside a loop and expect using it late
+	//hey baraa never declare a variable inside a loop and expect using it late dummy
 	string username;
 
 	while(true){
@@ -317,20 +317,20 @@ int main () {
 
 //FUNCTIONS
 void header1(){
-	cout << "Welcome to the Gentoo Linux Ultimate Post Installer program by Hexagon16\n"
+	cout << "Welcome to the Gentoo Linux Ultimate Post Installer program by Baraa Al-Masri\n"
 		<< "-----------------------------------------------------------------------------\n"
-		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n"
+		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time & patience \n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
 		<< "-----------------------------------------------------------------------------\n"
-		<< "https://github.com/hexagon16rpm/gupi\n"
+		<< "https://github.com/baraa-almasri/glui\n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "P.S. This is still an alpha version DON'T run it on a non gentoo system ,\n also it supports only english locale and x86_64 architecture \n more locales and architectures will be supported in the future :) \n"
 		<< "-----------------------------------------------------------------------------\n \n \n"<<endl;
 }
 void header2(){
 	system("clear");
-	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Hexagon16 \n-----------------------------------------------------------------------------\n \n \n"<<endl;
+	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Baraa Al-Masri \n-----------------------------------------------------------------------------\n \n \n"<<endl;
 }
 void presetup(){
 	cout << endl;
