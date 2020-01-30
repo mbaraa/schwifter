@@ -30,27 +30,26 @@ void presetup();
 void emerge(string, string);
 void mainmenu(string);
 void basicsetup();
+void presskey();
 int main () {
 	system("clear");	
 	header1();
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+	presskey();
 	header2();
 	cout << endl << endl ;
 
 	cout << "Updating Repos....\n";
 	system("emerge-webrsync && emerge --sync");
 	
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+	presskey();
 	header2();
 	cout << endl << endl ;
 	
 	char profile1 ,initsys;
 	while(true){
 	header2();
+	cout << "Current profile : \n";	
+	system("eselect profile show"); cout << endl;
 	cout << "Select A Profile :\n PS choose init system that matches your installation \n DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
 		<< "1. Proced with the current profile \n"
 		<< "2. Normal Desktop \n"
@@ -87,14 +86,14 @@ int main () {
 	char proced1;
 	cout << "your selected profile is : ";
 	system("eselect profile show");
-	cout << "\n Is that what you selected ? (y or n) don't type (yes) or (no)\n";
+	cout << "\n Is that what you selected ? (y , n) don't type (yes) or (no)\n";
 	cin >> proced1;
 	if(proced1 == 'y' || proced1 == 'Y'){
 		break;
 	}else if(proced1 == 'n' || proced1 == 'N'){
 		continue;
 	}else{
-		cout << "\nselect only yes or no !!!! \n";
+		cout << "\nselect only y or n !!!! \n";
 		continue;
 	}
 }//loop's
@@ -110,12 +109,12 @@ int main () {
 	cout << endl << endl << "User Creation : \n";
 	cout << ("Available Users : \n");
 	system("cat /etc/passwd | grep 100");
-	cout << ("do you want to add users ? (yes or no)\n");
+	cout << ("do you want to add users ? (y , n)\n");
 	
 	char proced2;
 	cin >> proced2;
 	if(proced2 == 'y' || proced2 == 'Y'){
-		cout << ("Enter username ");
+		cout << ("Enter username :    ");
         	string user1 = ("useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash ");
        		cin >> username;
        		user1 = user1 + username;
@@ -134,16 +133,18 @@ int main () {
 		while(true){
 			cout << ("Installing sudo \n");
 			system("emerge -qvt sudo");
-			cout << "\n Press enter to continue"<<endl;
-			cin.ignore();
-			system("clear");
+			//sudo prompt
+			system("cp ./configuration_files/sudoers /etc/sudoers");
+			presskey();
 			int sudo;
 			cout << "Choose sudo prompt type : \n"
 				<< "1. With password \n"
 				<< "2. Without password \n" << endl;
 			cin >> sudo;
 			if(sudo == 1){
-				system("echo %wheel ALL=(ALL) ALL >> /etc/sudoers");
+				string pass = ("echo \"%wheel ALL=(ALL)  ALL \" >> /etc/sudoers");
+				const char *passsudo = pass.c_str();
+				system(passsudo);
 				break;
 			}else if(sudo == 2){
 				string nopass = ("echo \"%wheel ALL=(ALL) NOPASSWD: ALL \" >> /etc/sudoers");
@@ -156,24 +157,17 @@ int main () {
 			}
 
 		}//Loop's
-		string sudoprompt = ("echo \"Defaults passprompt=\"[sudo] password for %u: \" >> /etc/sudoers");
-		const char *prompt = sudoprompt.c_str();
-		system(prompt);
-		cout << "\n Press enter to continue"<<endl;
-		cin.ignore();
-		system("clear");
+		presskey();
 		break;
 
-        }else if(proced2 == 'n' || proced2 == 'N'){
-		cout << "Enter your username : ";
+	}else if(proced2 == 'n' || proced2 == 'N'){
+		cout << "Enter your current(already added) username :    ";
 		cin >> username;
-		cout << "\n Press enter to continue"<<endl;
-		cin.ignore();
-		system("clear");
+		presskey();
 		break;
 		
 	}else{
-                cout << "\nselect only yes or no";
+                cout << "\nselect only y or n";
 		continue;
         }
 }//Loop's
@@ -228,27 +222,26 @@ int main () {
 	presetup();
 	cout << "Installing Some Shell Tools ....\n";
 	emerge("" , " git bc bash-completion rsync mlocate");
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+	presskey();
 //ARCHIVE-TOOLS
 	header2();
 	presetup();
 	cout << "Installing archive tools ....\n";
 	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils");
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+	presskey();
 //AVAHI
 	header2();
 	presetup();
 	cout << "Installing avahi a zero configuration networking implementation ....\n";
 	emerge(""," net-dns/avahi nss-mdns");
-	system("rc-update add avahi-daemon default");
-	system("rc-service avahi-daemon start");
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+	if(initsys == '1'){
+		system("rc-update add avahi-daemon default");
+		system("rc-service avahi-daemon start");
+	}else if(initsys == '2'){
+		system("systemctl enable avahi-daemon.service");
+		system("systemctl start avahi-daemon.service");
+	}
+	presskey();
 //ALSA & PUSLEAUDIO
 	header2();
 	presetup();
@@ -256,21 +249,26 @@ int main () {
 	emerge("alsip thread-safety python", "alsa-lib alsa-utils");
 	emerge("ffmpeg","alsa-plugins");
 	system("cp ./configuration_files/asound.conf /etc/asound.conf");
-	system("rc-service alsasound start");
-	system("rc-update add alsasound boot");
+	if(initsys == '1'){
+		system("rc-service alsasound start");
+		system("rc-update add alsasound boot");
+	}else if(initsys == '2'){
+		cout << "Already enabled LOL \n";
+	}
 	cout << "Installing Pulseaudio ....\n";
 	emerge("pulseaudio X alsa-plugin elogind equalizer gconf gdbm glib native-headset ofono-headset realtime webrtc-aec alsa bluetooth caps dbus jack orc sox tcpd zerocon", "pulseaudio");
-	system("rc-update add pulseaudio default");
-	system("rc-update add pulseaudio default");
+	if(initsys == '2'){
+		system("rc-update add pulseaudio default");
+		system("rc-update add pulseaudio default");
+	}else if(initsys == '2'){
+		cout << "Already enabled LOL \n";
+	}
 //FILESYSTEMS
 	header2();
 	presetup();
 	cout << "Installing Some Useful Filesystems ....\n";
 	emerge("", " ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso");
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
-
+	presskey();
 //MAIN-MENU
 	while(true){
 	header2();
@@ -283,30 +281,38 @@ int main () {
 			while(true){
 			header2();
 			basicsetup();
-			string repolayman = ("layman -a ");
-			string reponame;
-			header2();
-			presetup();
 			cout << "Do you want to add a custom repo (overlay) ? \n";
 			char proced3;
 			cin >> proced3;
 			if(proced3 == 'y' || proced3 == 'Y'){
+				string reponame;
 				cout << "Installing Layman ....\n";
 				emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
+				system("layman -L");
+				presskey();
+				string repolayman = ("layman -a ");
 				cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
 				cin >> reponame;
 				repolayman = repolayman + reponame;
 				const char *addrepo = repolayman.c_str();
 				system(addrepo);
 				system("emerge --sync");
-				cout << "\n Press enter to continue"<<endl;
-				cin.ignore();
-				system("clear");
+				presskey();
 				break;
 			}else{break;}
 			}//Loop's of Layman's
 			
+			//SSH
+			emerge(""," openssh");
+			if(initsys == '1'){
+				system("rc-update add sshd default");
+				system("rc-service sshd start");
+			}else if(initsys == '2'){
+				system("systemctl enable sshd.service");
+				system("systemctl start sshd.service");
+			}
 
+			//ZSH
 	}
 		//DE & WM
 	}//Loop's Mainmenu
@@ -317,8 +323,8 @@ int main () {
 
 //FUNCTIONS
 void header1(){
-	cout << "Welcome to the Gentoo Linux Ultimate Post Installer program by Baraa Al-Masri\n"
-		<< "-----------------------------------------------------------------------------\n"
+	cout << "Welcome to the Gentoo Linux Schwifter(installer) program by Baraa Al-Masri\n"
+		<< "----------------------------------------------------------------------------\n"
 		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time & patience \n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
@@ -330,7 +336,8 @@ void header1(){
 }
 void header2(){
 	system("clear");
-	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Installer By Baraa Al-Masri \n-----------------------------------------------------------------------------\n \n \n"<<endl;
+	cout << "-----------------------------------------------------------------------------\n           Gentoo Linux Ultimate Post Schwifter By Baraa Al-Masri \n-----------------------------------------------------------------------------"<<endl;
+	cout << "-----------------------------------------------------------------------------\n           You gotta get schwifty in here            \n-----------------------------------------------------------------------------"<<endl;
 }
 void presetup(){
 	cout << endl;
@@ -374,4 +381,9 @@ void mainmenu(string un){
  	cout << "14. Cleaning Up \n";*/
  	/*   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
 	 */
+}
+void presskey(){
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
 }
