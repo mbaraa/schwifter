@@ -5,7 +5,6 @@
 ## that prevent sudo from running.
 ##
 ## See the sudoers man page for the details on how to write a sudoers file.
-##
 
 ##
 ## Host alias specification
