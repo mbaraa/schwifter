@@ -37,7 +37,7 @@ int main () {
 	presskey();
 	header2();
 	cout << endl << endl ;
-
+	char proced;
 	cout << "Updating Repos....\n";
 	system("emerge-webrsync && emerge --sync");
 	
@@ -83,14 +83,13 @@ int main () {
 		
 	}
 	header2();
-	char proced1;
 	cout << "your selected profile is : ";
 	system("eselect profile show");
 	cout << "\n Is that what you selected ? (y , n) don't type (yes) or (no)\n";
-	cin >> proced1;
-	if(proced1 == 'y' || proced1 == 'Y'){
+	cin >> proced;
+	if(proced == 'y' || proced == 'Y'){
 		break;
-	}else if(proced1 == 'n' || proced1 == 'N'){
+	}else if(proced == 'n' || proced == 'N'){
 		continue;
 	}else{
 		cout << "\nselect only y or n !!!! \n";
@@ -111,9 +110,8 @@ int main () {
 	system("cat /etc/passwd | grep 100");
 	cout << ("do you want to add users ? (y , n)\n");
 	
-	char proced2;
-	cin >> proced2;
-	if(proced2 == 'y' || proced2 == 'Y'){
+	cin >> proced;
+	if(proced == 'y' || proced == 'Y'){
 		cout << ("Enter username :    ");
         	string user1 = ("useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash ");
        		cin >> username;
@@ -160,7 +158,7 @@ int main () {
 		presskey();
 		break;
 
-	}else if(proced2 == 'n' || proced2 == 'N'){
+	}else if(proced == 'n' || proced == 'N'){
 		cout << "Enter your current(already added) username :    ";
 		cin >> username;
 		presskey();
@@ -277,42 +275,69 @@ int main () {
 	cin >> menu;
 	if(menu == 1){	
 		//BASICSETUP
-			//CUSTOM REPOS(OVERLAYS)
-			while(true){
-			header2();
-			basicsetup();
-			cout << "Do you want to add a custom repo (overlay) ? \n";
-			char proced3;
-			cin >> proced3;
-			if(proced3 == 'y' || proced3 == 'Y'){
-				string reponame;
-				cout << "Installing Layman ....\n";
-				emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
-				system("layman -L");
-				presskey();
-				string repolayman = ("layman -a ");
-				cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
-				cin >> reponame;
-				repolayman = repolayman + reponame;
-				const char *addrepo = repolayman.c_str();
-				system(addrepo);
-				system("emerge --sync");
-				presskey();
+		//CUSTOM REPOS(OVERLAYS)
+		while(true){
+		header2();basicsetup();
+		cout << "Do you want to add a custom repo (overlay) ? \n";
+		cin >> proced;
+		if(proced == 'y' || proced == 'Y'){
+			string reponame;
+			cout << "Installing Layman ....\n";
+			emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
+			system("layman -L");
+			presskey();
+			string repolayman = ("layman -a ");
+			cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
+			cin >> reponame;
+			repolayman = repolayman + reponame;
+			const char *addrepo = repolayman.c_str();
+			system(addrepo);
+			system("emerge --sync");
+			presskey();
+			break;
+		}else{presskey();break;}
+		}
+		
+		//SSH
+		header2();basicsetup();
+		cout << "Installing SSH ....\n";
+		emerge(""," openssh");
+		if(initsys == '1'){
+			system("rc-update add sshd default");
+			system("rc-service sshd start");
+		}else if(initsys == '2'){
+			system("systemctl enable sshd.service");
+			system("systemctl start sshd.service");
+		}presskey();
+		//ZSH
+		header2();basicsetup();
+		cout << "Install ZSH ?\n";
+		while(true){
+			cin >> proced;
+			if(proced == 'y' || proced == 'Y'){
+				emerge("maildir unicode "," zsh");
+				string chsh = ("chsh ");
+				string dashs = (" -s ");
+				string zsh = (" /bin/zsh");
+				chsh = chsh + username + dashs + zsh;
+				const char *zsh0 = chsh.c_str();
+				system(zsh0);	
 				break;
-			}else{break;}
-			}//Loop's of Layman's
-			
-			//SSH
-			emerge(""," openssh");
-			if(initsys == '1'){
-				system("rc-update add sshd default");
-				system("rc-service sshd start");
-			}else if(initsys == '2'){
-				system("systemctl enable sshd.service");
-				system("systemctl start sshd.service");
+			}else if(proced == 'n' || proced == 'N'){
+				break;
+			}else{
+				cout << "\nselect only y or n !!!! \n";
+				continue;
 			}
-
-			//ZSH
+		}presskey();
+		//XORG
+		header2();basicsetup();
+		cout << "Installing Xorg server (req. for desktop environment, GPU Drivers, Keyboard layouts ,etc.... \n";
+		if(initsys == '1'){
+			emerge(" dmx kdrive elogind -consolekit -systemd static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
+		}else if(initsys == '2'){
+			emerge(" dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
+		}
 	}
 		//DE & WM
 	}//Loop's Mainmenu
