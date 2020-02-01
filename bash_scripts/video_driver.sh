@@ -1,4 +1,4 @@
-#Video Driver Checker Script
+#Video Driver Checker & Installer Script
 lspci  -v -s  $(lspci | grep ' VGA ' | cut -d" " -f 1) | grep 'Kernel modules: ' > vga.txt
 kk="cat vga.txt"
 #vga_card="none"
