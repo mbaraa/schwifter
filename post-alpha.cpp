@@ -38,7 +38,7 @@ int main () {
 	presskey();
 	header2();
 	cout << endl << endl ;
-	char proced;
+	char proced='n';
 	cout << "Updating Repos....\n";
 	system("emerge-webrsync && emerge --sync");
 	
@@ -86,7 +86,7 @@ int main () {
 	header2();
 	cout << "your selected profile is : ";
 	system("eselect profile show");
-	cout << "\n Is that what you selected ? (y , n) don't type (yes) or (no)\n";
+	cout << "\n Is that what you selected ? (y/n) :  ";
 	cin >> proced;
 	if(proced == 'y' || proced == 'Y'){
 		break;
@@ -109,12 +109,12 @@ int main () {
 	cout << endl << endl << "User Creation : \n";
 	cout << ("Available Users : \n");
 	system("cat /etc/passwd | grep 100");
-	cout << ("do you want to add users ? (y , n)\n");
-	
+	cout << ("do you want to add users ? (y/n)\n");
 	cin >> proced;
 	if(proced == 'y' || proced == 'Y'){
-		cout << ("Enter username :    ");
+        	//string user1 = ("useradd -m -G wheel,audio,video,adm,disk,tty -s /bin/bash ");
         	string user1 = ("useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash ");
+		cout << ("Enter username :    ");
        		cin >> username;
        		user1 = user1 + username;
 		const char *user = user1.c_str();
@@ -279,7 +279,7 @@ int main () {
 		//CUSTOM REPOS(OVERLAYS)
 		while(true){
 		header2();basicsetup();
-		cout << "Do you want to add a custom repo (overlay) ? \n";
+		cout << "Do you want to add a custom repo (overlay) ? (y/n) :  ";
 		cin >> proced;
 		if(proced == 'y' || proced == 'Y'){
 			string reponame;
@@ -312,7 +312,7 @@ int main () {
 		}presskey();
 		//ZSH
 		header2();basicsetup();
-		cout << "Install ZSH ?\n";
+		cout << "Install ZSH ? (y/n) :   ";
 		while(true){
 			cin >> proced;
 			if(proced == 'y' || proced == 'Y'){
@@ -356,7 +356,13 @@ int main () {
 	}//(menu == 1)'s
 	//DE & WM
 	else if(menu == 2){	
-		header2();dewm();
+		cout << "LOL"<<endl;
+		while(true){
+			header2();dewm();presskey();
+			break;
+		}
+		cout << "This section will be available in =~ 10 days ,Stay tuned ....\n";
+		presskey();
 			//Valar Dohaeris
 	}//(menu == 2)'s
 	}//Mainmenu's Loop's 
@@ -373,7 +379,7 @@ void header1(){
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
 		<< "-----------------------------------------------------------------------------\n"
-		<< "https://github.com/baraa-almasri/glui\n"
+		<< "https://github.com/baraa-almasri/schwifter\n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "P.S. This is still an alpha version DON'T run it on a non gentoo system ,\n also it supports only english locale and x86_64 architecture \n more locales and architectures will be supported in the future :) \n"
 		<< "-----------------------------------------------------------------------------\n \n \n"<<endl;
