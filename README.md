@@ -4,6 +4,7 @@ _ Feel free to edit and use it as you want<br>
 _ If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it<br>
 _ Contact me at the following for bug report: <br>
 E-Mail : baraa.masri@asu.edu.jo <br>
+Telegram : @Baraa_Da_Boss <br>
 Twitter : [@Baraa_Da_Boss](https://twitter.com/Baraa_Da_Boss) <br>
 So I can try to make it better 😇.<br> <br>
 
