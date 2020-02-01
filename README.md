@@ -2,7 +2,14 @@
 # ALPHA Version, Desktop environments and more will be available soon
 _ Gentoo Linux Schwifter(installer) Program Written in C++ <br>
 _ Inspired form the Arch Ultimate Installer<br>
-_ Feel free to edit and use it as you want<br>
+_ Feel free to edit and use it as you want but tell me first<br><br>
+> Requirements:<br>
+  Gentoo Linux Installed<br>
+  Internet connection<br>
+  A lot of time & patience<br>
+  libstdc++ if using gcc < 3.4 <br>
+> How to use:<br>
+   Just clone the repo & run post-alpha as root or using sudo.<br><br>
 _ If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it<br>
 _ Contact me at the following for bug report: <br>
 E-Mail : baraa.masri@asu.edu.jo <br>
