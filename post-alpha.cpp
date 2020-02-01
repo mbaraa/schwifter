@@ -30,6 +30,7 @@ void presetup();
 void emerge(string, string);
 void mainmenu(string);
 void basicsetup();
+void dewm();
 void presskey();
 int main () {
 	system("clear");	
@@ -273,8 +274,8 @@ int main () {
 	mainmenu(username);
 	int menu;
 	cin >> menu;
+	//BASICSETUP
 	if(menu == 1){	
-		//BASICSETUP
 		//CUSTOM REPOS(OVERLAYS)
 		while(true){
 		header2();basicsetup();
@@ -295,8 +296,8 @@ int main () {
 			system("emerge --sync");
 			presskey();
 			break;
-		}else{presskey();break;}
-		}
+		}else{break;}
+		}//Layman's Loop's
 		
 		//SSH
 		header2();basicsetup();
@@ -329,7 +330,8 @@ int main () {
 				cout << "\nselect only y or n !!!! \n";
 				continue;
 			}
-		}presskey();
+		}//zsh's loop's
+		presskey();
 		//XORG
 		header2();basicsetup();
 		cout << "Installing Xorg server (req. for desktop environment, GPU Drivers, Keyboard layouts ,etc.... \n";
@@ -338,9 +340,26 @@ int main () {
 		}else if(initsys == '2'){
 			emerge(" dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
 		}
-	}
-		//DE & WM
-	}//Loop's Mainmenu
+		//VIDEO_CARDS
+		header2();basicsetup();
+		emerge(""," dmidecode linux-firmware ");
+		cout << "Installing Video Card Driver ....\n";
+		system("./bash_scripts/video_driver.sh");
+		emerge(""," libglvnd ");
+		presskey();
+		//CUPS
+		header2();basicsetup();
+		cout << "Installing CUPS (aka Commom Unix Printing System ) ....\n";
+		emerge(" X acl dbus static-libs zeroconf "," net-print/cups ");
+		presskey();
+		continue;
+	}//(menu == 1)'s
+	//DE & WM
+	else if(menu == 2){	
+		header2();dewm();
+			//Valar Dohaeris
+	}//(menu == 2)'s
+	}//Mainmenu's Loop's 
 
 
 		
@@ -386,13 +405,17 @@ void basicsetup(){
 	cout << endl;
 	cout << "################ \n# Basic-Setup: #\n################\n"<<endl;
 }
+void dewm(){
+	cout << endl;
+	cout << "################ \n# Desktop Environments | Window Managers: #\n################\n"<<endl;
+}
 void mainmenu(string un){
 	system("clear");
 	cout << "################################ \n## Main Menu: ## User : " << un << "\n################################\n";
 	cout << "\n\n";
-	cout << "1. Basic Setup \n";
-  	/*cout << "2. Desktop Environments | Window Managers \n";
-  	cout << "3. Accessories Apps \n";
+	cout << "1. Basic Setup \n"
+  		 << "2. Desktop Environments | Window Managers \n";
+  	/*cout << "3. Accessories Apps \n";
   	cout << "4. Development Apps \n";
 	cout << "5. Office Apps \n";
   	cout << "6. System Apps \n";
