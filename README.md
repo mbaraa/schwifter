@@ -1,4 +1,5 @@
 # Let's get Schwifty :)
+# ALPHA Version Desktop environments and more will be available soon
 _ Gentoo Linux Schwifter(installer) Program Written in C++ <br>
 _ Feel free to edit and use it as you want<br>
 _ If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it<br>
