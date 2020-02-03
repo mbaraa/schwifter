@@ -1,5 +1,4 @@
 # Let's get Schwifty :)
-# ALPHA Version :
 _ Gentoo Linux Schwifter(installer) Program Written in C++ <br>
 _ Inspired form [AUI](https://github.com/helmuthdu/aui)<br>
 _ Feel free to edit and use it as you want but tell me first<br>
