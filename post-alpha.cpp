@@ -32,16 +32,20 @@ void mainmenu(string);
 void basicsetup();
 void dewm();
 void presskey();
+void desktops();
 int main () {
 	system("clear");	
 	header1();
 	presskey();
 	header2();
 	cout << endl << endl ;
-	char proced='n';
-	cout << "Updating Repos....\n";
-	system("emerge-webrsync && emerge --sync");
-	
+	char proceed='n',proceed2='n';
+	cout << "Update Ebuild Repo ? (y/n)   ";
+	cin >> proceed;
+	if(proceed == 'y'){
+		cout << "Updating Repos....\n";
+		system("emerge-webrsync && emerge --sync");
+	}
 	presskey();
 	header2();
 	cout << endl << endl ;
@@ -87,10 +91,10 @@ int main () {
 	cout << "your selected profile is : ";
 	system("eselect profile show");
 	cout << "\n Is that what you selected ? (y/n) :  ";
-	cin >> proced;
-	if(proced == 'y' || proced == 'Y'){
+	cin >> proceed;
+	if(proceed == 'y' || proceed == 'Y'){
 		break;
-	}else if(proced == 'n' || proced == 'N'){
+	}else if(proceed == 'n' || proceed == 'N'){
 		continue;
 	}else{
 		cout << "\nselect only y or n !!!! \n";
@@ -110,8 +114,8 @@ int main () {
 	cout << ("Available Users : \n");
 	system("cat /etc/passwd | grep 100");
 	cout << ("do you want to add users ? (y/n)\n");
-	cin >> proced;
-	if(proced == 'y' || proced == 'Y'){
+	cin >> proceed;
+	if(proceed == 'y' || proceed == 'Y'){
         	//string user1 = ("useradd -m -G wheel,audio,video,adm,disk,tty -s /bin/bash ");
         	string user1 = ("useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash ");
 		cout << ("Enter username :    ");
@@ -159,7 +163,7 @@ int main () {
 		presskey();
 		break;
 
-	}else if(proced == 'n' || proced == 'N'){
+	}else if(proceed == 'n' || proceed == 'N'){
 		cout << "Enter your current(already added) username :    ";
 		cin >> username;
 		presskey();
@@ -170,29 +174,28 @@ int main () {
 		continue;
         }
 }//Loop's
-
 //EDITOR SELECTION:
+	string swuser = ("su ") , dashc = (" -c ");
 	while(true){
 	header2();
 	cout << "Select a default editor : \n" ;
 	char editor;
-	cout << "1.vim \n 2.vi \n 3.nano \n 4.emacs \n";
+	cout << " 1.vim \n 2.vi \n 3.nano \n 4.emacs \n";
 	cin >> editor;
-	
-	string swuser = ("su ");
-	string dashc = (" -c ");
 	if(editor == '1'){
 		system("emerge -qvt vim ctags");
 		string vim = ("\"echo export EDITOR='vim' >> ~/.bashrc \"");
 		swuser = swuser + username + dashc + vim;
 		const char *editorvim = swuser.c_str();
 		system(editorvim);
+		swuser = ("su ");
 		break;
 	}else if(editor == '2'){
 		string vi = ("\"echo export EDITOR='vi' >> ~/.bashrc \"");
 		swuser = swuser + username + dashc + vi;
 		const char *editorvi = swuser.c_str();
 		system(editorvi);
+		swuser = ("su ");
 		break;
 	}else if(editor == '3'){
 		system("emerge -qvt nano");
@@ -200,6 +203,7 @@ int main () {
 		swuser = swuser + username + dashc + nano;
 		const char *editornano = swuser.c_str();
 		system(editornano);
+		swuser = ("su ");
 		break;
 	}else if(editor == '4'){ 	
 		system("emerge -qvt emacs");
@@ -207,6 +211,7 @@ int main () {
 		swuser = swuser + username + dashc + emacs;
 		const char *editoremacs = swuser.c_str();
 		system(editoremacs);
+		swuser = ("su ");
 		break;
 	}else {
 		cout << "Invalid Choice \n";
@@ -226,7 +231,9 @@ int main () {
 	header2();
 	presetup();
 	cout << "Installing archive tools ....\n";
-	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils");
+	system("echo \">=app-arch/rar-5.8.0_p20191205 RAR\"  >> /etc/portage/package.license ");
+	system("echo \">=app-arch/unrar-5.9.1 unRAR\"  >> /etc/portage/package.license ");
+	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils --autounmask-write");
 	presskey();
 //AVAHI
 	header2();
@@ -244,7 +251,7 @@ int main () {
 //ALSA & PUSLEAUDIO
 	header2();
 	presetup();
-	cout << "Installing ALSA (Advanced Linux Sound Architecture ....\n";
+	cout << "Installing ALSA (Advanced Linux Sound Architecture) ....\n";
 	emerge("alsip thread-safety python", "alsa-lib alsa-utils");
 	emerge("ffmpeg","alsa-plugins");
 	system("cp ./configuration_files/asound.conf /etc/asound.conf");
@@ -280,8 +287,8 @@ int main () {
 		while(true){
 		header2();basicsetup();
 		cout << "Do you want to add a custom repo (overlay) ? (y/n) :  ";
-		cin >> proced;
-		if(proced == 'y' || proced == 'Y'){
+		cin >> proceed;
+		if(proceed == 'y' || proceed == 'Y'){
 			string reponame;
 			cout << "Installing Layman ....\n";
 			emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
@@ -314,17 +321,15 @@ int main () {
 		header2();basicsetup();
 		cout << "Install ZSH ? (y/n) :   ";
 		while(true){
-			cin >> proced;
-			if(proced == 'y' || proced == 'Y'){
+			cin >> proceed;
+			if(proceed == 'y' || proceed == 'Y'){
 				emerge("maildir unicode "," zsh");
-				string chsh = ("chsh ");
-				string dashs = (" -s ");
-				string zsh = (" /bin/zsh");
+				string chsh = ("chsh ") , dashs = (" -s ") , zsh = (" /bin/zsh");
 				chsh = chsh + username + dashs + zsh;
 				const char *zsh0 = chsh.c_str();
 				system(zsh0);	
 				break;
-			}else if(proced == 'n' || proced == 'N'){
+			}else if(proceed == 'n' || proceed == 'N'){
 				break;
 			}else{
 				cout << "\nselect only y or n !!!! \n";
@@ -336,6 +341,8 @@ int main () {
 		header2();basicsetup();
 		cout << "Installing Xorg server (req. for desktop environment, GPU Drivers, Keyboard layouts ,etc.... \n";
 		if(initsys == '1'){
+			system("echo \">=media-fonts/font-bh-ttf-1.0.3-r1 bh-luxi\"  >> /etc/portage/package.license ");
+			system("echo \">=media-fonts/font-bh-type1-1.0.3-r1 bh-luxi\"  >> /etc/portage/package.license ");
 			emerge(" dmx kdrive elogind -consolekit -systemd static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
 		}else if(initsys == '2'){
 			emerge(" dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
@@ -356,14 +363,102 @@ int main () {
 	}//(menu == 1)'s
 	//DE & WM
 	else if(menu == 2){	
-		cout << "LOL"<<endl;
 		while(true){
-			header2();dewm();presskey();
-			break;
-		}
-		cout << "This section will be available in =~ 10 days ,Stay tuned ....\n";
-		presskey();
+			header2(); dewm(); desktops();
+			cin >> proceed;
+			if(proceed == '1'){
+				if(initsys == '1'){
+				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers " , " kde-plasma/plasma-meta ");
+				}
+				else if(initsys == '2'){
+				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers " , " kde-plasma/plasma-meta ");
+				}
+				
+				cout << "Install KDE apps? (y/n)    ";
+				cin >> proceed2;
+				if(proceed2 == 'y'){
+					system("echo \">=media-libs/faac-1.29.9.2 MPEG-4 \" >> /etc/portage/package.licnse ");
+					emerge(""," kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta");
+				}else if(proceed2 == 'n'){
+					cout << "ok whatever \n";
+					
+				}
+				system("rc-update add dbus default");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startplasma-x11\" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+				
+			}
+			else if(proceed == '2'){
+				if(initsys == '1'){
+				emerge(" elogind -consolekit -systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
+				}
+				else if(initsys == '2'){
+				emerge(" -elogind -consolekit systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
+				}
+				system("rc-update add dbus default");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session xfce4-session \" >> ~/.xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '3'){
+				if(initsys == '1'){
+				emerge(" elogind -consolekit -systemd" , " lxde-meta ");
+				}
+				else if(initsys == '2'){
+				emerge(" -elogind -consolekit systemd" , " lxde-meta ");
+				}
+				system("rc-update add dbus default");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxde \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '4'){
+				if(initsys == '1'){
+				emerge(" elogind -consolekit -systemd" , " lxqt-meta ");
+				}
+				else if(initsys == '2'){
+				emerge(" elogind -consolekit -systemd" , " lxqt-meta ");
+				}
+				system("rc-update add dbus default");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxqt \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '5'){
+				if(initsys == '1'){
+				emerge("base bluetooth extras notification themes elogind -consolekit -systemd" , " --changed-use mate-base/mate caja-extensions");
+				}
+				else if(initsys == '2'){
+				emerge("base bluetooth extras notification themes -elogind -consolekit systemd" , " --changed-use mate-base/mate caja-extensions ");
+				}
+				system("rc-update add dbus default");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session mate-session \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
 			//Valar Dohaeris
+
+			else if(proceed == 'd'){
+				break;
+			}
+			else{
+				cout << "Invalid Selection !\n";
+			}
+			presskey();
+					
+		}
+		
 	}//(menu == 2)'s
 	}//Mainmenu's Loop's 
 
@@ -375,7 +470,7 @@ int main () {
 void header1(){
 	cout << "Welcome to the Gentoo Linux Schwifter(installer) program by Baraa Al-Masri\n"
 		<< "----------------------------------------------------------------------------\n"
-		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time & patience \n"
+		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time & patience \n -> A barrel of coffeen\n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
 		<< "-----------------------------------------------------------------------------\n"
@@ -407,6 +502,11 @@ void emerge(string use , string package){
         emerge(uses,pkgs);
 	*/
 }
+void presskey(){
+	cout << "\n Press enter to continue"<<endl;
+	cin.ignore();
+	system("clear");
+}
 void basicsetup(){
 	cout << endl;
 	cout << "################ \n# Basic-Setup: #\n################\n"<<endl;
@@ -436,8 +536,14 @@ void mainmenu(string un){
  	/*   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
 	 */
 }
-void presskey(){
-	cout << "\n Press enter to continue"<<endl;
-	cin.ignore();
-	system("clear");
+void desktops(){
+	cout << "Caution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
+		<< "1. KDE Plasma \n" //\t|\t7. i3wm\n"
+		<< "2. Xfce \n" //\t|\t8. Openbox\n"
+		<< "3. LXDE \n" //\t|\t9. Awesome\n"
+		<< "4. LXQt \n" //\t|\t10. bspwm\n"
+		<< "5. Mate \n"
+		//<< "6. GNOME \n"
+		<< "d. Done(go back to main menu\n";
+
 }
