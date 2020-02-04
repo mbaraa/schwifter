@@ -368,17 +368,17 @@ int main () {
 			cin >> proceed;
 			if(proceed == '1'){
 				if(initsys == '1'){
-				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
 				}
 				else if(initsys == '2'){
-				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
 				}
 				
 				cout << "Install KDE apps? (y/n)    ";
 				cin >> proceed2;
 				if(proceed2 == 'y'){
 					system("echo \">=media-libs/faac-1.29.9.2 MPEG-4 \" >> /etc/portage/package.licnse ");
-					emerge(""," kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta");
+					emerge("mtp"," kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta");
 				}else if(proceed2 == 'n'){
 					cout << "ok whatever \n";
 					
@@ -393,10 +393,10 @@ int main () {
 			}
 			else if(proceed == '2'){
 				if(initsys == '1'){
-				emerge(" elogind -consolekit -systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
+				emerge(" mtp elogind -consolekit -systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
 				}
 				else if(initsys == '2'){
-				emerge(" -elogind -consolekit systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
+				emerge(" mtp -elogind -consolekit systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
 				}
 				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session xfce4-session \" >> ~/.xinitrc\"");
@@ -407,10 +407,10 @@ int main () {
 			}
 			else if(proceed == '3'){
 				if(initsys == '1'){
-				emerge(" elogind -consolekit -systemd" , " lxde-meta ");
+				emerge(" mtp elogind -consolekit -systemd" , " lxde-meta ");
 				}
 				else if(initsys == '2'){
-				emerge(" -elogind -consolekit systemd" , " lxde-meta ");
+				emerge(" mtp -elogind -consolekit systemd" , " lxde-meta ");
 				}
 				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxde \" >> .xinitrc\"");
@@ -421,10 +421,10 @@ int main () {
 			}
 			else if(proceed == '4'){
 				if(initsys == '1'){
-				emerge(" elogind -consolekit -systemd" , " lxqt-meta ");
+				emerge(" mtp elogind -consolekit -systemd" , " lxqt-meta ");
 				}
 				else if(initsys == '2'){
-				emerge(" elogind -consolekit -systemd" , " lxqt-meta ");
+				emerge(" mtp elogind -consolekit -systemd" , " lxqt-meta ");
 				}
 				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxqt \" >> .xinitrc\"");
@@ -435,10 +435,10 @@ int main () {
 			}
 			else if(proceed == '5'){
 				if(initsys == '1'){
-				emerge("base bluetooth extras notification themes elogind -consolekit -systemd" , " --changed-use mate-base/mate caja-extensions");
+				emerge("base bluetooth extras notification mtp themes elogind -consolekit -systemd" , " --changed-use mate-base/mate caja-extensions");
 				}
 				else if(initsys == '2'){
-				emerge("base bluetooth extras notification themes -elogind -consolekit systemd" , " --changed-use mate-base/mate caja-extensions ");
+				emerge("base bluetooth extras notification mtp themes -elogind -consolekit systemd" , " --changed-use mate-base/mate caja-extensions ");
 				}
 				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session mate-session \" >> .xinitrc\"");
@@ -470,7 +470,7 @@ int main () {
 void header1(){
 	cout << "Welcome to the Gentoo Linux Schwifter(installer) program by Baraa Al-Masri\n"
 		<< "----------------------------------------------------------------------------\n"
-		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time & patience \n -> A barrel of coffeen\n"
+		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time(approx. 30 hours) & patience \n -> A barrel of coffee\n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
 		<< "-----------------------------------------------------------------------------\n"
@@ -503,7 +503,7 @@ void emerge(string use , string package){
 	*/
 }
 void presskey(){
-	cout << "\n Press enter to continue"<<endl;
+	cout << "\n Press enter to continue ...."<<endl;
 	cin.ignore();
 	system("clear");
 }
@@ -521,23 +521,23 @@ void mainmenu(string un){
 	cout << "\n\n";
 	cout << "1. Basic Setup \n"
   		 << "2. Desktop Environments | Window Managers \n";
-  	/*cout << "3. Accessories Apps \n";
-  	cout << "4. Development Apps \n";
-	cout << "5. Office Apps \n";
-  	cout << "6. System Apps \n";
-  	cout << "7. Graphics Apps \n";
-  	cout << "8. Internet Apps \n";
-  	cout << "9. Audio Apps \n";
- 	cout << "10. Video Apps \n";
- 	cout << "11. Games \n";
- 	cout << "12. Web server \n";
- 	cout << "13. Fonts \n";
- 	cout << "14. Cleaning Up \n";*/
+  	/* << "3. Accessories Apps \n";
+  	 << "4. Development Apps \n";
+	 << "5. Office Apps \n";
+  	 << "6. System Apps \n";
+  	 << "7. Graphics Apps \n";
+  	 << "8. Internet Apps \n";
+  	 << "9. Audio Apps \n";
+ 	 << "10. Video Apps \n";
+ 	 << "11. Games \n";
+ 	 << "12. Web server \n";
+ 	 << "13. Fonts \n";
+         << "14. Cleaning Up \n";*/
  	/*   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
 	 */
 }
 void desktops(){
-	cout << "Caution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
+	cout << "\nCaution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
 		<< "1. KDE Plasma \n" //\t|\t7. i3wm\n"
 		<< "2. Xfce \n" //\t|\t8. Openbox\n"
 		<< "3. LXDE \n" //\t|\t9. Awesome\n"
