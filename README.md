@@ -8,7 +8,9 @@ _ Feel free to edit and use it as you want but tell me first<br>
   A lot of time & patience<br>
   libstdc++ if using gcc < 3.4 <br><br>
 > How to use:<br>
-   Just clone the repo & run post-alpha as root or using sudo.
+   Clone the repo <br>
+   chmod (post-alpha & shell_scripts) to a+x <br>
+   Run post-alpha as root or using sudo. <br>
    
 _ If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it<br>
 _ Contact me at the following for bug report: <br>
