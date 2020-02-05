@@ -1,6 +1,6 @@
 #Video Driver Checker & Installer Script.
 lspci  -v -s  $(lspci | grep ' VGA ' | cut -d" " -f 1) | grep 'Kernel modules: ' > vga.txt
-lspci | grep Intel > vga2.txt
+lspci | grep VGA > vga2.txt
 kk="cat vga.txt"
 lol="cat vga2.txt"
 #vga_card="none"
@@ -16,8 +16,8 @@ $kk | grep radeon && vga_card="ati"
 $lol | grep Intel  || echo "Not intel!"
 $lol | grep Intel && vga_card="intel"
 #VM WARE
-$kk | grep vmware || echo "Not vmware!"
-$kk | grep vmware && vga_card="vmware"
+$kk | grep vmwgfx || echo "Not vmware!"
+$kk | grep vmwgfx && vga_card="vmware"
 #VirtualBox
 $kk | grep vboxvideo || echo "Not vboxvideo!"
 $kk | grep vboxvideo && vga_card="vboxvideo"
