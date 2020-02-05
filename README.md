@@ -2,13 +2,14 @@
 _ Gentoo Linux Schwifter(installer) Program Written in C++ <br>
 _ Inspired form [AUI](https://github.com/helmuthdu/aui)<br>
 _ Feel free to edit and use it as you want but tell me first<br>
-> Requirements:<br>
-  Gentoo Linux Installed<br>
+_ Requirements:<br>
+> Gentoo Linux Installed<br>
   Internet connection<br>
   A lot of time & patience<br>
   libstdc++ if using gcc < 3.4 <br><br>
-> How to use:<br>
-   Clone the repo <br>
+  
+_ How to use:<br>
+>  Clone the repo <br>
    chmod (post-alpha & shell_scripts) to a+x <br>
    Run post-alpha as root or using sudo. <br>
    
