@@ -1,23 +1,53 @@
 # Let's get Schwifty :)
-_ Gentoo Linux Schwifter(installer) Program Written in C++ <br>
-_ Inspired form [AUI](https://github.com/helmuthdu/aui)<br>
-_ Feel free to edit and use it as you want but tell me first<br>
-_ Requirements:<br>
-> Gentoo Linux Installed<br>
-  Internet connection<br>
-  A lot of time & patience<br>
-  libstdc++ if using gcc < 3.4 <br><br>
-  
-_ How to use:<br>
->  Clone the repo <br>
-   chmod (post-alpha & shell_scripts) to a+x <br>
-   Run post-alpha as root or using sudo. <br>
-   
-_ If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it<br>
-_ Contact me at the following for bug report: <br>
-E-Mail : baraa.masri@asu.edu.jo <br>
-Telegram : @Baraa_Da_Boss <br>
-Twitter : [@Baraa_Da_Boss](https://twitter.com/Baraa_Da_Boss) <br>
-So I can try to make it better 😇.<br> <br>
+- Configuring Gentoo linux has never been easier 😇.
 
-   ![alt text](https://i.pinimg.com/originals/30/ea/91/30ea91893cbbfdcb533657be5b057ed0.png)
+- Inspired form [Helmuthdu's](https://github.com/helmuthdu)   [AUI](https://github.com/helmuthdu/aui)
+
+- Feel free to edit and use it as you want but tell me first :)
+
+## Requirements:
+- A working internet connection
+  
+- A lot of time & patience
+  
+## How to get it:
+#### using git:
+- Clone the repo `git clone https://github.com/baraa-almasri/schwifter`
+
+#### without using git:
+- Download the archive `wget https://github.com/baraa-almasri/schwifter/archive/master.zip`
+
+- run `unzip master.zip`
+
+- set (post-alpha & shell_scripts) as executables `chmod a+x post-alpha shell_scripts/*`
+
+## How to use it:
+- as root
+- `cd schwifter && ./post-alpha`
+
+## What it does ? 
+### Post: (So far)
+- Create & configure new user with sudo
+
+- Add custom repositories (overlays)
+
+- Install basic useful packages
+
+- Install CUPS
+
+- Install XORG & GPU Driver
+
+- Install DE or WM [Plasma, Gnome, XFCE, Mate, LXDE, LXQt, Openbox, i3wm, awesome, bspwm]
+
+## Contact me :)
+- If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
+
+- Contact me at the following for bug report: 
+
+E-Mail : baraa.masri@asu.edu.jo 
+
+Telegram : @Baraa_Da_Boss 
+
+Twitter : [@Baraa_Da_Boss](https://twitter.com/Baraa_Da_Boss) 
+
+So I can try to make it better 😇.
