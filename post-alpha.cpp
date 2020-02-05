@@ -48,8 +48,7 @@ int main () {
 	}
 	presskey();
 	header2();
-	cout << endl << endl ;
-	
+	cout << endl << endl ;	
 	char profile1 ,initsys;
 	while(true){
 	header2();
@@ -85,7 +84,7 @@ int main () {
 	}else if (profile1 == '5' && (initsys == '1' || initsys == '2')){
 		system("eselect profile set default/linux/amd64/17.1/no-multilib");
 	}else {
-		cout << "\nselect only from the menu !!!!\n";
+		cout << "\nInvalid selection !!!!\n";
 		
 	}
 	header2();
@@ -98,11 +97,17 @@ int main () {
 	}else if(proceed == 'n' || proceed == 'N'){
 		continue;
 	}else{
-		cout << "\nselect only y or n !!!! \n";
+		cout << "\nInvalid selection !!!! \n";
 		continue;
 	}
 }//loop's
-
+	cout << "Update system with the selected profile ? (y/n) :    ";
+	cin >> proceed;
+	if(proceed == 'y' || proceed == 'Y'){
+		system("emerge --ask --verbose --update --deep --newuse @world");
+	}else{
+		cout << "\nInvalid select !!!! \n";
+	}
 
 //USER CREATION:
 	system("clear");
@@ -171,7 +176,7 @@ int main () {
 		break;
 		
 	}else{
-                cout << "\nselect only y or n";
+                cout << "\nInvalid selection !!!!";
 		continue;
         }
 }//Loop's
@@ -333,7 +338,7 @@ int main () {
 			}else if(proceed == 'n' || proceed == 'N'){
 				break;
 			}else{
-				cout << "\nselect only y or n !!!! \n";
+				cout << "\nInvalid selection !!!! \n";
 				continue;
 			}
 		}//zsh's loop's
@@ -344,9 +349,9 @@ int main () {
 		if(initsys == '1'){
 			system("echo \">=media-fonts/font-bh-ttf-1.0.3-r1 bh-luxi\"  >> /etc/portage/package.license ");
 			system("echo \">=media-fonts/font-bh-type1-1.0.3-r1 bh-luxi\"  >> /etc/portage/package.license ");
-			emerge(" dmx kdrive elogind -consolekit -systemd static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
+			emerge(" dmx kdrive elogind -consolekit -systemd static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 xorg-drivers ");
 		}else if(initsys == '2'){
-			emerge(" dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 ");
+			emerge(" dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb "," x11-base/xorg-server x11-base/xorg-x11 xorg-drivers ");
 		}
 		//VIDEO_CARDS
 		header2();basicsetup();
@@ -369,10 +374,10 @@ int main () {
 			cin >> proceed;
 			if(proceed == '1'){
 				if(initsys == '1'){
-				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
 				}
 				else if(initsys == '2'){
-				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
 				}
 				
 				cout << "Install KDE apps? (y/n)    ";
@@ -384,7 +389,6 @@ int main () {
 					cout << "ok whatever \n";
 					
 				}
-				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startplasma-x11\" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
@@ -399,7 +403,6 @@ int main () {
 				else if(initsys == '2'){
 				emerge(" mtp -elogind -consolekit systemd" , " xfce4-meta xfce4-notifyd xfce4-volumed-pulse ");
 				}
-				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session xfce4-session \" >> ~/.xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
@@ -413,7 +416,6 @@ int main () {
 				else if(initsys == '2'){
 				emerge(" mtp -elogind -consolekit systemd" , " lxde-meta ");
 				}
-				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxde \" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
@@ -427,7 +429,6 @@ int main () {
 				else if(initsys == '2'){
 				emerge(" mtp elogind -consolekit -systemd" , " lxqt-meta ");
 				}
-				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startlxqt \" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
@@ -441,8 +442,21 @@ int main () {
 				else if(initsys == '2'){
 				emerge("base bluetooth extras notification mtp themes -elogind -consolekit systemd" , " --changed-use mate-base/mate caja-extensions ");
 				}
-				system("rc-update add dbus default");
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session mate-session \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '6'){
+				if(initsys == '1'){
+				emerge(" bluetooth mtp networkmanager elogind -consolekit -systemd" , " gnome-base/gnome  ");
+				system("rc-update add openrc-settingsd default ");
+				}
+				else if(initsys == '2'){
+				emerge(" bluetooth mtp networkmanager themes -elogind -consolekit systemd" , " gnome-base/gnome ");
+				}
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session gnome-session  \" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
 				system(startx);
@@ -456,10 +470,15 @@ int main () {
 			else{
 				cout << "Invalid Selection !\n";
 			}
-			presskey();
 					
-		}
-		
+		}//Loop's
+		system("rc-update add elogind boot ");
+		system("rc-update add dbus default");
+		string gpasswd = ("gpasswd -a ");
+		gpasswd = gpasswd + username + "plugdev";
+		const char *group = gpasswd.c_str();
+		system(group);
+
 	}//(menu == 2)'s
 	}//Mainmenu's Loop's 
 
@@ -544,7 +563,7 @@ void desktops(){
 		<< "3. LXDE \n" //\t|\t9. Awesome\n"
 		<< "4. LXQt \n" //\t|\t10. bspwm\n"
 		<< "5. Mate \n"
-		//<< "6. GNOME \n"
+		<< "6. GNOME \n"
 		<< "d. Done(go back to main menu\n";
 
 }
