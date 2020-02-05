@@ -37,6 +37,5 @@ $kk | grep dummy && vga_card="dummy"
 printf "Detected $vga_card chip ....\n"
 
 #Installing the package
-#emerge -qv xf86-video-$vga_card
-echo $vga_card
+emerge -qv xf86-video-$vga_card
 rm vga{,2}.txt
