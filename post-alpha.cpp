@@ -66,9 +66,10 @@ int main () {
 		<< "1. openRC\n"
 		<< "2. SystemD\n";
 		cin >> initsys;
-	if(profile1 == '1'){
-		cout << "go on \n";
-		break;
+	if(profile1 == '1' && initsys == '1'){
+		cout << "OK whatever \n";
+	}else if(profile1 == '1' && initsys == '2'){
+		cout << "OK whatever \n";
 	}else if (profile1 == '2' && initsys == '1'){
 		system("eselect profile set default/linux/amd64/17.1/desktop");
 	}else if (profile1 == '2' && initsys == '2'){
