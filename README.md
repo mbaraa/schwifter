@@ -37,7 +37,7 @@
 
 - Install XORG & GPU Driver
 
-- Install DE or WM [Plasma, Gnome, XFCE, Mate, LXDE, LXQt, Openbox, i3wm, awesome, bspwm]
+- Install DE or WM [Plasma, Gnome, XFCE, Mate, LXDE, LXQt, Openbox, i3wm]
 
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
