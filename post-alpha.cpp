@@ -33,6 +33,7 @@ void basicsetup();
 void dewm();
 void presskey();
 void desktops();
+void unmask(string);
 int main () {
 	system("clear");	
 	header1();
@@ -449,14 +450,60 @@ int main () {
 				presskey();
 			}
 			else if(proceed == '6'){
+				system("echo \">=media-plugins/grilo-plugins-0.3.9 tracker \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=media-libs/gegl-0.4.20 raw \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-libs/libgdata-0.17.11 gnome-online-accounts \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-libs/folks-0.12.1 eds \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=gnome-extra/evolution-data-server-3.32.5 vala \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/rake-13.0.1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/json-2.3.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=virtual/rubygems-16 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
+				system("echo \">=media-libs/gst-plugins-base-1.14.5-r1 theora \" >> /etc/portage/package.use/zz-autounmask ");
+				
 				if(initsys == '1'){
-				emerge(" bluetooth mtp networkmanager elogind -consolekit -systemd" , " gnome-base/gnome  ");
+				emerge(" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" , " gnome-base/gnome  ");
 				system("rc-update add openrc-settingsd default ");
 				}
 				else if(initsys == '2'){
-				emerge(" bluetooth mtp networkmanager themes -elogind -consolekit systemd" , " gnome-base/gnome ");
+				emerge(" bluetooth mtp networkmanager gtk -qt5 -elogind -consolekit systemd" , " gnome-base/gnome ");
 				}
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session gnome-session  \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '7'){
+				cout << "Do you want i3-gaps? (y/n)    ";
+				cin >> proceed2;
+				string i3wm;
+				if(proceed2 == 'y'){
+					i3wm = ("i3-gaps");
+				}else{
+					i3wm = ("i3");
+				}
+				emerge("" , i3wm );
+				emerge(" xinerama filecaps libnotify" , " dmenu i3status i3lock thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver ");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session i3 \" >> .xinitrc\"");
+				swuser = swuser + username + dashc + xinitrc;
+				const char *startx = swuser.c_str();
+				system(startx);
+				presskey();
+			}
+			else if(proceed == '8'){
+				emerge("branding imlib session xdg libnotify" , "openbox thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver ");
+				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session openbox-session \" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
 				system(startx);
@@ -490,7 +537,7 @@ int main () {
 void header1(){
 	cout << "Welcome to the Gentoo Linux Schwifter(installer) program by Baraa Al-Masri\n"
 		<< "----------------------------------------------------------------------------\n"
-		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time(approx. 30 hours) & patience \n -> A barrel of coffee\n"
+		<< "Requirements : \n -> Gentoo Linux Installation \n -> Root or normal user with sudo running the program \n -> Working Internet Connection\n -> A lot of time(approx. 12 hours) & patience \n -> A barrel of coffee\n"
 		<< "-----------------------------------------------------------------------------\n"
 		<< "Program can be canceled anytime with CTRL+C \n"
 		<< "-----------------------------------------------------------------------------\n"
@@ -523,7 +570,7 @@ void emerge(string use , string package){
 	*/
 }
 void presskey(){
-	cout << "\n Press enter to continue ...."<<endl;
+	cout << "\n Press enter to continue...."<<endl;
 	cin.ignore();
 	system("clear");
 }
@@ -558,12 +605,18 @@ void mainmenu(string un){
 }
 void desktops(){
 	cout << "\nCaution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
-		<< "1. KDE Plasma \n" //\t|\t7. i3wm\n"
-		<< "2. Xfce \n" //\t|\t8. Openbox\n"
-		<< "3. LXDE \n" //\t|\t9. Awesome\n"
-		<< "4. LXQt \n" //\t|\t10. bspwm\n"
+		<< "1. KDE Plasma \t|\t7. i3wm\n"
+		<< "2. Xfce \t|\t8. Openbox\n"
+		<< "3. LXDE \n"
+		<< "4. LXQt \n"
 		<< "5. Mate \n"
 		<< "6. GNOME \n"
-		<< "d. Done(go back to main menu\n";
+		<< "d. Done(go back to main menu)\n";
 
+}
+void unmask(string tounmask){
+	string lol1 =("echo \" "), lol2 = (" \" >> /etc/portage/package.use/zz-autounmask ");
+	lol1 = lol1 + tounmask + lol2 ;
+	const char *exec=lol1.c_str();
+	system(exec);
 }
