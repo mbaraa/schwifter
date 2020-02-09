@@ -47,7 +47,7 @@ int main () {
 	cout << "Current profile : \n";	
 	system("eselect profile show"); cout << endl;
 	cout << "Select A Profile :\n PS choose init system that matches your installation \n DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
-		<< "1. Proced with the current profile \n"
+		<< "1. Proceed with the current profile \n"
 		<< "2. Normal Desktop \n"
 		<< "3. Gnome Desktop \n"
 		<< "4. Plasma Desktop \n"
@@ -108,10 +108,10 @@ int main () {
 
 	while(true){
 	header2();
-	cout << endl << endl << "User Creation : \n";
+	cout << endl << endl << "User Creation : \n\n";
 	cout << ("Available Users : \n");
 	system("cat /etc/passwd | grep 100");
-	cout << ("do you want to add users ? (y/n)\n");
+	cout << endl << ("do you want to add users ? (y/n)\n");
 	cin >> proceed;
 	if(proceed == 'y' || proceed == 'Y'){
         	//string user1 = ("useradd -m -G wheel,audio,video,adm,disk,tty -s /bin/bash ");
@@ -229,8 +229,8 @@ int main () {
 	header2();
 	presetup();
 	cout << "Installing archive tools ....\n";
-	system("echo \">=app-arch/rar-5.8.0_p20191205 RAR\"  >> /etc/portage/package.license ");
-	system("echo \">=app-arch/unrar-5.9.1 unRAR\"  >> /etc/portage/package.license ");
+	acceptlicnse(">=app-arch/rar-5.8.0_p20191205 RAR");
+	acceptlicnse(">=app-arch/unrar-5.9.1 unRAR");
 	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils --autounmask-write");
 	presskey();
 //AVAHI
@@ -267,6 +267,7 @@ int main () {
 	}else if(initsys == '2'){
 		cout << "Already enabled LOL \n";
 	}
+	presskey();
 //FILESYSTEMS
 	header2();
 	presetup();
@@ -274,6 +275,7 @@ int main () {
 	emerge("", " ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso");
 	presskey();
 //MAIN-MENU
+    bool flatpak_istalled = 0;
 	while(true){
 	header2();
 	mainmenu(username);
@@ -284,7 +286,7 @@ int main () {
 		//CUSTOM REPOS(OVERLAYS)
 		while(true){
 		header2();basicsetup();
-		cout << "Do you want to add a custom repo (overlay) ? (y/n) :  ";
+		cout << "Do you want to add a custom repo (overlay)? (y/n) :  ";
 		cin >> proceed;
 		if(proceed == 'y' || proceed == 'Y'){
 			string reponame;
@@ -303,7 +305,21 @@ int main () {
 			break;
 		}else{break;}
 		}//Layman's Loop's
-		
+		//FLATPAK
+		while(true){
+		header2();basicsetup();
+		cout << "Do you want to install flatpak? (y/n) :  ";
+		cin >> proceed;
+		if(proceed == 'y' || proceed == 'Y'){
+			cout << "Installing Flatpak ....\n";
+            system("mkdir /etc/portage/repos.conf && cp ./configuration_files/flatpak-overlay.conf /etc/portage/repos.conf/ ");
+            emerge("" , " --sync flatpak-overlay");
+			emerge("", "sys-apps/flatpak");
+			flatpak_istalled = 1;
+            presskey();
+			break;
+		}else{break;}
+		}//Flatpak's Loop's
 		//SSH
 		header2();basicsetup();
 		cout << "Installing SSH ....\n";
@@ -441,26 +457,26 @@ int main () {
 				presskey();
 			}
 			else if(proceed == '6'){
-				system("echo \">=media-plugins/grilo-plugins-0.3.9 tracker \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=media-libs/gegl-0.4.20 raw \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-libs/libgdata-0.17.11 gnome-online-accounts \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-libs/folks-0.12.1 eds \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=gnome-extra/evolution-data-server-3.32.5 vala \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/rake-13.0.1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/json-2.3.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=virtual/rubygems-16 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27 \" >> /etc/portage/package.use/zz-autounmask ");
-				system("echo \">=media-libs/gst-plugins-base-1.14.5-r1 theora \" >> /etc/portage/package.use/zz-autounmask ");
+                unmask(">=media-plugins/grilo-plugins-0.3.9 tracker");
+				unmask(">=media-libs/gegl-0.4.20 raw");
+				unmask(">=dev-libs/libgdata-0.17.11 gnome-online-accounts");
+				unmask(">=dev-libs/folks-0.12.1 eds");
+				unmask(">=gnome-extra/evolution-data-server-3.32.5 vala");
+				unmask(">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27");
+				unmask(">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27");
+				unmask(">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27");
+				unmask(">=dev-ruby/rake-13.0.1 ruby_targets_ruby27");
+				unmask(">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27");
+				unmask(">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27");
+				unmask(">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27");
+				unmask(">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27");
+				unmask(">=dev-ruby/json-2.3.0 ruby_targets_ruby27");
+				unmask("=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27");
+				unmask(">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27");
+				unmask(">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27");
+				unmask(">=virtual/rubygems-16 ruby_targets_ruby27");
+				unmask(">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27");
+				unmask(">=media-libs/gst-plugins-base-1.14.5-r1 theora");
 				
 				if(initsys == '1'){
 				emerge(" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" , " gnome-base/gnome  ");
@@ -500,13 +516,14 @@ int main () {
 				system(startx);
 				presskey();
 			}
-			//Valar Dohaeris
 
 			else if(proceed == 'd'){
 				break;
 			}
 			else{
 				cout << "Invalid Selection !\n";
+                presskey();
+                continue;
 			}
 					
 		}//Loop's
@@ -518,6 +535,42 @@ int main () {
 		system(group);
 
 	}//(menu == 2)'s
+	 else if(menu == 3){	
+		while(true){
+			header2(); accs(); accessories();
+			cin >> proceed;
+        
+            switch(proceed){
+                case '1':
+                    emerge("" , "albert");
+                    break;
+                case '2':
+                    emerge("" , "kitty");
+                    break;
+                case '3':
+                    emerge("" , " cheese");
+                    unmask(">=media-libs/gst-plugins-base-1.14.5-r1 theora");
+                    break;
+                case '4':
+                    emerge("" , "latte-dock");
+                    break;
+                case '5':
+                    emerge("" , "galculator");
+                    break;
+                case '6':
+                    emerge("" , "terminator");
+                    break;
+                case 'd':
+                    break;
+                default:
+                    cout << "Invalid Selection !\n";
+                    presskey();
+            }
+            break;
+        //Valar Dohaeris
+
+        }
+    }//(menu == 3)'s
 	}//Mainmenu's Loop's 
 
 
