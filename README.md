@@ -19,11 +19,11 @@
 
 - run `unzip master.zip`
 
-- set (post-alpha & shell_scripts) as executables `chmod a+x post-alpha shell_scripts/*`
+- set (post-alpha & shell_scripts) as executables `chmod a+x postie shell_scripts/*`
 
 ## How to use it:
 - as root
-- `cd schwifter && ./post-alpha`
+- `cd schwifter && ./postie`
 
 ## What it does ? 
 ### Post: (So far)
