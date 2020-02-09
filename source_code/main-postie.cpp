@@ -567,10 +567,94 @@ int main () {
                     presskey();
             }
             break;
-        //Valar Dohaeris
 
         }
     }//(menu == 3)'s
+	 else if(menu == 4){	
+		while(true){
+			header2(); dev(); development();
+			cin >> proceed;
+        
+            switch(proceed){
+                case '1':
+                    emerge("" , "emacs");
+                    break;
+                case '2':
+                    emerge("" , "gvim");
+                    break;
+                case '3':
+                    flatpak("com.visualstudio.code");
+                    break;
+                case '4':
+                    emerge("" , "virtual/jre");
+                    break;
+                case '5':
+                    emerge("" , "virtual/jdk");
+                    break;
+                case '6':
+                    emerge("" , "clang");
+                    break;
+                case '7':
+                    emerge("" , "codeblocks");
+                    break;
+                case '8':
+                    flatpak("cc.arduino.arduinoide");
+                    break;
+                case '9':
+                    flatpak("com.google.AndroidStudio");
+                    break;
+                case 'a':
+                    flatpak("com.axosoft.GitKraken");
+                    break;
+		case 'b':
+		    flatpak("org.apache.netbeans");
+		    break;
+                case 'd':
+                    break;
+                default:
+                    cout << "Invalid Selection !\n";
+                    presskey();
+            }
+            break;
+
+        }
+    }//(menu == 4)'s
+	 else if(menu == 5){	
+		while(true){
+			header2(); office(); officemenu();
+			cin >> proceed;
+        
+            switch(proceed){
+                case '1':
+                    emerge("cups pdfimport gstreamer" , "libreoffice");
+                    break;
+                case '2':
+                    emerge("cups pdfimport gstreamer" , "libreoffice-bin");
+                    break;
+                case '3':
+                    emerge("" , " evince");
+                    break;
+                case '4':
+                    emerge("" , "ghostwriter");
+                    break;
+                case '5':
+                    emerge("" , "openoffice-bin");
+                    break;
+                case '6':
+		    acceptlicnse(">=app-office/wps-office-11.1.0.9080 WPS-EULA");
+                    emerge("" , "wps-office");
+                    break;
+                case 'd':
+                    break;
+                default:
+                    cout << "Invalid Selection !\n";
+                    presskey();
+            }
+            break;
+
+        }
+	}//(menu == 5)'s
+        //Valar Dohaeris
 	}//Mainmenu's Loop's 
 
 

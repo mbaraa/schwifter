@@ -65,7 +65,7 @@ void desktops(){
                 << "3. LXDE \n"
                 << "4. LXQt \n"
                 << "5. Mate \n"
-                << "6. GNOME \n"
+                << "6. GNOME \n\n"
                 << "d. Done(go back to main menu)\n" << RESET;
 
 }
@@ -80,8 +80,42 @@ void accessories(){
                 << "3. Cheese \n"
                 << "4. Latte Dock \n"
                 << "5. Galculator \n"
-                << "6. Terminator \n"
+                << "6. Terminator \n\n"
                 << "d. Done(go back to main menu)\n" << RESET;
+
+}
+void dev(){
+        cout << endl;
+        cout << GREEN << "################ \n# Development Apps: #\n################"<< RESET <<endl;
+}
+void development(){
+        cout << WHITE << WHITE << "1. Emacs \n"
+                << "2. Gvim \n"
+                << "3. Visual Studio Code " << CYAN << "(flatpak) \n"
+                << WHITE << "4. JRE \n"
+                << "5. JDK \n"
+                << "6. Clang \n"
+                << "7. Codeblocks \n"
+                << "8. Arduino IDE " << CYAN << "(flatpak) \n"
+                << WHITE << "9. Android Studio " << CYAN << "(flatpak) \n"
+		<< WHITE << "a. Git Kraken " << CYAN << "(flatpak) \n" 
+		<< WHITE << "b. NetBeans " << CYAN << "(flatpak) \n\n"
+                << "d. Done(go back to main menu)\n" << RESET;
+
+}
+void office(){
+        cout << endl;
+        cout << GREEN << "################ \n# Office Apps: #\n################"<< RESET <<endl;
+}
+void officemenu(){
+        cout << WHITE << "1. Libreoffice \n"
+                << "2. Libreoffice (bin) "<< CYAN << "Recommended \n"
+                << WHITE << "3. Evince \n"
+                << "4. Ghostwriter \n"
+                << "5. Openoffice \n"
+		<< "6. WPS Office \n"
+                << YELLOW<< "\n PLEASE RECOMMEND ME SOME OFFICE APPS TO PUT IN HERE  \n\n"
+                << WHITE << "d. Done(go back to main menu)\n" << RESET;
 
 }
 void unmask(string tounmask){
@@ -100,11 +134,11 @@ void mainmenu(string un){
         cout << WHITE << "################################ \n## Main Menu: ## User : " << un << "\n################################\n";
         cout << "\n\n";
         cout << "1. Basic Setup \n"
-                 << "2. Desktop Environments | Window Managers \n"
-        	     << "3. Accessories Apps \n"<< RESET;
-         /* << "4. Development Apps \n";
-         << "5. Office Apps \n";
-         << "6. System Apps \n";
+		<< "2. Desktop Environments | Window Managers \n"
+		<< "3. Accessories Apps \n"
+         	<< "4. Development Apps \n"
+         	<< "5. Office Apps \n" << RESET;
+         /* /<< "6. System Apps \n";
          << "7. Graphics Apps \n";
          << "8. Internet Apps \n";
          << "9. Audio Apps \n";
