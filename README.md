@@ -31,6 +31,8 @@
 
 - Add custom repositories (overlays)
 
+- Install flatpak package manager
+
 - Install basic useful packages
 
 - Install CUPS
@@ -38,6 +40,8 @@
 - Install XORG & GPU Driver
 
 - Install DE or WM [Plasma, Gnome, XFCE, Mate, LXDE, LXQt, Openbox, i3wm]
+
+- Install Accessories Apps [Albert, Kitty....]
 
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
