@@ -294,14 +294,19 @@ int main () {
 			emerge("bazaar cvs darcs g-sorcery git gpg mercurial squashfs subversion sync-plugin-portage", "layman");
 			system("layman -L");
 			presskey();
-			string repolayman = ("layman -a ");
-			cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
-			cin >> reponame;
-			repolayman = repolayman + reponame;
-			const char *addrepo = repolayman.c_str();
-			system(addrepo);
-			system("emerge --sync");
-			presskey();
+            addrepo();
+            while(true){
+                cout << "Add another repo? (y/n)    ";
+                cin >> proceed2;
+                if(proceed2 == 'y'){
+                    addrepo();
+                    presskey();
+                }else if(proceed2 == 'n'){
+                    presskey();
+                    break;
+                }
+            }
+			
 			break;
 		}else{break;}
 		}//Layman's Loop's
@@ -527,7 +532,9 @@ int main () {
 			}
 					
 		}//Loop's
-		system("rc-update add elogind boot ");
+		if(initsys == 1 ){
+            system("rc-update add elogind boot ");
+        }
 		system("rc-update add dbus default");
 		string gpasswd = ("gpasswd -a ");
 		gpasswd = gpasswd + username + "plugdev";
@@ -583,8 +590,11 @@ int main () {
                     emerge("" , "gvim");
                     break;
                 case '3':
-                    flatpak("com.visualstudio.code");
-                    break;
+                    if(flatpak_istalled){
+                        flatpak("com.visualstudio.code");
+                    }else{
+                        break;
+                    }
                 case '4':
                     emerge("" , "virtual/jre");
                     break;
@@ -598,17 +608,28 @@ int main () {
                     emerge("" , "codeblocks");
                     break;
                 case '8':
-                    flatpak("cc.arduino.arduinoide");
-                    break;
+                    if(flatpak_istalled){
+                        flatpak("cc.arduino.arduinoide");break;
+                    }else{
+                        break;
+                    }
                 case '9':
-                    flatpak("com.google.AndroidStudio");
-                    break;
-                case 'a':
-                    flatpak("com.axosoft.GitKraken");
-                    break;
-		case 'b':
-		    flatpak("org.apache.netbeans");
-		    break;
+                    if(flatpak_istalled){
+                        flatpak("com.google.AndroidStudio");break;
+                    }else{
+                        break;
+                    }
+                case 'a':if(flatpak_istalled){
+                        flatpak("com.axosoft.GitKraken");break;
+                    }else{
+                        break;
+                    }
+                case 'b':
+                    if(flatpak_istalled){
+                        flatpak("org.apache.netbeans");break;
+                    }else{
+                        break;
+                    }
                 case 'd':
                     break;
                 default:
@@ -641,7 +662,7 @@ int main () {
                     emerge("" , "openoffice-bin");
                     break;
                 case '6':
-		    acceptlicnse(">=app-office/wps-office-11.1.0.9080 WPS-EULA");
+                    acceptlicnse(">=app-office/wps-office-11.1.0.9080 WPS-EULA");
                     emerge("" , "wps-office");
                     break;
                 case 'd':

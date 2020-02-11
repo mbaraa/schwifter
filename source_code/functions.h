@@ -25,6 +25,11 @@ void presetup(){
         cout << endl;
         cout << GREEN << "################ \n## Pre-Setup: ##\n################\n"<< RESET <<endl;
 }
+void presskey(){
+        cout << YELLOW <<"\n Press enter to continue...."<< RESET <<endl;
+        cin.ignore();          
+        system("clear");       
+}
 void emerge(string use , string package){
         string install =("emerge -qv ");
         string USE = ("USE=\" "), USE2 = (" \"  ");
@@ -45,11 +50,22 @@ void flatpak(string package){
         const char *in = install.c_str();
         system(in);
 }
-void presskey(){
-        cout << YELLOW <<"\n Press enter to continue...."<< RESET <<endl;
-        cin.ignore();          
-        system("clear");       
+void addrepo(){
+            string reponame;
+            cout << "Updating overlays list .... \n";
+			system("layman -L");
+			presskey();
+			string repolayman = ("layman -a ");
+            cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
+            cin >> reponame;
+			repolayman = repolayman + reponame;
+			const char *addrepo = repolayman.c_str();
+			system(addrepo);
+            string update = ("emerge --sync ") + reponame;
+			const char *exec = update.c_str();
+            system(exec);
 }
+
 void basicsetup(){
         cout << endl;
         cout << GREEN << "################ \n# Basic-Setup: #\n################\n"<< RESET <<endl;
