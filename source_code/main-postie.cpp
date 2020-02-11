@@ -44,7 +44,7 @@ int main () {
 	char initsys = '2';
 	while(true){
 	header2();
-	cout << WHITH << "Current profile : \n";
+	cout << WHITE << "Current profile : \n";
 	system("eselect profile show"); cout << endl;
 	cout << "Select A Profile :\n" << RED << "PS choose init system that matches your installation \nDON'T select init system other than in your installation or the setup will be corrupted !!!! \n\n"
 		<< WHITE << "1. Proceed with the current profile & init system\n"

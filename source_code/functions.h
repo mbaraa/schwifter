@@ -13,7 +13,7 @@ void header1(){
                 << "-----------------------------------------------------------------------------\n"
                 << "https://github.com/baraa-almasri/schwifter\n"
                 << "-----------------------------------------------------------------------------\n"
-                << RED << "P.S. This is still an alpha version DON'T run it on a non gentoo system ,\nalso it supports only english locale and x86_64 architecture \n" <<  << "more locales and architectures will be supported in the future :) \n"
+                << RED << "P.S. This is still an alpha version DON'T run it on a non gentoo system ,\nalso it supports only english locale and x86_64 architecture \n" << BOLDMAGENTA << "more locales and architectures will be supported in the future :) \n"
                 << BOLDCYAN << "-----------------------------------------------------------------------------\n"<< RESET <<endl;
 }
 void header2(){
