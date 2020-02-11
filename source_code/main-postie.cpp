@@ -51,26 +51,26 @@ int main () {
 		<< "2. Normal Desktop with openRC \n"
 		<< "3. Gnome Desktop with openRC \n"
 		<< "4. Plasma Desktop with openRC \n"
-		<< "5. Normal Desktop with SystemD \n";
+		<< "5. Normal Desktop with SystemD \n"
 		<< "6. Gnome Desktop with SystemD  \n"
 		<< "7. Plasma Desktop with SystemD \n";
-		cin >> profile1;
-		string profileslist[7]={"echo lol" , "eselect profile set default/linux/amd64/17.1/desktop", "eselect profile set default/linux/amd64/17.1/desktop/gnome" , "eselect profile set default/linux/amd64/17.1/desktop/plasma", "eselect profile set default/linux/amd64/17.1/systemd"  , "eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd" , "eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd"} ;
-		int select ;
-    cin >> select;
-    if(select > 7){
-			cout << "\nInvalid Selection !!!!";
-    }else{
+	string profileslist[7]={"echo lol" , "eselect profile set default/linux/amd64/17.1/desktop", "eselect profile set default/linux/amd64/17.1/desktop/gnome" , "eselect profile set default/linux/amd64/17.1/desktop/plasma", "eselect profile set default/linux/amd64/17.1/systemd"  , "eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd" , "eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd"} ;
+	int select ;
+  cin >> select;
+  if(select > 7){
+	cout << "\nInvalid Selection !!!!";
+  }
+	else{
 			const char *exec = profileslist[select - 1].c_str();
       system(exec);
-    }
-		if(select < 5 && select > 1){
-			initsys = '1';
-		}
-		else if(select == 1){
-			cout << "What is your init system \n1. openRC \n2. SystemD    ";
-			cin >> initsys;
-		}
+  }
+	if(select < 5 && select > 1){
+		initsys = '1';
+	}
+	else if(select == 1){
+		cout << "What is your init system \n1. openRC \n2. SystemD    ";
+		cin >> initsys;
+	}
 
 	header2();
 	cout << "your selected profile is : ";
@@ -536,7 +536,7 @@ int main () {
 			}
 			else if(initsys == '2'){
 				system("systemctl start bluetooth");
-				system("systemctl enable bluetooth")
+				system("systemctl enable bluetooth");
 			}
 	}
 		if(initsys == '1' ){
