@@ -32,7 +32,7 @@ int main () {
 	header2();
 	cout << endl << endl ;
 	char proceed='n',proceed2='n';
-	cout << "Update Ebuild Repo ? (y/n)   ";
+	cout << "Update Ebuild Repository? (y/n)   ";
 	cin >> proceed;
 	if(proceed == 'y'){
 		cout << "Updating Repos....\n";
@@ -44,17 +44,17 @@ int main () {
 	char initsys = '2';
 	while(true){
 	header2();
-	cout << "Current profile : \n";
+	cout << WHITH << "Current profile : \n";
 	system("eselect profile show"); cout << endl;
-	cout << "Select A Profile :\n PS choose init system that matches your installation \n DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
-		<< "1. Proceed with the current profile & init system\n"
+	cout << "Select A Profile :\n" << RED << "PS choose init system that matches your installation \nDON'T select init system other than in your installation or the setup will be corrupted !!!! \n\n"
+		<< WHITE << "1. Proceed with the current profile & init system\n"
 		<< "2. Normal Desktop with openRC \n"
 		<< "3. Gnome Desktop with openRC \n"
 		<< "4. Plasma Desktop with openRC \n"
 		<< "5. Normal Desktop with SystemD \n"
 		<< "6. Gnome Desktop with SystemD  \n"
 		<< "7. Plasma Desktop with SystemD \n";
-	string profileslist[7]={"echo lol" , "eselect profile set default/linux/amd64/17.1/desktop", "eselect profile set default/linux/amd64/17.1/desktop/gnome" , "eselect profile set default/linux/amd64/17.1/desktop/plasma", "eselect profile set default/linux/amd64/17.1/systemd"  , "eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd" , "eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd"} ;
+	string profileslist[7]={"printf 'What is your init system \n1. openRC \n2. SystemD \n'" , "eselect profile set default/linux/amd64/17.1/desktop", "eselect profile set default/linux/amd64/17.1/desktop/gnome" , "eselect profile set default/linux/amd64/17.1/desktop/plasma", "eselect profile set default/linux/amd64/17.1/systemd"  , "eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd" , "eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd"} ;
 	int select ;
   cin >> select;
   if(select > 7){
@@ -68,14 +68,13 @@ int main () {
 		initsys = '1';
 	}
 	else if(select == 1){
-		cout << "What is your init system \n1. openRC \n2. SystemD    ";
 		cin >> initsys;
 	}
 
 	header2();
-	cout << "your selected profile is : ";
+	cout << "Your selected profile is:    ";
 	system("eselect profile show");
-	cout << "\n Is that what you selected ? (y/n) :    ";
+	cout << endl <<"Is that what you selected? (y/n):    ";
 	cin >> proceed;
 	if(proceed == 'y' || proceed == 'Y'){
 		break;
@@ -86,7 +85,7 @@ int main () {
 		continue;
 	}
 }//loop's
-	cout << "Update system with the selected profile ? (y/n) :    ";
+	cout << "Update system with the selected profile? (y/n):    ";
 	cin >> proceed;
 	if(proceed == 'y' || proceed == 'Y'){
 		system("emerge --ask --verbose --update --deep --newuse @world");
@@ -96,15 +95,15 @@ int main () {
 
 //USER CREATION:
 	system("clear");
-	//hey baraa never declare a variable inside a loop and expect using it late dummy
+	//hey baraa never declare a variable inside a loop and expect using it later dummy
 	string username;
 
 	while(true){
 	header2();
-	cout << endl << endl << "User Creation : \n\n";
-	cout << ("Available Users : \n");
+	cout << endl << endl << GREEN << "User Creation: \n\n";
+	cout << ("Available Users: \n");
 	system("cat /etc/passwd | grep 100");
-	cout << endl << ("do you want to add users ? (y/n)\n");
+	cout << endl << ("do you want to add users? (y/n):    ");
 	cin >> proceed;
 	if(proceed == 'y' || proceed == 'Y'){
         	//string user1 = ("useradd -m -G wheel,audio,video,adm,disk,tty -s /bin/bash ");
@@ -169,9 +168,9 @@ int main () {
 	string swuser = ("su ") , dashc = (" -c ");
 	while(true){
 	header2();
-	cout << "Select a default editor : \n" ;
+	cout << WHITE<< "\nSelect a default editor: \n\n"
+				<< "1.vim \n2.vi \n3.nano \n4.emacs \n"<< RESET;
 	char editor;
-	cout << " 1.vim \n 2.vi \n 3.nano \n 4.emacs \n";
 	cin >> editor;
 	if(editor == '1'){
 		system("emerge -qvt vim ctags");
@@ -215,13 +214,13 @@ int main () {
 //BASH-TOOLS
 	header2();
 	presetup();
-	cout << "Installing Some Shell Tools ....\n";
+	cout << "Installing Some Shell Tools....\n\n";
 	emerge("" , " git bc bash-completion rsync mlocate");
 	presskey();
 //ARCHIVE-TOOLS
 	header2();
 	presetup();
-	cout << "Installing archive tools ....\n";
+	cout << "Installing archive tools....\n\n";
 	acceptlicnse(">=app-arch/rar-5.8.0_p20191205 RAR");
 	acceptlicnse(">=app-arch/unrar-5.9.1 unRAR");
 	emerge("", " zip unzip unrar rar p7zip lzop cpio xz-utils --autounmask-write");
@@ -229,7 +228,7 @@ int main () {
 //AVAHI
 	header2();
 	presetup();
-	cout << "Installing avahi a zero configuration networking implementation ....\n";
+	cout << "Installing avahi a zero configuration networking implementation....\n\n";
 	emerge(""," net-dns/avahi nss-mdns");
 	if(initsys == '1'){
 		system("rc-update add avahi-daemon default");
@@ -242,7 +241,7 @@ int main () {
 //ALSA & PUSLEAUDIO
 	header2();
 	presetup();
-	cout << "Installing ALSA (Advanced Linux Sound Architecture) ....\n";
+	cout << "Installing ALSA (Advanced Linux Sound Architecture)....\n\n";
 	emerge("alsip thread-safety python", "alsa-lib alsa-utils");
 	emerge("ffmpeg","alsa-plugins");
 	system("cp ./configuration_files/asound.conf /etc/asound.conf");
@@ -252,7 +251,7 @@ int main () {
 	}else if(initsys == '2'){
 		cout << "Already enabled LOL \n";
 	}
-	cout << "Installing Pulseaudio ....\n";
+	cout << "Installing Pulseaudio....\n\n";
 	emerge("pulseaudio X alsa-plugin elogind equalizer gconf gdbm glib native-headset ofono-headset realtime webrtc-aec alsa bluetooth caps dbus jack orc sox tcpd zerocon", "pulseaudio");
 	if(initsys == '2'){
 		system("rc-update add pulseaudio default");
@@ -264,7 +263,7 @@ int main () {
 //FILESYSTEMS
 	header2();
 	presetup();
-	cout << "Installing Some Useful Filesystems ....\n";
+	cout << "Installing Some Useful Filesystems....\n\n";
 	emerge("", " ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso");
 	presskey();
 //MAIN-MENU
