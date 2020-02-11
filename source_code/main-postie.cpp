@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "functions.h"
 using namespace std;
 int main () {
-	system("clear");	
+	system("clear");
 	header1();
 	presskey();
 	header2();
@@ -40,49 +40,42 @@ int main () {
 	}
 	presskey();
 	header2();
-	cout << endl << endl ;	
-	char profile1 ,initsys;
+	cout << endl << endl ;
+	char initsys = '2';
 	while(true){
 	header2();
-	cout << "Current profile : \n";	
+	cout << "Current profile : \n";
 	system("eselect profile show"); cout << endl;
 	cout << "Select A Profile :\n PS choose init system that matches your installation \n DON'T select init system other than in your installation or the setup will be corrupted !!!! \n"
-		<< "1. Proceed with the current profile \n"
-		<< "2. Normal Desktop \n"
-		<< "3. Gnome Desktop \n"
-		<< "4. Plasma Desktop \n"
-		<< "5. No Multilib (don't select this unless you know what are you doing ! \n";
+		<< "1. Proceed with the current profile & init system\n"
+		<< "2. Normal Desktop with openRC \n"
+		<< "3. Gnome Desktop with openRC \n"
+		<< "4. Plasma Desktop with openRC \n"
+		<< "5. Normal Desktop with SystemD \n";
+		<< "6. Gnome Desktop with SystemD  \n"
+		<< "7. Plasma Desktop with SystemD \n";
 		cin >> profile1;
-		cout << "Now select initial system :\n"
-		<< "1. openRC\n"
-		<< "2. SystemD\n";
-		cin >> initsys;
-	if(profile1 == '1' && initsys == '1'){
-		cout << "OK whatever \n";
-	}else if(profile1 == '1' && initsys == '2'){
-		cout << "OK whatever \n";
-	}else if (profile1 == '2' && initsys == '1'){
-		system("eselect profile set default/linux/amd64/17.1/desktop");
-	}else if (profile1 == '2' && initsys == '2'){
-		system("eselect profile set default/linux/amd64/17.1/systemd");
-	}else if (profile1 == '3' && initsys == '1'){
-		system("eselect profile set default/linux/amd64/17.1/desktop/gnome ");
-	}else if (profile1 == '3' && initsys == '2'){
-		system("eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd");
-	}else if (profile1 == '4' && initsys == '1'){
-		system("eselect profile set default/linux/amd64/17.1/desktop/plasma");
-	}else if (profile1 == '4' && initsys == '2'){
-		system("eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd");
-	}else if (profile1 == '5' && (initsys == '1' || initsys == '2')){
-		system("eselect profile set default/linux/amd64/17.1/no-multilib");
-	}else {
-		cout << "\nInvalid selection !!!!\n";
-		
-	}
+		string profileslist[7]={"echo lol" , "eselect profile set default/linux/amd64/17.1/desktop", "eselect profile set default/linux/amd64/17.1/desktop/gnome" , "eselect profile set default/linux/amd64/17.1/desktop/plasma", "eselect profile set default/linux/amd64/17.1/systemd"  , "eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd" , "eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd"} ;
+		int select ;
+    cin >> select;
+    if(select > 7){
+			cout << "\nInvalid Selection !!!!";
+    }else{
+			const char *exec = profileslist[select - 1].c_str();
+      system(exec);
+    }
+		if(select < 5 && select > 1){
+			initsys = '1';
+		}
+		else if(select == 1){
+			cout << "What is your init system \n1. openRC \n2. SystemD    ";
+			cin >> initsys;
+		}
+
 	header2();
 	cout << "your selected profile is : ";
 	system("eselect profile show");
-	cout << "\n Is that what you selected ? (y/n) :  ";
+	cout << "\n Is that what you selected ? (y/n) :    ";
 	cin >> proceed;
 	if(proceed == 'y' || proceed == 'Y'){
 		break;
@@ -166,7 +159,7 @@ int main () {
 		cin >> username;
 		presskey();
 		break;
-		
+
 	}else{
                 cout << "\nInvalid selection !!!!";
 		continue;
@@ -203,7 +196,7 @@ int main () {
 		system(editornano);
 		swuser = ("su ");
 		break;
-	}else if(editor == '4'){ 	
+	}else if(editor == '4'){
 		system("emerge -qvt emacs");
 		string emacs = ("\"echo export EDITOR='emacs' >> ~/.bashrc \"");
 		swuser = swuser + username + dashc + emacs;
@@ -282,7 +275,7 @@ int main () {
 	int menu;
 	cin >> menu;
 	//BASICSETUP
-	if(menu == 1){	
+	if(menu == 1){
 		//CUSTOM REPOS(OVERLAYS)
 		while(true){
 		header2();basicsetup();
@@ -306,7 +299,7 @@ int main () {
                     break;
                 }
             }
-			
+
 			break;
 		}else{break;}
 		}//Layman's Loop's
@@ -346,7 +339,7 @@ int main () {
 				string chsh = ("chsh ") , dashs = (" -s ") , zsh = (" /bin/zsh");
 				chsh = chsh + username + dashs + zsh;
 				const char *zsh0 = chsh.c_str();
-				system(zsh0);	
+				system(zsh0);
 				break;
 			}else if(proceed == 'n' || proceed == 'N'){
 				break;
@@ -381,7 +374,7 @@ int main () {
 		continue;
 	}//(menu == 1)'s
 	//DE & WM
-	else if(menu == 2){	
+	else if(menu == 2){
 		while(true){
 			header2(); dewm(); desktops();
 			cin >> proceed;
@@ -392,7 +385,7 @@ int main () {
 				else if(initsys == '2'){
 				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
 				}
-				
+
 				cout << "Install KDE apps? (y/n)    ";
 				cin >> proceed2;
 				if(proceed2 == 'y'){
@@ -400,14 +393,14 @@ int main () {
 					emerge("mtp"," kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta");
 				}else if(proceed2 == 'n'){
 					cout << "ok whatever \n";
-					
+
 				}
 				string xinitrc	= ("\" echo \"exec dbus-launch --exit-with-session startplasma-x11\" >> .xinitrc\"");
 				swuser = swuser + username + dashc + xinitrc;
 				const char *startx = swuser.c_str();
 				system(startx);
 				presskey();
-				
+
 			}
 			else if(proceed == '2'){
 				if(initsys == '1'){
@@ -482,7 +475,7 @@ int main () {
 				unmask(">=virtual/rubygems-16 ruby_targets_ruby27");
 				unmask(">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27");
 				unmask(">=media-libs/gst-plugins-base-1.14.5-r1 theora");
-				
+
 				if(initsys == '1'){
 				emerge(" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" , " gnome-base/gnome  ");
 				system("rc-update add openrc-settingsd default ");
@@ -530,23 +523,38 @@ int main () {
                 presskey();
                 continue;
 			}
-					
+
 		}//Loop's
-		if(initsys == 1 ){
+		header2();dewm();
+		cout << "Add bluetooth support? (y/n)    ";
+		cin >> proceed2;
+		if(proceed2 == 'y'){
+			emerge("bluetooth btpclient extra-tools midi user-session" , "bluez");
+			if(initsys == '1'){
+				system("rc-service bluetooth start");
+				system("rc-update add bluetooth default");
+			}
+			else if(initsys == '2'){
+				system("systemctl start bluetooth");
+				system("systemctl enable bluetooth")
+			}
+	}
+		if(initsys == '1' ){
             system("rc-update add elogind boot ");
-        }
+    }
 		system("rc-update add dbus default");
 		string gpasswd = ("gpasswd -a ");
 		gpasswd = gpasswd + username + "plugdev";
 		const char *group = gpasswd.c_str();
 		system(group);
 
+
 	}//(menu == 2)'s
-	 else if(menu == 3){	
+	 else if(menu == 3){
 		while(true){
 			header2(); accs(); accessories();
 			cin >> proceed;
-        
+
             switch(proceed){
                 case '1':
                     emerge("" , "albert");
@@ -577,11 +585,11 @@ int main () {
 
         }
     }//(menu == 3)'s
-	 else if(menu == 4){	
+	 else if(menu == 4){
 		while(true){
 			header2(); dev(); development();
 			cin >> proceed;
-        
+
             switch(proceed){
                 case '1':
                     emerge("" , "emacs");
@@ -640,11 +648,11 @@ int main () {
 
         }
     }//(menu == 4)'s
-	 else if(menu == 5){	
+	 else if(menu == 5){
 		while(true){
 			header2(); office(); officemenu();
 			cin >> proceed;
-        
+
             switch(proceed){
                 case '1':
                     emerge("cups pdfimport gstreamer" , "libreoffice");
@@ -676,10 +684,10 @@ int main () {
         }
 	}//(menu == 5)'s
         //Valar Dohaeris
-	}//Mainmenu's Loop's 
+	}//Mainmenu's Loop's
 
 
-		
+
 };//MAIN FUNCTION'S
 
 //FUNCTIONS
