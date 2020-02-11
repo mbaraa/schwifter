@@ -47,6 +47,8 @@
 
 - Install Office Apps
 
+- Install System Tools Apps
+
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
 
