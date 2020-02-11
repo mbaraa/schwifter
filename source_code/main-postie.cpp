@@ -23,7 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include<string>
 #include<unistd.h>
 #include<stdlib.h>
-#include "functions.h"
+//#include"functions.h"
+#include"unmask_func.h"
 using namespace std;
 int main () {
 	system("clear");
@@ -101,7 +102,7 @@ int main () {
 	while(true){
 	header2();
 	cout << endl << endl << GREEN << "User Creation: \n\n";
-	cout << ("Available Users: \n");
+	cout << WHITE << "Available Users: \n";
 	system("cat /etc/passwd | grep 100");
 	cout << endl << ("do you want to add users? (y/n):    ");
 	cin >> proceed;
@@ -454,27 +455,7 @@ int main () {
 				presskey();
 			}
 			else if(proceed == '6'){
-                unmask(">=media-plugins/grilo-plugins-0.3.9 tracker");
-				unmask(">=media-libs/gegl-0.4.20 raw");
-				unmask(">=dev-libs/libgdata-0.17.11 gnome-online-accounts");
-				unmask(">=dev-libs/folks-0.12.1 eds");
-				unmask(">=gnome-extra/evolution-data-server-3.32.5 vala");
-				unmask(">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27");
-				unmask(">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27");
-				unmask(">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27");
-				unmask(">=dev-ruby/rake-13.0.1 ruby_targets_ruby27");
-				unmask(">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27");
-				unmask(">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27");
-				unmask(">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27");
-				unmask(">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27");
-				unmask(">=dev-ruby/json-2.3.0 ruby_targets_ruby27");
-				unmask("=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27");
-				unmask(">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27");
-				unmask(">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27");
-				unmask(">=virtual/rubygems-16 ruby_targets_ruby27");
-				unmask(">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27");
-				unmask(">=media-libs/gst-plugins-base-1.14.5-r1 theora");
-
+				gnomereqs();
 				if(initsys == '1'){
 				emerge(" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" , " gnome-base/gnome  ");
 				system("rc-update add openrc-settingsd default ");
@@ -591,7 +572,7 @@ int main () {
 
             switch(proceed){
                 case '1':
-                    emerge("" , "emacs");
+                    emerge("" , "app-editors/atom");
                     break;
                 case '2':
                     emerge("" , "gvim");
@@ -682,6 +663,51 @@ int main () {
 
         }
 	}//(menu == 5)'s
+	 else if(menu == 6){
+		while(true){
+			header2(); sys(); systemmenu();
+			cin >> proceed;
+
+            switch(proceed){
+                case '1':
+			emerge("","--unmerge iptables");
+			emerge("gui" , "net-firewalld/firewalld");
+                    break;
+                case '2':
+                    emerge("(policykit) btrfs cryptsetup dmraid f2fs fat hfs jfs mdadm ntfs reiser4 reiserfs -test udf -wayland xfs" , "gparted");
+                    break;
+                case '3':
+                    emerge("" , " gnome-disk-utility ");
+                    break;
+                case '4':
+                    emerge("" , "htop");
+                    break;
+                case '5':
+                    emerge("" , "wine-vanilla");
+                    break;
+                case '6':
+		    winereqs();
+                    emerge("" , "wine-staging");
+                    break;
+                case '7':
+		    addgitrepo("stefantalpalaru","https://github.com/stefantalpalaru/gentoo-overlay");
+                    if(initsys=='1'){
+		    	emerge("cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k","vmware-workstation");
+		    }
+		    else if(initsys=='2'){
+		    	emerge("cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" , "vmware-workstation");
+		    }
+                    break;
+                case 'd':
+                    break;
+                default:
+                    cout << "Invalid Selection !\n";
+                    presskey();
+            }
+            break;
+
+        }
+	}//(menu == 6)'s
         //Valar Dohaeris
 	}//Mainmenu's Loop's
 

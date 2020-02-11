@@ -23,7 +23,7 @@ void header2(){
 }
 void presetup(){
         cout << endl;
-        cout << BOLDGREEN << "################ \n## Pre-Setup: ##\n################\n"<< RESET <<endl;
+        cout << GREEN << "################ \n## Pre-Setup: ##\n################\n"<< RESET <<endl;
 }
 void presskey(){
         cout << BOLDYELLOW <<"\nPress enter to continue...."<< RESET;
@@ -53,19 +53,44 @@ void flatpak(string package){
 void addrepo(){
             string reponame;
             cout << "Updating overlays list .... \n";
-			system("layman -L");
-			presskey();
-			string repolayman = ("layman -a ");
+            system("layman -L");
+            presskey();
+            string repolayman = ("layman -a ");
             cout << "Enter a Repo\'s Name (from https://overlays.gentoo.org ONLY) : ";
             cin >> reponame;
-			repolayman = repolayman + reponame;
-			const char *addrepo = repolayman.c_str();
-			system(addrepo);
+            repolayman = repolayman + reponame;
+            const char *addrepo = repolayman.c_str();
+            system(addrepo);
             string update = ("emerge --sync ") + reponame;
-			const char *exec = update.c_str();
+            const char *exec = update.c_str();
             system(exec);
 }
+void addgitrepo(string reponame,string repourl){
+            system("mkdir /etc/portage/repos.conf");
+            string repofile = (" /etc/portage/repos.conf/") + reponame;
+            string step1 = ("echo '[") + reponame + ("]' >> ") + repofile ,
+            step2 = ("echo 'location = /usr/local/portage/") + reponame + ("' >> ") + repofile,
+            step3 = ("echo 'sync-type = git' >> ") + repofile,
+            step4 = ("echo 'priority = 50' >> ") + repofile,
+            step5 = ("echo 'auto-sync = Yes' >> ") + repofile,
+            step6 = ("echo 'sync-uri = ") + repourl + ("' >> ") + repofile,
+            step7 = ("emerge --sync ") + reponame;
+            const char *exec1 = step1.c_str() ,
+            *exec2 = step2.c_str() ,
+            *exec3 = step3.c_str() ,
+            *exec4 = step4.c_str() ,
+            *exec5 = step5.c_str() ,
+            *exec6 = step6.c_str() ,
+            *exec7 = step7.c_str();
+            system(exec1);
+            system(exec2);
+            system(exec3);
+            system(exec4);
+            system(exec5);
+            system(exec6);
+            system(exec7);
 
+}
 void basicsetup(){
         cout << endl;
         cout << GREEN << "################ \n# Basic-Setup: #\n################\n"<< RESET <<endl;
@@ -105,7 +130,7 @@ void dev(){
         cout << GREEN << "################ \n# Development Apps: #\n################"<< RESET <<endl;
 }
 void development(){
-        cout << WHITE << WHITE << "1. Emacs \n"
+        cout << WHITE << WHITE << "1. Atom \n"
                 << "2. Gvim \n"
                 << "3. Visual Studio Code " << CYAN << "(flatpak) \n"
                 << WHITE << "4. JRE \n"
@@ -125,12 +150,27 @@ void office(){
 }
 void officemenu(){
         cout << WHITE << "1. Libreoffice \n"
-                << "2. Libreoffice (bin) "<< BOLDRED << "Recommended \n"
+                << "2. Libreoffice (bin) "<< BOLDRED << " \"Recommended\" \n"
                 << WHITE << "3. Evince \n"
                 << "4. Ghostwriter \n"
                 << "5. Openoffice \n"
 		<< "6. WPS Office \n"
                 << YELLOW<< "\n PLEASE RECOMMEND ME SOME OFFICE APPS TO PUT IN HERE  \n\n"
+                << WHITE << "d. Done(go back to main menu)\n" << RESET;
+
+}
+void sys(){
+        cout << endl;
+        cout << GREEN << "################ \n# System Tools Apps: #\n################"<< RESET <<endl;
+}
+void systemmenu(){
+        cout << WHITE << "1. Firewalld \n"
+                << "2. Gparted\n"
+                << "3. Gnome Disks \n"
+                << "4. Htop \n"
+                << "5. Wine \n"
+                << "6. Wine Staging " << BOLDRED << " \"Recommended\" \n"
+                << WHITE << "7. VMware Workstation 12 " << BOLDMAGENTA << "(overlays) \n\n"
                 << WHITE << "d. Done(go back to main menu)\n" << RESET;
 
 }
@@ -149,12 +189,12 @@ void acceptlicnse(string toaccept){
 void mainmenu(string un){
         cout << WHITE << "\n################################ \n## Main Menu: ## User: " << un << "\n################################\n\n";
         cout << "1. Basic Setup \n"
-              << "2. Desktop Environments | Window Managers \n"
-		          << "3. Accessories Apps \n"
-         	    << "4. Development Apps \n"
-         	    << "5. Office Apps \n" << RESET;
-         /* /<< "6. System Apps \n";
-         << "7. Graphics Apps \n";
+		<< "2. Desktop Environments | Window Managers \n"
+		<< "3. Accessories Apps \n"
+         	<< "4. Development Apps \n"
+         	<< "5. Office Apps \n" 
+		<< "6. System Apps \n"<< RESET;
+        /*<< "7. Graphics Apps \n";
          << "8. Internet Apps \n";
          << "9. Audio Apps \n";
          << "10. Video Apps \n";
