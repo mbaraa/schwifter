@@ -33,11 +33,11 @@ int main () {
 	header2();
 	cout << endl << endl ;
 	char proceed='n',proceed2='n';
-	cout << "Update Ebuild Repository? (y/n)   ";
+	cout << "Update Ebuild Repository? (y/n):   ";
 	cin >> proceed;
 	if(proceed == 'y'){
 		cout << "Updating Repos....\n";
-		system("emerge-webrsync && emerge --sync");
+		system("emerge --sync");
 	}
 	presskey();
 	header2();
@@ -380,10 +380,10 @@ int main () {
 			cin >> proceed;
 			if(proceed == '1'){
 				if(initsys == '1'){
-				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration elogind -consolekit -systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " , " kde-plasma/plasma-meta ");
 				}
 				else if(initsys == '2'){
-				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp " , " kde-plasma/plasma-meta ");
+				emerge(" bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " , " kde-plasma/plasma-meta ");
 				}
 
 				cout << "Install KDE apps? (y/n)    ";
