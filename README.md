@@ -5,6 +5,8 @@
 
 - Feel free to edit and use it as you want but tell me first :)
 
+- Also there is a C++ version of it :) LOL
+
 ## Requirements:
 - A working internet connection
   
@@ -17,13 +19,13 @@
 #### without using git:
 - Download the archive `wget https://github.com/baraa-almasri/schwifter/archive/master.zip`
 
-- run `unzip master.zip`
+- run `unzip master.zip` to extract it
 
-- set (post-alpha & shell_scripts) as executables `chmod a+x postie shell_scripts/*`
+- set (post-alpha & shell_scripts) as executables `chmod a+x postie.sh functions.sh`
 
 ## How to use it:
 - as root
-- `cd schwifter && ./postie`
+- `cd schwifter && ./postie.sh`
 
 ## What it does ? 
 ### Post: (So far)
