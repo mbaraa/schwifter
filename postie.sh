@@ -301,9 +301,6 @@ while true ; do
         emerge --sync flatpak-overlay
     		emerge -qv sys-apps/flatpak
     		presskey
-    		break
-    	else
-    		break
     	fi
 #SSH
   		header
@@ -355,7 +352,7 @@ while true ; do
       vga
       emerge -qv libglvnd
       presskey
-      #CUPS
+#CUPS
       header
       basicsetup
       printf "${White}Installing CUPS (aka Commom Unix Printing System ) ....\n"
@@ -363,5 +360,221 @@ while true ; do
       presskey
       continue
 
+#DE & WM
+      elif [ $menu == 2 ]; then
+      		while true ; do
+      			header
+      			dewm
+      			desktops
+      			read proceed
+      			if [ $proceed == 1 ]; then
+      				if [ $initsys == 1 ]; then
+      				 	USE="bluetooth browser-integration elogind -consolekit -systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " emerge -qv kde-plasma/plasma-meta
+      				elif [ $initsys == 2 ]; then
+      				 	USE="bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " emerge -qv kde-plasma/plasma-meta
+      				fi
+
+      				printf "\n${White}Install KDE apps? (y/n)    "
+      				read proceed2
+      				if [ "$proceed2" == "y" ]; then
+      					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " >> /etc/portage/package.licnse
+      					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
+      				elif [ "$proceed2" == "n" ]; then
+      					printf "${White}ok whatever \n"
+      				fi
+
+      				su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" >> .xinitrc"
+      				presskey
+
+      			elif [ $proceed == 2 ]; then
+      				if [ $initsys == 1 ]; then
+      						USE=" mtp elogind -consolekit -systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
+      				elif [ $initsys == 2 ]; then
+      						USE=" mtp -elogind -consolekit systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
+
+      				fi
+      				su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " >> ~/.xinitrc"
+      				presskey
+
+      			elif [ $proceed == 3 ]; then
+      				if [ $initsys == 1 ]; then
+      						USE=" mtp elogind -consolekit -systemd" emerge -qv lxde-meta
+      				elif [ $initsys == 2 ]; then
+      						USE=" mtp -elogind -consolekit systemd" emerge -qv lxde-meta
+      				fi
+      				su $username -c "echo "exec dbus-launch --exit-with-session startlxde " >> .xinitrc"
+      				presskey
+
+      			elif [ $proceed == 4 ]; then
+      				if [ $initsys == 1 ]; then
+      					USE=" mtp elogind -consolekit -systemd" emerge -qv lxqt-meta
+      				elif [ initsys == 2 ]; then
+      					USE=" mtp elogind -consolekit -systemd" emerge -qv lxqt-meta
+      				fi
+      				su $username -c "echo "exec dbus-launch --exit-with-session startlxqt " >> .xinitrc"
+      				presskey
+
+      			elif [ $proceed == 5 ]; then
+      				if [ $initsys == 1 ]; then
+      					USE="base bluetooth extras notification mtp themes elogind -consolekit -systemd" emerge -qv --changed-use mate-base/mate caja-extensions
+      				elif [ $initsys == 2 ]; then
+      					USE="base bluetooth extras notification mtp themes -elogind -consolekit systemd" emerge -qv --changed-use mate-base/mate caja-extensions
+      				fi
+      				su $username -c "echo "exec dbus-launch --exit-with-session mate-session " >> .xinitrc"
+      				presskey
+
+      			elif [ $proceed == 6 ]; then
+      				gnomereqs
+      				if [ $initsys == 1 ]; then
+      					USE=" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" emerge -qv gnome-base/gnome;
+      					rc-update add openrc-settingsd default
+      				elif [ initsys == 2 ]; then
+      					USE=" bluetooth mtp networkmanager gtk -qt5 -elogind -consolekit systemd" emerge -qv gnome-base/gnome
+      				su $username -c "echo "exec dbus-launch --exit-with-session gnome-session  " >> .xinitrc"
+      				presskey
+              fi
+
+      			elif [ $proceed == 7 ]; then
+      				printf "${White}Do you want i3-gaps? (y/n):    "
+      				read proceed2
+              declare i3wm
+              if [ "$proceed2" == "y" ]; then
+      					i3wm="i3-gaps"
+      				else
+      					i3wm="i3"
+      				fi
+      				emerge -qv $i3wm
+      				USE=" xinerama filecaps libnotify" emerge -qv dmenu i3status i3lock thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
+      				su $username -c "echo "exec dbus-launch --exit-with-session i3 " >> .xinitrc"
+      				presskey
+
+      			elif [ $proceed == 8 ]; then
+      				USE="branding imlib session xdg libnotify" emerge -qv openbox thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
+      				su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " >> .xinitrc"
+      				presskey
+
+      			elif [ "$proceed" == "d" ]; then
+      				break
+      			else
+      				printf "${Red}Invalid Selection !\n"
+                      presskey
+                      continue
+            fi
+      		done #Loop's
+      		header
+      		dewm
+      		printf "${White}Add bluetooth support? (y/n):    "
+      		read proceed2
+      		if [ "$proceed2" == "y"]; then
+      			USE="bluetooth btpclient extra-tools midi user-session" emerge -qv bluez
+      			if [ $initsys == 1 ]; then
+      				rc-service bluetooth start
+      				rc-update add bluetooth default
+      			elif [ $initsys == 2 ]; then
+      				systemctl start bluetooth
+      				systemctl enable bluetooth
+      			fi
+          fi
+      		if [ $initsys == 1 ]; then
+                  rc-update add elogind boot
+      		fi
+      		rc-update add dbus default
+      		gpasswd -a $username plugdev
+#ACCESSORIES
+	 elif [ $menu == 3 ]; then
+		while true ; do
+			header
+			accs
+			accessories
+			read  proceed
+      case "$proceed" in
+        1)  emerge -qv albert
+        ;;
+        2)  emerge -qv kitty
+        ;;
+        3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" >> /etc/portage/package.use/zz-autounmask
+            emerge -qv cheese
+        ;;
+        4) emerge -qv latte-dock
+        ;;
+        5) emerge -qv galculator
+        ;;
+        6) emerge -qv terminator;
+        ;;
+        "d") break
+        ;;
+        "*") printf "${Red}Invalid Selection !\n"
+        ;;
+      esac
+        presskey
+        break
+      done
+
+#DEVELOPMENT
+elif [ $menu == 4 ]; then
+      while true ; do
+      	header
+      	dev
+      	development
+        read  proceed
+        case "$proceed" in
+          1)  emerge -qv atom
+          ;;
+          2)  emerge -qv gvim
+          ;;
+          3) flatpak install flathub com.visualstudio.code
+          ;;
+          4) emerge -qv jre
+          ;;
+          5) emerge -qv jdk
+          ;;
+          6) emerge -qv clang
+          ;;
+          7) emerge -qv codeblocks
+          ;;
+          8) flatpak install flathub cc.arduino.arduinoide
+          ;;
+          9) flatpak install flathub com.google.AndroidStudio
+          ;;
+          10) flatpak install flathub com.axosoft.GitKraken
+          ;;
+          11) flatpak install flathub org.apache.netbeans
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
+        esac
+          presskey
+          break
+        done
+
+#OFFICE
+elif [ $menu == 5 ]; then
+      while true ; do
+      header
+      office
+      officemenu
+      read  proceed
+      case "$proceed" in
+        1)  USE="cups pdfimport gstreamer" emerge -qv libreoffice
+        ;;
+        2)  USE="cups pdfimport gstreamer" emerge -qv libreoffice
+        ;;
+        3) emerge -qv evince
+        ;;
+        4) emerge -qv ghostwriter
+        ;;
+        5) echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" >> /etc/portage/package.license
+            emerge -qv openoffice-bin
+        ;;
+        "d") break
+        ;;
+        "*") printf "${Red}Invalid Selection !\n"
+        ;;
+        esac
+        presskey
+        break
+        done
   fi #MENU's
 done

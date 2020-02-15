@@ -47,6 +47,29 @@ addrepo(){
   emerge --sync $reponame
 }
 
+gnomereqs(){
+        echo ">=media-plugins/grilo-plugins-0.3.9 tracker " >> /etc/portage/package.use/zz-autounmask
+				echo ">=media-libs/gegl-0.4.20 raw " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-libs/libgdata-0.17.11 gnome-online-accounts " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-libs/folks-0.12.1 eds " >> /etc/portage/package.use/zz-autounmask
+				echo ">=gnome-extra/evolution-data-server-3.32.5 vala " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/rake-13.0.1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/json-2.3.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=virtual/rubygems-16 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
+				echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora " >> /etc/portage/package.use/zz-autounmask
+}
+
 presetup(){
         print_enter
         printf "${Green}################ \n## Pre-Setup: ##\n################\n"
@@ -55,6 +78,23 @@ basicsetup(){
         print_enter
         printf "${Green}################ \n## Pre-Setup: ##\n################\n"
 }
+dewm(){
+        print_enter
+        printf "${Green}################ \n## Desktop Environments | Window Managers: ##\n################\n"
+}
+accs(){
+        print_enter
+        printf "${Green}################ \n## Accessories Apps: ##\n################\n"
+}
+dev(){
+        print_enter
+        printf "${Green}################ \n## Development Apps: ##\n################\n"
+}
+office(){
+        print_enter
+        printf "${Green}################ \n## Office Apps: ##\n################\n"
+}
+
 header(){
   clear
   printf "${Purple}$(print_line)"
@@ -85,7 +125,7 @@ mainmenu() {
         printf "3. Accessories Apps \n"
         printf "4. Development Apps \n"
         printf "5. Office Apps \n"
-        printf "6. System Apps \n"
+        #printf "6. System Apps \n"
         # "7. Graphics Apps \n";
         # "8. Internet Apps \n";
         # "9. Audio Apps \n";
@@ -96,6 +136,51 @@ mainmenu() {
         # "14. Cleaning Up \n";*/
         #   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
         #
+}
+desktops(){
+        printf "${Red}Caution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
+        printf "${White}1. KDE Plasma \t|\t7. i3wm\n"
+        printf "2. Xfce \t|\t8. Openbox\n"
+        printf "3. LXDE \n"
+        printf "4. LXQt \n"
+        printf "5. Mate \n"
+        printf "6. GNOME \n\n"
+        printf "d. Done(go back to main menu)\n"
+
+}
+accessories(){
+        printf "${White}1. Albert\n"
+        printf "2. Kitty \n"
+        printf "3. Cheese \n"
+        printf "4. Latte Dock \n"
+        printf "5. Galculator \n"
+        printf "6. Terminator \n\n"
+        printf "d. Done(go back to main menu)\n"
+
+}
+development(){
+        printf "${White}1. Atom\n"
+        printf "2. Gvim \n"
+        printf "3. Visual Studio Code ${Cyan}(flatpak)  \n"
+        printf "${White}4. JRE \n"
+        printf "5. JDK  \n"
+        printf "6. Clang \n"
+        printf "7. Codeblocks \n"
+        printf "8.  Arduino IDE ${Cyan}(flatpak)  \n"
+        printf "${White}9. Android Studio ${Cyan}(flatpak)  \n"
+        printf "${White}10. GitKraken ${Cyan}(flatpak)  \n"
+        printf "${White}11. NetBeans ${Cyan}(flatpak)  \n\n"
+        printf "${White}d. Done(go back to main menu)\n"
+
+}
+officemenu(){
+        printf "${White}1. Libreoffice\n"
+        printf "2. Libreffice (bin) ${BRed} \"RECOMMENDED\" \n"
+        printf "${White}3. Evince   \n"
+        printf "4. Ghostwriter \n"
+        printf "5. Openoffice  \n"
+        printf "\n PLEASE RECOMMEND ME SOME OFFICE APPS TO PUT IN HERE  \n\n"
+        printf "d. Done(go back to main menu)\n"
 }
 
 vga(){
