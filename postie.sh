@@ -56,32 +56,38 @@ while true ; do
   printf "5. Normal Desktop with SystemD \n"
   printf "6. Gnome Desktop with SystemD  \n"
   printf "7. Plasma Desktop with SystemD \n"
+  printf "8. Hardened 17.1 \n"
+  printf "9. Hardened 17.0 \n"
   read proceed
-  if [ $proceed == 1 ]; then
-    printf "${White}What is your init system \n1. openRC \n2. SystemD \n"
-    read proceed2
-    if [ $proceed2 == 1 ]; then
-      initsys=1
-    elif [ $proceed2 == 2 ]; then
-      initsys=2
-    fi
-  elif [ $proceed == 2 ]; then
-    eselect profile set default/linux/amd64/17.1/desktop
-  elif [ $proceed == 3 ]; then
-    eselect profile set default/linux/amd64/17.1/desktop/gnome
-  elif [ $proceed == 4 ]; then
-    eselect profile set default/linux/amd64/17.1/desktop/plasma
-  elif [ $proceed == 5 ]; then
-    eselect profile set default/linux/amd64/17.1/systemd
-  elif [ $proceed == 6 ]; then
-    eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd
-  elif [ $proceed == 7 ]; then
-    eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd
-  elif [ $proceed > 7 ]; then
-    printf "\n${Red}Invalid selection"
-    presskey
-    continue
-  fi
+  case "$proceed" in
+    1)  printf "${White}What is your init system \n1. openRC \n2. SystemD \n"
+        read proceed2
+        if [ $proceed2 == 1 ]; then
+          initsys=1
+        elif [ $proceed2 == 2 ]; then
+          initsys=2
+        fi
+    ;;
+    2)  eselect profile set default/linux/amd64/17.1/desktop
+    ;;
+    3)  eselect profile set default/linux/amd64/17.1/desktop/gnome
+    ;;
+    4)  eselect profile set default/linux/amd64/17.1/desktop/plasma
+    ;;
+    5)  eselect profile set default/linux/amd64/17.1/systemd
+    ;;
+    6)  eselect profile set default/linux/amd64/17.1/desktop/gnome/systemd
+    ;;
+    7)  eselect profile set default/linux/amd64/17.1/desktop/plasma/systemd
+    ;;
+    8)  eselect profile set default/linux/amd64/17.1/hardened
+    ;;
+    9)  eselect profile set default/linux/amd64/17.0/hardened
+    "*")  printf "\n${Red}Invalid selection"
+          presskey
+          continue
+    esac
+    ;;
   header
   printf "${White}Your selected profile is:\n"
   eselect profile show
