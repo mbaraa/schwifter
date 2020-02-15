@@ -83,11 +83,13 @@ while true ; do
     8)  eselect profile set default/linux/amd64/17.1/hardened
     ;;
     9)  eselect profile set default/linux/amd64/17.0/hardened
+    ;;
     "*")  printf "\n${Red}Invalid selection"
           presskey
           continue
+    ;;  
     esac
-    ;;
+    
   header
   printf "${White}Your selected profile is:\n"
   eselect profile show
