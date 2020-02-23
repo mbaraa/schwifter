@@ -571,7 +571,7 @@ elif [ $menu == 5 ]; then
       case "$proceed" in
         1)  USE="cups pdfimport gstreamer" emerge -qv libreoffice
         ;;
-        2)  USE="cups pdfimport gstreamer" emerge -qv libreoffice
+        2)  USE="cups pdfimport gstreamer" emerge -qv libreoffice-bin
         ;;
         3) emerge -qv evince
         ;;
@@ -588,5 +588,34 @@ elif [ $menu == 5 ]; then
         presskey
         break
         done
+#SYSTEMTOOLS
+elif [ $menu == 6 ]; then
+  while true ; do
+  header
+  sys
+  systemtoolsmenuemenu
+  read  proceed
+  case "$proceed" in
+    1)  emerge --unmerge iptables
+        USE="gui" emerge -qv net-firewalld/firewalld
+    ;;
+    2)  USE="(policykit) btrfs cryptsetup dmraid f2fs fat hfs jfs mdadm ntfs reiser4 reiserfs -test udf -wayland xfs" emerge -qv gparted
+    ;;
+    3) emerge -qv gnome-disk-utility
+    ;;
+    4) emerge -qv htop
+    ;;
+    5)  ##WINE BEYATCH
+        ##echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" >> /etc/portage/package.license
+        ##emerge -qv openoffice-bin
+    ;;
+    "d") break
+    ;;
+    "*") printf "${Red}Invalid Selection !\n"
+    ;;
+    esac
+    presskey
+    break
+    done
   fi #MENU's
 done

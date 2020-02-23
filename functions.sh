@@ -70,6 +70,58 @@ gnomereqs(){
 				echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora " >> /etc/portage/package.use/zz-autounmask
 }
 
+winereqs(){
+    unmask(">=media-libs/gstreamer-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-meta-1.14.3 abi_x86_32")
+    unmask(">=app-emulation/vkd3d-1.1 abi_x86_32")
+    unmask(">=media-libs/vulkan-loader-1.1.125 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-0.4.0-r1 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-keysyms-0.4.0-r1 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-wm-0.4.1-r2 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-cursor-0.1.3-r2 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-image-0.4.0-r1 abi_x86_32")
+    unmask(">=x11-libs/xcb-util-renderutil-0.3.9-r2 abi_x86_32")
+    unmask(">=media-libs/gst-plugins-base-1.14.5-r1 abi_x86_32")
+    unmask(">=media-libs/gst-plugins-good-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-a52dec-1.14.3 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-faad-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-dts-1.14.5 abi_x86_32")
+    unmask(">=media-libs/gst-plugins-ugly-1.14.3 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-dvdread-1.14.3 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-mpeg2dec-1.14.3 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-resindvd-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-flac-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-mpg123-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-pulse-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-x264-1.14.3 abi_x86_32")
+    unmask(">=media-libs/x264-0.0.20190903 abi_x86_32")
+    unmask(">=media-libs/libdvdnav-6.0.1 abi_x86_32")
+    unmask(">=media-libs/libdvdread-6.0.2 abi_x86_32")
+    unmask(">=media-libs/gst-plugins-bad-1.14.5 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-gtk-1.14.5 abi_x86_32")
+    unmask(">=dev-lang/orc-0.4.31 abi_x86_32")
+    unmask(">=x11-libs/gtk+-3.24.13 abi_x86_32")
+    unmask(">=media-libs/libepoxy-1.5.4 abi_x86_32")
+    unmask(">=app-accessibility/at-spi2-atk-2.34.0 abi_x86_32")
+    unmask(">=app-accessibility/at-spi2-core-2.34.0 abi_x86_32")
+    unmask(">=media-libs/libdvdcss-1.4.2 abi_x86_32")
+    unmask(">=media-libs/libmpeg2-0.5.1-r2 abi_x86_32")
+    unmask(">=media-libs/libdca-0.0.5-r3 abi_x86_32")
+    unmask(">=media-libs/faad2-2.9.0 abi_x86_32")
+    unmask(">=media-libs/a52dec-0.7.4-r7 abi_x86_32")
+    unmask(">=media-libs/libtheora-1.1.1-r2 abi_x86_32")
+    unmask(">=x11-libs/libXv-1.0.11-r1 abi_x86_32")
+    unmask(">=media-libs/graphene-1.8.6 abi_x86_32")
+    unmask(">=media-plugins/gst-plugins-cdparanoia-1.14.5 abi_x86_32")
+    unmask(">=media-sound/cdparanoia-3.10.2-r7 abi_x86_32")
+    unmask(">=virtual/krb5-0-r1 abi_x86_32")
+    unmask(">=app-crypt/mit-krb5-1.17.1 abi_x86_32")
+    unmask(">=sys-libs/e2fsprogs-libs-1.45.5 abi_x86_32")
+    unmask(">=sys-apps/keyutils-1.6.1 abi_x86_32")
+    unmask(">=dev-libs/libverto-0.3.1 abi_x86_32")
+    unmask(">=dev-libs/libev-4.31 abi_x86_32")
+
+}
 presetup(){
         print_enter
         printf "${Green}################ \n## Pre-Setup: ##\n################\n"
@@ -93,6 +145,10 @@ dev(){
 office(){
         print_enter
         printf "${Green}################ \n## Office Apps: ##\n################\n"
+}
+sys(){
+  print_enter
+  printf "${Green}################ \n# System Tools Apps: #\n################"
 }
 
 header(){
@@ -181,6 +237,16 @@ officemenu(){
         printf "5. Openoffice  \n"
         printf "\n PLEASE RECOMMEND ME SOME OFFICE APPS TO PUT IN HERE  \n\n"
         printf "d. Done(go back to main menu)\n"
+}
+systemtoolsmenu(){
+          printf "${White}1. Firewalld \n"
+          printf "${White}2. Gparted\n"
+          printf "${White}3. Gnome Disks \n"
+          printf "${White}4. Htop \n"
+          printf "${White}5. Wine \n"
+          printf "${White}6. Wine Staging ${BRed} \"Recommended\" \n"
+          printf "${White}7. VMware Workstation 12 ${BPurple}(overlays) \n\n"
+          printf "${White}d. Done(go back to main menu)\n"
 }
 
 timezones(){
