@@ -1,7 +1,7 @@
 # Let's get Schwifty :)
 - Configuring Gentoo linux has never been easier 😇.
 
-- Inspired form [Helmuthdu's](https://github.com/helmuthdu)   [AUI](https://github.com/helmuthdu/aui)
+- Inspired from [Helmuthdu's](https://github.com/helmuthdu)   [AUI](https://github.com/helmuthdu/aui)
 
 - Feel free to edit and use it as you want but tell me first :)
 
