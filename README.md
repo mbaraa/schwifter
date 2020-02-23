@@ -58,8 +58,8 @@
 
 E-Mail : baraa.masri@asu.edu.jo 
 
-Telegram : @Baraa_Da_Boss 
+Telegram : @baraa_c137 
 
-Twitter : [@Baraa_Da_Boss](https://twitter.com/Baraa_Da_Boss) 
+Twitter : [@baraa_c137](https://twitter.com/baraa_c137) 
 
 So I can try to make it better 😇.
