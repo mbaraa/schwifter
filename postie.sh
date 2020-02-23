@@ -23,17 +23,21 @@
 if [[ -f `pwd`/functions.sh ]]; then
   source ./functions.sh
 else
-  echo "missing file: functions.sh"
+  echo "missing file!: functions.sh"
   exit 1
 fi
 
-cat /etc/gentoo-release || print_non_gentoo || exit 1
+cat /etc/gentoo-release || (print_non_gentoo && exit 1)
 
 welcome
 presskey
 header
+print_enter
+printf "${Green}Select your time zone.... \n"
+timezones
+header
 print_enter && print_enter
-printf "Update Ebuild Repository? (y/n):   "
+printf "${White}Update Ebuild Repository? (y/n):   "
 read  proceed
 if [ "$proceed" == "y" ];then
   printf "${White}Updating Repos....\n"
@@ -87,9 +91,9 @@ while true ; do
     "*")  printf "\n${Red}Invalid selection"
           presskey
           continue
-    ;;  
+    ;;
     esac
-    
+
   header
   printf "${White}Your selected profile is:\n"
   eselect profile show
