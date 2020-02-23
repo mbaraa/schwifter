@@ -504,7 +504,7 @@ while true ; do
         ;;
         2)  emerge -qv kitty
         ;;
-        3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" >> /etc/portage/package.use/zz-autounmask
+        3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" >> /etc/portage/package.use/gst-plgins-base
             emerge -qv cheese
         ;;
         4) emerge -qv latte-dock
