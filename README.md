@@ -5,7 +5,7 @@
 
 - Feel free to edit and use it as you want but tell me first :)
 
-- Also there is a C++ version of it :) LOL
+- Also there was a C++ version of it, all merged togethe now, but if you want to see the C++ branch contact me :)
 
 ## Requirements:
 - A working internet connection
@@ -49,7 +49,7 @@
 
 - Install Office Apps
 
-- Install System Tools Apps (ONLY IN THE C++ BRANCH)
+- Install System Tools Apps
 
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
