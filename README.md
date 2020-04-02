@@ -5,7 +5,7 @@
 
 - Feel free to edit and use it as you want but tell me first :)
 
-- Also there was a C++ version of it, all merged togethe now, but if you want to see the C++ branch contact me :)
+- Also there was a C++ version of it, all merged together now, but if you want to see the C++ branch contact me :)
 
 ## Requirements:
 - A working internet connection
