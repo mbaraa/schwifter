@@ -27,6 +27,13 @@ else
   exit 1
 fi
 
+if [[ -f `pwd`/unmaskList.sh ]]; then
+  source ./unmaskList.sh
+else
+  echo "missing file!: unmaskList.sh"
+  exit 1
+fi
+
 cat /etc/gentoo-release || (print_non_gentoo && exit 1)
 
 welcome
@@ -220,8 +227,9 @@ done
 	header
 	presetup
 	printf "${White}Installing archive tools....\n\n"
-	echo ">=app-arch/rar-5.8.0_p20191205 RAR" >> /etc/portage/package.license
-	echo ">=app-arch/unrar-5.9.1 unRAR" >> /etc/portage/package.license
+  #licnse Here
+	echo ">=app-arch/rar-5.8.0_p20191205 RAR" | ./accepter
+	echo ">=app-arch/unrar-5.9.1 unRAR" | ./accepter
 	emerge -qv zip unzip unrar rar p7zip lzop cpio xz-utils --autounmask-write
 	presskey
 #AVAHI
@@ -350,8 +358,9 @@ while true ; do
       basicsetup
       printf "${White}Installing Xorg server (req. for desktop environment, GPU Drivers, Keyboard layouts ,etc.... \n"
       if [ $initsys == 1 ]; then
-        echo ">=media-fonts/font-bh-ttf-1.0.3-r1 bh-luxi"  >> /etc/portage/package.license
-        echo ">=media-fonts/font-bh-type1-1.0.3-r1 bh-luxi"  >> /etc/portage/package.license
+        #licnse Here
+        echo ">=media-fonts/font-bh-ttf-1.0.3-r1 bh-luxi" | ./accepter
+        echo ">=media-fonts/font-bh-type1-1.0.3-r1 bh-luxi" | ./accepter
         USE="dmx kdrive elogind -consolekit -systemd static-libs unwind xsecurity xorg xvfb " emerge -qv x11-base/xorg-server x11-base/xorg-x11 xorg-drivers
       elif [ initsys == 2 ]; then
         USE="dmx kdrive systemd -elogind -consolekit static-libs unwind xsecurity xorg xvfb " emerge -qv x11-base/xorg-server x11-base/xorg-x11 xorg-drivers
@@ -389,7 +398,8 @@ while true ; do
       				printf "\n${White}Install KDE apps? (y/n)    "
       				read proceed2
       				if [ "$proceed2" == "y" ]; then
-      					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " >> /etc/portage/package.licnse
+                #licnse Here
+      					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " | ./accepter
       					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
       				elif [ "$proceed2" == "n" ]; then
       					printf "${White}ok whatever \n"
@@ -436,6 +446,7 @@ while true ; do
       				presskey
 
       			elif [ $proceed == 6 ]; then
+              #licnse Here
       				gnomereqs
       				if [ $initsys == 1 ]; then
       					USE=" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" emerge -qv gnome-base/gnome;
@@ -504,7 +515,7 @@ while true ; do
         ;;
         2)  emerge -qv kitty
         ;;
-        3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" >> /etc/portage/package.use/gst-plgins-base
+        3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" | unmasker
             emerge -qv cheese
         ;;
         4) emerge -qv latte-dock
@@ -577,7 +588,7 @@ elif [ $menu == 5 ]; then
         ;;
         4) emerge -qv ghostwriter
         ;;
-        5) echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" >> /etc/portage/package.license
+        5) echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" | ./accepter
             emerge -qv openoffice-bin
         ;;
         "d") break
@@ -593,7 +604,7 @@ elif [ $menu == 6 ]; then
   while true ; do
   header
   sys
-  systemtoolsmenuemenu
+  systemtoolsmenu
   read  proceed
   case "$proceed" in
     1)  emerge --unmerge iptables
@@ -605,9 +616,18 @@ elif [ $menu == 6 ]; then
     ;;
     4) emerge -qv htop
     ;;
-    5)  ##WINE BEYATCH
-        ##echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" >> /etc/portage/package.license
-        ##emerge -qv openoffice-bin
+    5)  winereqs
+        emerge -qv wine-vanilla
+    ;;
+    6)  winereqs
+        emerge -qv wine-staging
+    ;;
+    7)  echo "stefantalpalaru" "https://github.com/stefantalpalaru/gentoo-overlay" | ./repoAdder
+        if [ $initsys == 1 ]; then
+          emerge USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" vmware-workstation -qv
+        elif [ $initsys == 2 ]; then
+          emerge USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" vmware-workstation -qv
+        fi
     ;;
     "d") break
     ;;

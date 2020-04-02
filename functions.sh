@@ -47,81 +47,19 @@ addrepo(){
   emerge --sync $reponame
 }
 
-gnomereqs(){
-        echo ">=media-plugins/grilo-plugins-0.3.9 tracker " >> /etc/portage/package.use/zz-autounmask
-				echo ">=media-libs/gegl-0.4.20 raw " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-libs/libgdata-0.17.11 gnome-online-accounts " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-libs/folks-0.12.1 eds " >> /etc/portage/package.use/zz-autounmask
-				echo ">=gnome-extra/evolution-data-server-3.32.5 vala " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/power_assert-1.1.5 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/rake-13.0.1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/json-2.3.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=virtual/rubygems-16 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27 " >> /etc/portage/package.use/zz-autounmask
-				echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora " >> /etc/portage/package.use/zz-autounmask
-}
+#addGitRepo(){
+#            mkdir /etc/portage/repos.conf
+#            touch /etc/portage/repos.conf/$1
+#            string step1 = (echo '[") + reponame + ("]' >> ") + repofile ,
+#            step2 = ("echo 'location = /usr/local/portage/") + reponame + ("' >> ") + repofile,
+#            step3 = ("echo 'sync-type = git' >> ") + repofile,
+#            step4 = ("echo 'priority = 50' >> ") + repofile,
+#            step5 = ("echo 'auto-sync = Yes' >> ") + repofile,
+#            step6 = ("echo 'sync-uri = ") + repourl + ("' >> ") + repofile,
+#            emerge --sync $1
+#
+#}
 
-winereqs(){
-    unmask(">=media-libs/gstreamer-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-meta-1.14.3 abi_x86_32")
-    unmask(">=app-emulation/vkd3d-1.1 abi_x86_32")
-    unmask(">=media-libs/vulkan-loader-1.1.125 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-0.4.0-r1 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-keysyms-0.4.0-r1 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-wm-0.4.1-r2 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-cursor-0.1.3-r2 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-image-0.4.0-r1 abi_x86_32")
-    unmask(">=x11-libs/xcb-util-renderutil-0.3.9-r2 abi_x86_32")
-    unmask(">=media-libs/gst-plugins-base-1.14.5-r1 abi_x86_32")
-    unmask(">=media-libs/gst-plugins-good-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-a52dec-1.14.3 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-faad-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-dts-1.14.5 abi_x86_32")
-    unmask(">=media-libs/gst-plugins-ugly-1.14.3 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-dvdread-1.14.3 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-mpeg2dec-1.14.3 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-resindvd-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-flac-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-mpg123-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-pulse-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-x264-1.14.3 abi_x86_32")
-    unmask(">=media-libs/x264-0.0.20190903 abi_x86_32")
-    unmask(">=media-libs/libdvdnav-6.0.1 abi_x86_32")
-    unmask(">=media-libs/libdvdread-6.0.2 abi_x86_32")
-    unmask(">=media-libs/gst-plugins-bad-1.14.5 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-gtk-1.14.5 abi_x86_32")
-    unmask(">=dev-lang/orc-0.4.31 abi_x86_32")
-    unmask(">=x11-libs/gtk+-3.24.13 abi_x86_32")
-    unmask(">=media-libs/libepoxy-1.5.4 abi_x86_32")
-    unmask(">=app-accessibility/at-spi2-atk-2.34.0 abi_x86_32")
-    unmask(">=app-accessibility/at-spi2-core-2.34.0 abi_x86_32")
-    unmask(">=media-libs/libdvdcss-1.4.2 abi_x86_32")
-    unmask(">=media-libs/libmpeg2-0.5.1-r2 abi_x86_32")
-    unmask(">=media-libs/libdca-0.0.5-r3 abi_x86_32")
-    unmask(">=media-libs/faad2-2.9.0 abi_x86_32")
-    unmask(">=media-libs/a52dec-0.7.4-r7 abi_x86_32")
-    unmask(">=media-libs/libtheora-1.1.1-r2 abi_x86_32")
-    unmask(">=x11-libs/libXv-1.0.11-r1 abi_x86_32")
-    unmask(">=media-libs/graphene-1.8.6 abi_x86_32")
-    unmask(">=media-plugins/gst-plugins-cdparanoia-1.14.5 abi_x86_32")
-    unmask(">=media-sound/cdparanoia-3.10.2-r7 abi_x86_32")
-    unmask(">=virtual/krb5-0-r1 abi_x86_32")
-    unmask(">=app-crypt/mit-krb5-1.17.1 abi_x86_32")
-    unmask(">=sys-libs/e2fsprogs-libs-1.45.5 abi_x86_32")
-    unmask(">=sys-apps/keyutils-1.6.1 abi_x86_32")
-    unmask(">=dev-libs/libverto-0.3.1 abi_x86_32")
-    unmask(">=dev-libs/libev-4.31 abi_x86_32")
-
-}
 presetup(){
         print_enter
         printf "${Green}################ \n## Pre-Setup: ##\n################\n"
@@ -181,7 +119,7 @@ mainmenu() {
         printf "3. Accessories Apps \n"
         printf "4. Development Apps \n"
         printf "5. Office Apps \n"
-        #printf "6. System Apps \n"
+        printf "6. System Apps \n"
         # "7. Graphics Apps \n";
         # "8. Internet Apps \n";
         # "9. Audio Apps \n";
@@ -245,7 +183,7 @@ systemtoolsmenu(){
           printf "${White}4. Htop \n"
           printf "${White}5. Wine \n"
           printf "${White}6. Wine Staging ${BRed} \"Recommended\" \n"
-          printf "${White}7. VMware Workstation 12 ${BPurple}(overlays) \n\n"
+          printf "${White}7. VMware Workstation 15 ${BPurple}(overlays) \n\n"
           printf "${White}d. Done(go back to main menu)\n"
 }
 
