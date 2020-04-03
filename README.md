@@ -7,7 +7,7 @@
 ## Requirements:
 - A working internet connection
 - A lot of time & patience
-  
+
 ## How to get it:
 #### using git:
 - Clone the repo `git clone https://github.com/baraa-almasri/schwifter`
@@ -21,7 +21,7 @@
 - as root
 - `cd schwifter && ./postie.sh`
 
-## What it does ? 
+## What it does ?
 ### Post: (So far)
 - Create & configure new user with sudo
 - Add custom repositories (overlays)
@@ -37,13 +37,10 @@
 - Install Graphics Apps
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
+- Contact me at the following for bug report:
 
-- Contact me at the following for bug report: 
-
-E-Mail : baraa.masri@asu.edu.jo 
-
-Telegram : @bebo_c137 
-
-Twitter : [@baraa_c137](https://twitter.com/baraa_c137) 
+E-Mail : baraa.masri@asu.edu.jo
+Telegram : @bebo_c137
+Twitter : [@baraa_c137](https://twitter.com/baraa_c137)
 
 So I can try to make it better 😇.

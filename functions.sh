@@ -1,5 +1,4 @@
 #!/bin/sh
-# COLORS {{{
     Bold=$(tput bold)
     Underline=$(tput sgr 0 1)
     Reset=$(tput sgr0)
@@ -92,6 +91,10 @@ graphics(){
   print_enter
   printf "${Green}################ \n# Graphics Apps: #\n################\n"
 }
+interN(){
+  print_enter
+  printf "${Green}################ \n# Internet Apps: #\n################\n"
+}
 
 header(){
   clear
@@ -125,7 +128,7 @@ mainmenu() {
         printf "5. Office Apps \n"
         printf "6. System Apps \n"
         printf "7. Graphics Apps \n"
-        # "8. Internet Apps \n";
+        printf "8. Internet Apps \n"
         # "9. Audio Apps \n";
         # "10. Video Apps \n";
         # "11. Games \n";
@@ -199,6 +202,37 @@ graphicsmenu(){
           printf "${White}6. Pencil\n"
           printf "${White}7. Shotwell\n\n"
           printf "${White}d. Done(go back to main menu)\n"
+}
+internetmenu(){
+          printf "${White}1. Browsers\n"
+          printf "${White}2. Download managers & file sharing\n"
+          printf "${White}3. Mail readers\n\n"
+          printf "${White}d. Done(go back to main menu)\n"
+}
+browsers(){
+          printf "${White}1. Firefox\n"
+          printf "${White}2. Firefox(bin)\n"
+          printf "${White}3. Opera\n"
+          printf "${White}4. Chrome\n"
+          printf "${White}5. Chromium \n"
+          printf "${White}6. Vivaldi\n"
+          printf "${White}7. Falkon\n\n"
+          printf "${White}d. Done\n"
+}
+download(){
+          printf "${White}1. qBittorrent\n"
+          printf "${White}2. uGet\n"
+          printf "${White}3. Dropbox(GUI) ${Cyan}(flatpak)\n"
+          printf "${white}4. Dropbox(CLI)\n"
+          printf "${White}5. KGet\n"
+          printf "${White}6. Youtube-dl\n"
+          printf "${White}7. Transmission\n\n"
+          printf "${White}d. Done\n"
+}
+mail(){
+          printf "${White}1. ThunderBird\n"
+          printf "${White}2. Evolution\n\n"
+          printf "${White}d. Done\n"
 }
 timezones(){
   printf "${BWhite}Choose your region:\n"
