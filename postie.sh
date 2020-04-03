@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ########################################################################################
 #Created by Baraa Al-Masri | E-Mail : baraa.masri@asu.edu.jo | Twitter : @Baraa_Da_Boss
 #Grab me a cup of coffee : https://www.paypal.me/baraamasri
@@ -20,6 +20,7 @@
 # Run this script after your first boot with gentoolinux (as root)
 ##
 
+##files and distro checks
 if [[ -f `pwd`/functions.sh ]]; then
   source ./functions.sh
 else
@@ -34,7 +35,7 @@ else
   exit 1
 fi
 
-cat /etc/gentoo-release || (print_non_gentoo && exit 1)
+cat /etc/gentoo-release || non_gentoo && exit 1
 
 welcome
 presskey
@@ -44,15 +45,13 @@ printf "${Green}Select your time zone.... \n"
 timezones
 header
 print_enter && print_enter
+
+#repos update prompt
 printf "${White}Update Ebuild Repository? (y/n):   "
 read  proceed
-if [ "$proceed" == "y" ];then
-  printf "${White}Updating Repos....\n"
-  emerge --sync
-  presskey
-fi
-#shorter LOL
-#(echo $proceed | grep y) && printf "${White}Updating Repos....\n" &&  emerge --sync
+(echo $proceed | grep 'y') && printf "${White}Updating Repos....\n" &&  emerge --sync && presskey
+
+#declare here use later
 declare -i initsys
 while true ; do
   header
@@ -99,6 +98,7 @@ while true ; do
           presskey
           continue
     ;;
+    #for future reference (;;) means break in other languages
     esac
 
   header
@@ -227,7 +227,7 @@ done
 	header
 	presetup
 	printf "${White}Installing archive tools....\n\n"
-  #licnse Here
+  #license Here
 	echo ">=app-arch/rar-5.8.0_p20191205 RAR" | ./accepter
 	echo ">=app-arch/unrar-5.9.1 unRAR" | ./accepter
 	emerge -qv zip unzip unrar rar p7zip lzop cpio xz-utils --autounmask-write
@@ -398,7 +398,7 @@ while true ; do
       				printf "\n${White}Install KDE apps? (y/n)    "
       				read proceed2
       				if [ "$proceed2" == "y" ]; then
-                #licnse Here
+                #license Here
       					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " | ./accepter
       					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
       				elif [ "$proceed2" == "n" ]; then
@@ -446,7 +446,7 @@ while true ; do
       				presskey
 
       			elif [ $proceed == 6 ]; then
-              #licnse Here
+              #license Here
       				gnomereqs
       				if [ $initsys == 1 ]; then
       					USE=" bluetooth mtp networkmanager gtk -qt5 elogind -consolekit -systemd" emerge -qv gnome-base/gnome;
@@ -637,5 +637,42 @@ elif [ $menu == 6 ]; then
     presskey
     break
     done
+#GRAPHICS APPS
+elif [ $menu == 7 ]; then
+  while true ; do
+  header
+  graphics
+  graphicsmenu
+  read  proceed
+  case "$proceed" in
+    1)  USE="aalib alsa gnome-keyring javascript jpeg2k lua postscript python" emerge -qv media-gfx/gimp
+    ;;
+    2)  USE="graphicsmagick imagemagick jemalloc jpeg nls openmp postscript spell" emerge -qv media-gfx/inkscape
+    ;;
+    3)  echo "media-gfx/blender python_single_target_python3_5 cycles boost openexr tiff openimageio player game-engine bullet fftw openal jemalloc opensubdiv openvdb openvdb-compression" | ./unmasker
+        echo "media-libs/opencv cuda opencl" | ./unmasker
+        echo "media-libs/openimageio opencv" | ./unmasker
+        echo "media-libs/opensubdiv cuda opencl ptex tbb" | ./unmasker
+        echo "media-gfx/blender ~amd64" | ./keyword
+        echo "sci-libs/ldl ~amd64" | ./keyword
+        USE="ffmpeg X opengl threads tiff openal jack sdl fftw openexr expat" emerge -qv --autounmask-write  ~media-gfx/blender-2.79
+    ;;
+    4)  flatpak install flathub org.blender.Blender
+    ;;
+    5)  emerge -qv media-gfx/mypaint
+    ;;
+    6)  emerge -qv media-gfx/pencil
+    ;;
+    7)  emerge -qv media-gfx/shotwell
+    ;;
+    "d") break
+    ;;
+    "*") printf "${Red}Invalid Selection !\n"
+    ;;
+    esac
+    presskey
+    break
+    done
+#INTERNET APPS....soon
   fi #MENU's
 done

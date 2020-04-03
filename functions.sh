@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # COLORS {{{
     Bold=$(tput bold)
     Underline=$(tput sgr 0 1)
@@ -86,7 +86,11 @@ office(){
 }
 sys(){
   print_enter
-  printf "${Green}################ \n# System Tools Apps: #\n################"
+  printf "${Green}################ \n# System Tools Apps: #\n################\n"
+}
+graphics(){
+  print_enter
+  printf "${Green}################ \n# Graphics Apps: #\n################\n"
 }
 
 header(){
@@ -120,7 +124,7 @@ mainmenu() {
         printf "4. Development Apps \n"
         printf "5. Office Apps \n"
         printf "6. System Apps \n"
-        # "7. Graphics Apps \n";
+        printf "7. Graphics Apps \n"
         # "8. Internet Apps \n";
         # "9. Audio Apps \n";
         # "10. Video Apps \n";
@@ -186,7 +190,16 @@ systemtoolsmenu(){
           printf "${White}7. VMware Workstation 15 ${BPurple}(overlays) \n\n"
           printf "${White}d. Done(go back to main menu)\n"
 }
-
+graphicsmenu(){
+          printf "${White}1. GIMP\n"
+          printf "${White}2. INKSCAPE\n"
+          printf "${White}3. Blender 2.79b\n"
+          printf "${White}4. Blender 2.82a ${Cyan}(flatpak)\n"
+          printf "${White}5. MyPaint \n"
+          printf "${White}6. Pencil\n"
+          printf "${White}7. Shotwell\n\n"
+          printf "${White}d. Done(go back to main menu)\n"
+}
 timezones(){
   printf "${BWhite}Choose your region:\n"
   printf "${White} 1.Africa\t2.America\t3.Antarctica\t4.Asia\n5.Atlantic\t6.Australia\t7.Europe\t8.Indian\t9.Pacific\n"

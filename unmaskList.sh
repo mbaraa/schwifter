@@ -1,3 +1,4 @@
+#!/bin/sh
 gnomereqs(){
 		    echo ">=media-plugins/grilo-plugins-0.3.9 tracker" | ./unmasker
         echo ">=media-libs/gegl-0.4.20 raw" | ./unmasker
