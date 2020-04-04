@@ -882,7 +882,8 @@ while true ; do
         gamesmenu
         read proceed
         case "$proceed" in
-          1) cp ./steamSet /etc/portage/sets/steam
+          1) mkdir -p /etc/portage/sets
+             cp ./configuration_files/steamSet /etc/portage/sets/steam
              emerge --noreplace @steam
              steamreqs
              emerge --changed-use --deep @world
