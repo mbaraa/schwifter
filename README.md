@@ -35,7 +35,10 @@
 - Install Office Apps
 - Install System Tools Apps
 - Install Graphics Apps
-- Install Internet Apps
+- Install Audio Apps
+- Install Video Apps
+- Install Games(steam)
+
 ## Contact me :)
 - If you liked the program 😇 grab me a cup of coffee @ [PayPal](https://www.paypal.me/baraamasri) if you didn't like it
 - Contact me at the following for bug report:

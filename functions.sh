@@ -59,6 +59,7 @@ addrepo(){
 #
 #}
 
+#headers
 presetup(){
         print_enter
         printf "${Green}################ \n## Pre-Setup: ##\n################\n"
@@ -95,6 +96,22 @@ interN(){
   print_enter
   printf "${Green}################ \n# Internet Apps: #\n################\n"
 }
+audio(){
+  print_enter
+  printf "${Green}################ \n# Audio Apps: #\n################\n"
+}
+video(){
+  print_enter
+  printf "${Green}################ \n# Video Apps: #\n################\n"
+}
+games(){
+  print_enter
+  printf "${Green}################ \n# Games: #\n################\n"
+}
+clean(){
+  print_enter
+  printf "${Green}################ \n# Cleaning Up: #\n################\n"
+}
 
 header(){
   clear
@@ -129,15 +146,17 @@ mainmenu() {
         printf "6. System Apps \n"
         printf "7. Graphics Apps \n"
         printf "8. Internet Apps \n"
-        # "9. Audio Apps \n";
-        # "10. Video Apps \n";
-        # "11. Games \n";
+        printf "9. Audio Apps \n"
+        printf "10. Video Apps \n"
+        printf "11. Games \n"
+        printf "12. Cleaning Up\n"
         # "12. Web server \n";
         # "13. Fonts \n";
         # "14. Cleaning Up \n";*/
         #   echo "17) $(mainmenu_item "${checklist[17]}" "Reconfigure System")"
         #
 }
+#menus, well duh
 desktops(){
         printf "${Red}Caution !!!! When Installing KDE make sure that you selected the plasma profile,\n also when installing Gnome make sure that you selected the gnome profile \n the rest can work with any profile . \n\n"
         printf "${White}1. KDE Plasma \t|\t7. i3wm\n"
@@ -206,7 +225,8 @@ graphicsmenu(){
 internetmenu(){
           printf "${White}1. Browsers\n"
           printf "${White}2. Download managers & file sharing\n"
-          printf "${White}3. Mail readers\n\n"
+          printf "${White}3. Mail readers\n"
+          printf "${White}4. IM & Video chatting\n\n"
           printf "${White}d. Done(go back to main menu)\n"
 }
 browsers(){
@@ -234,6 +254,56 @@ mail(){
           printf "${White}2. Evolution\n\n"
           printf "${White}d. Done\n"
 }
+IM(){
+  printf "${White}1. Microsoft Teams\n"
+  printf "${White}2. Telegram\n\n"
+  printf "d. Done\n"
+}
+audiomenu(){
+          printf "${White}1. Players\n"
+          printf "${White}2. Editors\n"
+          printf "${White}3. Codecs\n\n"
+          printf "${White}d. Done(go back to main menu)\n"
+}
+players(){
+          printf "${White}1. Clementine\n"
+          printf "${White}2. Rhythmbox\n"
+          printf "${White}3. Lollypop\n"
+          printf "${White}4. MOC (Music on console)\n\n"
+          printf "${White}d. Done\n"
+}
+editors(){
+          printf "${White}1. Audacity\n"
+          printf "${White}2. Easytag\n"
+          printf "${White}3. Guitarix\n\n"
+          printf "${White}d. Done\n"
+}
+
+vplayers(){
+          printf "${White}1. VLC\n"
+          printf "${White}2. Parole\n"
+          printf "${White}3. Kodi\n"
+          printf "${White}4. MPV\n\n"
+          printf "${White}d. Done\n"
+}
+veditors(){
+          printf "${White}Soon...."
+          printf "${White}1. NULL\n"
+          printf "${White}2. NULL\n"
+          printf "${White}3. NULL\n\n"
+          printf "${White}d. Done\n"
+}
+gamesmenu(){
+          printf "${White}1. Steam\n"
+          printf "${White}Well that's it\n\n"
+          printf "${White}d. Done(go back to main menu)\n"
+}
+cleanmenu(){
+          printf "${White}1. Delete Stage3 File\n"
+          printf "${White}2. Remove The Schwifter\n\n"
+          printf "${White}d. Done(go back to main menu)\n"
+}
+
 timezones(){
   printf "${BWhite}Choose your region:\n"
   printf "${White} 1.Africa\t2.America\t3.Antarctica\t4.Asia\n5.Atlantic\t6.Australia\t7.Europe\t8.Indian\t9.Pacific\n"

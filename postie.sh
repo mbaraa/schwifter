@@ -752,6 +752,21 @@ while true ; do
            esac
           done
         ;;
+        4) IM
+           while true ; do
+           read im
+           case "$im" in
+             1) flatpak install flathub com.microsoft.Teams
+             ;;
+             2) emerge -qv net-im/telegram-desktop-bin
+             ;;
+             "d") break
+             ;;
+             "*") printf "${Red}Invalid Selection !\n"
+             ;;
+           esac
+         done
+        ;;
         "d") break
         ;;
         "*") printf "${Red}Invalid Selection !\n"
@@ -760,8 +775,148 @@ while true ; do
         presskey
         break
       done
-      
-#AUDIOAPPS....soon
 
+#AUDIOAPPS
+    elif [ $menu == 9 ]; then
+      while true ; do
+      header
+      audio
+      audiomenu
+      read proceed
+      case "$proceed" in
+        1) while true ; do
+           players
+           read play
+           case "$play" in
+             1) emerge -qv media-sound/clementine
+             ;;
+             2) USE="cdr" emerge -qv media-sound/rhythmbox
+             ;;
+             3) emerge -qv media-sound/lollypop
+             ;;
+             4) emerge -qv media-sound/moc
+             ;;
+             "d") break
+             ;;
+             "*") printf "${Red}Invalid Selection !\n"
+             ;;
+           esac
+         done
+        ;;
+        2)  while true ; do
+            editors
+            read edit
+            case "$edit" in
+              1) USE="id3tag lv2 midi portmixer sbsms soundtouch twolame vamp vst" emerge -qv media-sound/audacity
+              ;;
+              2) emerge -qv media-sound/easytag
+              ;;
+              3) USE="classic metadata alsa dbus libsamplerate opus sndfile" emerge -qv media-sound/jack2
+                 emerge -qv media-sound/guitarix
+              ;;
+              "d") break
+              ;;
+              "*") printf "${Red}Invalid Selection !\n"
+              ;;
+            esac
+            done
+        ;;
+        3) printf "Installing codecs....\n"
+           emerge -qv media-libs/{gst-plugins-base,gst-plugins-good,gst-plugins-bad,gst-plugins-ugly}
+        ;;
+        "d") break
+        ;;
+        "*") printf "${Red}Invalid Selection !\n"
+        ;;
+        esac
+        presskey
+        break
+      done
+#VIDEOAPPS
+    elif [ $menu == 10 ]; then
+        while true ; do
+        header
+        video
+        audiomenu
+        read proceed
+        case "$proceed" in
+          1) while true ; do
+             vplayers
+             read play
+             case "$play" in
+               1) echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
+                  USE="opus +matroska" emerge -qv media-video/vlc
+               ;;
+               2) USE="libnotify taglib" emerge -qv media-video/parole
+               ;;
+               3) USE="bluray dvd libusb lirc udev" emerge -qv media-tv/kodi
+               ;;
+               4) emerge -qv media-video/mpv
+               ;;
+               "d") break
+               ;;
+               "*") printf "${Red}Invalid Selection !\n"
+               ;;
+             esac
+           done
+          ;;
+          2)  #such empty
+              veditors
+          ;;
+          3) printf "Installing codecs....\n"
+             emerge -qv media-libs/{libdvdnav,libdvdcss,cdrdao} media-video/{ffmpeg,ffmpegthumbnailer} app-cdr/cdrtools kde-apps/ffmpegthumbs
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
+          esac
+          presskey
+          break
+        done
+#GAMES
+    elif [ $menu == 11 ]; then
+        while true ; do
+        header
+        games
+        gamesmenu
+        read proceed
+        case "$proceed" in
+          1) cp ./steamSet /etc/portage/sets/steam
+             emerge --noreplace @steam
+             steamreqs
+             emerge --changed-use --deep @world
+             printf "\nshm        /dev/shm        tmpfs        nodev,nosuid,noexec  0 0" >> /etc/fstab
+             echo "steam-overlay" "https://github.com/anyc/steam-overlay.git" | ./auxPrograms/repoAdder
+             emerge -qv games-util/steam-meta
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
+          esac
+          presskey
+          break
+        done
+#CLEANINGUP
+    elif [ $menu == 12 ]; then
+        while true ; do
+        header
+        clean
+        cleanmenu
+        read proceed
+        case "$proceed" in
+          1) rm /stage3-*
+          ;;
+          2) rm -rf ~/schwifter
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
+          esac
+          presskey
+          break
+        done
   fi #MENU's
 done
