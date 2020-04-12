@@ -51,7 +51,7 @@ print_enter && print_enter
 #repos update prompt
 printf "${White}Update Ebuild Repository? (y/n):   "
 read  proceed
-(echo $proceed | grep 'y') && printf "${White}Updating Repos....\n" &&  emerge --sync && presskey
+(echo $proceed | grep 'y') && printf "${White}Updating Repos....\n" && emerge-webrsync && emerge --sync && presskey
 
 #declare here use later
 declare -i initsys
@@ -148,14 +148,13 @@ while true; do
        passwd $username
        chfn $username
        presskey
-       break
 
        #sudoing the user
        while true ; do
                printf "\n${White}Installing sudo \n"
        			   emerge -qvt sudo
 
-       			   cp ./configuration_files/sudoers /etc/sudoers
+       			   cp -f ./configuration_files/sudoers /etc/sudoers
        		     presskey
        			   declare -i sudo
        			   printf "\n${White}Choose sudo prompt type : \n"
@@ -174,6 +173,7 @@ while true; do
                  continue
                fi
              done
+	break	
 
     elif [ "$proceed" == "n" ]; then
        		printf "\n${White}Enter your current(already added) username :    "
@@ -261,6 +261,8 @@ done
 		printf "${Blue}Already enabled LOL \n"
 	fi
 	printf "\n${White}Installing Pulseaudio....\n\n"
+	#license HERE
+	echo ">=dev-qt/qtmultimedia-5.14.1-r1 widgets" | ./auxPrograms/unmasker
 	USE="pulseaudio X alsa-plugin elogind equalizer gconf gdbm glib native-headset ofono-headset realtime webrtc-aec alsa bluetooth caps dbus jack orc sox tcpd " emerge -qv pulseaudio
 	if [ $initsys == 1 ]; then
 		rc-update add pulseaudio default
@@ -316,10 +318,10 @@ while true ; do
     	header
     	basicsetup
     	printf "${White}Do you want to install flatpak? (y/n):  "
-    	read proceed
-    	if [ "$proceed2" == "y" ]; then
+    	read proceed2
+    	if [ $proceed2 == y ]; then
     		printf "${White}Installing Flatpak ....\n"
-        mkdir /etc/portage/repos.conf && cp ./configuration_files/flatpak-overlay.conf /etc/portage/repos.conf/
+        cp ./configuration_files/flatpak-overlay.conf /etc/portage/repos.conf/
         emerge --sync flatpak-overlay
     		emerge -qv sys-apps/flatpak
     		presskey
@@ -417,6 +419,10 @@ while true ; do
       						USE=" mtp -elogind -consolekit systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
 
       				fi
+				#licenseHERE
+				echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
+				emerge -qv xarchiver thunar-archive-plugin
+				emerge -qv nm-applet
       				su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " >> ~/.xinitrc"
       				presskey
 
@@ -490,8 +496,8 @@ while true ; do
       		dewm
       		printf "${White}Add bluetooth support? (y/n):    "
       		read proceed2
-      		if [ "$proceed2" == "y"]; then
-      			USE="bluetooth btpclient extra-tools midi user-session" emerge -qv bluez
+      		if [ $proceed2 == y ]; then
+      			USE="bluetooth btpclient midi user-session" emerge -qv bluez
       			if [ $initsys == 1 ]; then
       				rc-service bluetooth start
       				rc-update add bluetooth default
@@ -516,9 +522,10 @@ while true ; do
         case "$proceed" in
           1)  emerge -qv albert
           ;;
-          2)  emerge -qv kitty
+          2)  	echo "ACCEPT_KEYWORDS=\"~amd64\"" >> /etc/portage/make.conf
+	  	emerge -qv kitty
           ;;
-          3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" | unmasker
+          3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" | ./auxPrograms/unmasker
               emerge -qv cheese
           ;;
           4) emerge -qv latte-dock
@@ -533,7 +540,7 @@ while true ; do
           ;;
         esac
           presskey
-          break
+          
         done
 
 #DEVELOPMENT
@@ -572,7 +579,7 @@ while true ; do
               ;;
             esac
               presskey
-              break
+              
             done
 
 #OFFICE
@@ -600,7 +607,7 @@ while true ; do
             ;;
             esac
             presskey
-            break
+            
             done
 
 #SYSTEMTOOLS
@@ -639,7 +646,7 @@ while true ; do
         ;;
         esac
         presskey
-        break
+        
         done
 
 #GRAPHICS APPS
@@ -676,7 +683,7 @@ while true ; do
         ;;
         esac
         presskey
-        break
+        
         done
 
 #INTERNETAPPS
@@ -695,15 +702,19 @@ while true ; do
              ;;
              2) emerge -qv www-client/firefox-bin
              ;;
-             3) emerge -qv www-client/opera
+             3)	#licenseHERE
+	     	echo ">=www-client/opera-67.0.3575.137 OPERA-2014" | ./auxPrograms/accepter
+	     	emerge -qv www-client/opera
              ;;
              4) emerge -qv www-client/google-chrome
              ;;
              5) emerge -qv www-client/chromium
              ;;
-             6) emerge -qv www-client/falkon
+             6) #licenseHERE
+	     	echo ">=www-client/vivaldi-2.11.1811.52_p1 Vivaldi" | ./auxPrograms/accepter
+	     	emerge -qv www-client/vivaldi
              ;;
-             7) emerge -qv www-client/vivaldi
+             7) emerge -qv www-client/falcon
              ;;
              "d") break
              ;;
@@ -773,7 +784,7 @@ while true ; do
         ;;
         esac
         presskey
-        break
+        
       done
 
 #AUDIOAPPS
@@ -830,7 +841,7 @@ while true ; do
         ;;
         esac
         presskey
-        break
+        
       done
 #VIDEOAPPS
     elif [ $menu == 10 ]; then
@@ -872,7 +883,7 @@ while true ; do
           ;;
           esac
           presskey
-          break
+          
         done
 #GAMES
     elif [ $menu == 11 ]; then
@@ -897,7 +908,7 @@ while true ; do
           ;;
           esac
           presskey
-          break
+          
         done
 #CLEANINGUP
     elif [ $menu == 12 ]; then
@@ -917,7 +928,7 @@ while true ; do
           ;;
           esac
           presskey
-          break
+          
         done
   fi #MENU's
 done
