@@ -1,6 +1,6 @@
 #!/bin/sh
 gnomereqs(){
-		    echo ">=media-plugins/grilo-plugins-0.3.9 tracker" | ./auxPrograms/unmasker
+	echo ">=media-plugins/grilo-plugins-0.3.9 tracker" | ./auxPrograms/unmasker
         echo ">=media-libs/gegl-0.4.20 raw" | ./auxPrograms/unmasker
         echo ">=dev-libs/libgdata-0.17.11 gnome-online-accounts" | ./auxPrograms/unmasker
         echo ">=dev-libs/folks-0.12.1 eds" | ./auxPrograms/unmasker
@@ -71,98 +71,136 @@ winereqs(){
         echo ">=sys-apps/keyutils-1.6.1 abi_x86_32" | ./auxPrograms/unmasker
         echo ">=dev-libs/libverto-0.3.1 abi_x86_32" | ./auxPrograms/unmasker
         echo ">=dev-libs/libev-4.31 abi_x86_32" | ./auxPrograms/unmasker
+        
+	echo ">=x11-base/xcb-proto-1.14-r1 python_targets_python3_8 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/glu-9.0.1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=dev-libs/elfutils-0.179 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/libelf-3 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=app-arch/zstd-1.4.4-r4 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-apps/lm-sensors-3.6.0 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libglvnd-1.3.1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/glu-9.0-r2 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/opengl-7.0-r2 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/libcrypt-1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libjpeg-turbo-2.0.4 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/jpeg-0-r3 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=virtual/libintl-0-r2 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=dev-libs/libgpg-error-1.37 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/opus-1.3.1-r1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libvorbis-1.3.6-r1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libogg-1.3.4 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/flac-1.3.3 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-libs/cracklib-2.9.7 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-libs/db-6.0.35-r2 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-libs/pam-1.3.1_p20200128-r1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-plugins/alsa-plugins-1.2.2 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=net-libs/libasyncns-0.8-r4 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-apps/tcp-wrappers-7.6.28 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-libs/libcap-2.33 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=x11-libs/libXtst-1.2.3-r1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=x11-libs/libICE-1.0.10 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=x11-libs/libSM-1.2.3 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libsndfile-1.0.29_pre2_p20191024 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=app-emulation/wine-gecko-2.47.1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=dev-libs/libxslt-1.1.33-r1 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=sys-libs/libunwind-1.4.0 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/libsdl2-2.0.12-r1 haptic abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-sound/pulseaudio-13.0 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-sound/mpg123-1.25.13 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/lcms-2.9 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=dev-libs/libgcrypt-1.8.5 abi_x86_32" | ./auxPrograms/unmasker
+	echo ">=media-libs/alsa-lib-1.2.2 abi_x86_32" | ./auxPrograms/unmasker
 }
 steamreqs(){
-				echo "app-arch/bzip2 abi_x86_32"
-				echo "dev-db/sqlite abi_x86_32"
-				echo "dev-libs/atk abi_x86_32"
-				echo "dev-libs/expat abi_x86_32"
-				echo "dev-libs/fribidi abi_x86_32"
-				echo "dev-libs/glib abi_x86_32"
-				echo "dev-libs/gmp abi_x86_32"
-				echo "dev-libs/icu abi_x86_32"
-				echo "dev-libs/libcroco abi_x86_32"
-				echo "dev-libs/libffi abi_x86_32"
-				echo "dev-libs/libpcre abi_x86_32"
-				echo "dev-libs/libpthread-stubs abi_x86_32"
-				echo "dev-libs/libtasn1 abi_x86_32"
-				echo "dev-libs/libunistring abi_x86_32"
-				echo "dev-libs/libxml2 abi_x86_32"
-				echo "dev-libs/lzo abi_x86_32"
-				echo "dev-libs/nettle abi_x86_32"
-				echo "dev-libs/nspr abi_x86_32"
-				echo "dev-libs/nss abi_x86_32"
-				echo "dev-libs/openssl abi_x86_32"
-				echo "dev-libs/wayland abi_x86_32"
-				echo "dev-util/pkgconfig abi_x86_32"
-				echo "gnome-base/librsvg abi_x86_32"
-				echo "media-gfx/graphite2 abi_x86_32"
-				echo "media-libs/fontconfig abi_x86_32"
-				echo "media-libs/freetype abi_x86_32"
-				echo "media-libs/harfbuzz abi_x86_32"
-				echo "media-libs/libpng abi_x86_32"
-				echo "media-libs/mesa abi_x86_32"
-				echo "media-libs/openal abi_x86_32"
-				echo "media-libs/tiff abi_x86_32"
-				echo "net-dns/libidn2 abi_x86_32"
-				echo "net-libs/gnutls abi_x86_32"
-				echo "net-misc/curl abi_x86_32"
-				echo "net-nds/openldap abi_x86_32"
-				echo "net-print/cups abi_x86_32"
-				echo "sys-apps/attr abi_x86_32"
-				echo "sys-apps/dbus abi_x86_32"
-				echo "sys-apps/util-linux abi_x86_32"
-				echo "sys-devel/gettext abi_x86_32"
-				echo "sys-devel/llvm abi_x86_32"
-				echo "sys-fs/udev abi_x86_32"
-				echo "sys-libs/binutils-libs abi_x86_32"
-				echo "sys-libs/gpm abi_x86_32"
-				echo "sys-libs/ncurses abi_x86_32"
-				echo "sys-libs/readline abi_x86_32"
-				echo "sys-libs/zlib abi_x86_32"
-				echo "virtual/libffi abi_x86_32"
-				echo "virtual/libiconv abi_x86_32"
-				echo "virtual/libudev abi_x86_32"
-				echo "virtual/pkgconfig abi_x86_32"
-				echo "x11-libs/cairo abi_x86_32"
-				echo "x11-libs/gdk-pixbuf abi_x86_32"
-				echo "x11-libs/gtk+:2 abi_x86_32"
-				echo "x11-libs/libX11 abi_x86_32"
-				echo "x11-libs/libXScrnSaver abi_x86_32"
-				echo "x11-libs/libXau abi_x86_32"
-				echo "x11-libs/libXcomposite abi_x86_32"
-				echo "x11-libs/libXcursor abi_x86_32"
-				echo "x11-libs/libXdamage abi_x86_32"
-				echo "x11-libs/libXdmcp abi_x86_32"
-				echo "x11-libs/libXext abi_x86_32"
-				echo "x11-libs/libXfixes abi_x86_32"
-				echo "x11-libs/libXft abi_x86_32"
-				echo "x11-libs/libXi abi_x86_32"
-				echo "x11-libs/libXinerama abi_x86_32"
-				echo "x11-libs/libXrandr abi_x86_32"
-				echo "x11-libs/libXrender abi_x86_32"
-				echo "x11-libs/libXxf86vm abi_x86_32"
-				echo "x11-libs/libdrm abi_x86_32"
-				echo "x11-libs/libpciaccess abi_x86_32"
-				echo "x11-libs/libxcb abi_x86_32"
-				echo "x11-libs/libxshmfence abi_x86_32"
-				echo "x11-libs/pango abi_x86_32"
-				echo "x11-libs/pixman abi_x86_32"
-				echo "x11-proto/damageproto abi_x86_32"
-				echo "x11-proto/dri2proto abi_x86_32"
-				echo "x11-proto/dri3proto abi_x86_32"
-				echo "x11-proto/fixesproto abi_x86_32"
-				echo "x11-proto/glproto abi_x86_32"
-				echo "x11-proto/inputproto abi_x86_32"
-				echo "x11-proto/kbproto abi_x86_32"
-				echo "x11-proto/presentproto abi_x86_32"
-				echo "x11-proto/xcb-proto abi_x86_32"
-				echo "x11-proto/xextproto abi_x86_32"
-				echo "x11-proto/xf86bigfontproto abi_x86_32"
-				echo "x11-proto/xf86driproto abi_x86_32"
-				echo "x11-proto/xf86vidmodeproto abi_x86_32"
-				echo "x11-proto/xproto abi_x86_32"
-
-				echo "sys-fs/eudev abi_x86_32"
+	echo "app-arch/bzip2 abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-db/sqlite abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/atk abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/expat abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/fribidi abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/glib abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/gmp abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/icu abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libcroco abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libffi abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libpcre abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libpthread-stubs abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libtasn1 abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libunistring abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/libxml2 abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/lzo abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/nettle abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/nspr abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/nss abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/openssl abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-libs/wayland abi_x86_32" | ./auxPrograms/unmasker
+	echo "dev-util/pkgconfig abi_x86_32" | ./auxPrograms/unmasker
+	echo "gnome-base/librsvg abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-gfx/graphite2 abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/fontconfig abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/freetype abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/harfbuzz abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/libpng abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/mesa abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/openal abi_x86_32" | ./auxPrograms/unmasker
+	echo "media-libs/tiff abi_x86_32" | ./auxPrograms/unmasker
+	echo "net-dns/libidn2 abi_x86_32" | ./auxPrograms/unmasker
+	echo "net-libs/gnutls abi_x86_32" | ./auxPrograms/unmasker
+	echo "net-misc/curl abi_x86_32" | ./auxPrograms/unmasker
+	echo "net-nds/openldap abi_x86_32" | ./auxPrograms/unmasker
+	echo "net-print/cups abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-apps/attr abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-apps/dbus abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-apps/util-linux abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-devel/gettext abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-devel/llvm abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-fs/udev abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-libs/binutils-libs abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-libs/gpm abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-libs/ncurses abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-libs/readline abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-libs/zlib abi_x86_32" | ./auxPrograms/unmasker
+	echo "virtual/libffi abi_x86_32" | ./auxPrograms/unmasker
+	echo "virtual/libiconv abi_x86_32" | ./auxPrograms/unmasker
+	echo "virtual/libudev abi_x86_32" | ./auxPrograms/unmasker
+	echo "virtual/pkgconfig abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/cairo abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/gdk-pixbuf abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/gtk+:2 abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libX11 abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXScrnSaver abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXau abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXcomposite abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXcursor abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXdamage abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXdmcp abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXext abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXfixes abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXft abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXi abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXinerama abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXrandr abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXrender abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libXxf86vm abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libdrm abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libpciaccess abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libxcb abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/libxshmfence abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/pango abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-libs/pixman abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/damageproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/dri2proto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/dri3proto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/fixesproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/glproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/inputproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/kbproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/presentproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xcb-proto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xextproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xf86bigfontproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xf86driproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xf86vidmodeproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "x11-proto/xproto abi_x86_32" | ./auxPrograms/unmasker
+	echo "sys-fs/eudev abi_x86_32"  | ./auxPrograms/unmasker
 
 }

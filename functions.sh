@@ -137,7 +137,7 @@ welcome(){
   printf "${Cyan}$(print_line)"
 }
 mainmenu() {
-        printf "${White}\n################################ \n## Main Menu: ## \n################################\n\n"
+        printf "${White}\n##################### \n## Main Menu:\n username: $1 ## \n#####################\n\n"
         printf "1. Basic Setup \n"
         printf "2. Desktop Environments | Window Managers \n"
         printf "3. Accessories Apps \n"
@@ -179,8 +179,8 @@ accessories(){
 
 }
 development(){
-        printf "${White}1. Atom\n"
-        printf "2. Gvim \n"
+        printf "${White}1. Atom ${Cyan}(flatpak)\n"
+        printf "${White}2. Gvim \n"
         printf "3. Visual Studio Code ${Cyan}(flatpak)  \n"
         printf "${White}4. JRE \n"
         printf "5. JDK  \n"
@@ -189,8 +189,9 @@ development(){
         printf "8.  Arduino IDE ${Cyan}(flatpak)  \n"
         printf "${White}9. Android Studio ${Cyan}(flatpak)  \n"
         printf "${White}10. GitKraken ${Cyan}(flatpak)  \n"
-        printf "${White}11. NetBeans ${Cyan}(flatpak)  \n\n"
-        printf "${White}d. Done(go back to main menu)\n"
+        printf "${White}11. NetBeans ${Cyan}(flatpak)  \n"
+        printf "${White}12. Qt Creator \n\n" 
+	printf "${White}d. Done(go back to main menu)\n"
 
 }
 officemenu(){

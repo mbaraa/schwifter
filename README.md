@@ -22,7 +22,7 @@
 - `cd schwifter && ./postie.sh`
 
 ## What it does ?
-### Post: (So far)
+### Post:
 - Create & configure new user with sudo
 - Add custom repositories (overlays)
 - Install flatpak package manager

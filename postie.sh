@@ -122,7 +122,7 @@ done #Loop's
 printf "${White}Update system with the selected profile? (y/n):    "
 read proceed
 if [ "$proceed" == "y" ]; then
-	emerge --ask --verbose --update --deep --newuse @world
+	emerge -qav --update --deep --newuse @world
 	presskey
 elif [ "$proceed" == "n" ]; then
 	presskey
@@ -173,7 +173,7 @@ while true; do
                  continue
                fi
              done
-	break	
+	break
 
     elif [ "$proceed" == "n" ]; then
        		printf "\n${White}Enter your current(already added) username :    "
@@ -282,7 +282,7 @@ done
 #MAIN-MENU
 while true ; do
 	header
-	mainmenu
+	mainmenu $username
 	declare -i menu
 	read menu
 	#BASICSETUP
@@ -324,6 +324,7 @@ while true ; do
         cp ./configuration_files/flatpak-overlay.conf /etc/portage/repos.conf/
         emerge --sync flatpak-overlay
     		emerge -qv sys-apps/flatpak
+		flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     		presskey
     	fi
 #SSH
@@ -409,7 +410,7 @@ while true ; do
       					printf "${White}ok whatever \n"
       				fi
 
-      				su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 2 ]; then
@@ -423,7 +424,8 @@ while true ; do
 				echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
 				emerge -qv xarchiver thunar-archive-plugin
 				emerge -qv nm-applet
-      				su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " >> ~/.xinitrc"
+				emerge -qv xfce4-screenshooter
+      				su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 3 ]; then
@@ -432,7 +434,7 @@ while true ; do
       				elif [ $initsys == 2 ]; then
       						USE=" mtp -elogind -consolekit systemd" emerge -qv lxde-meta
       				fi
-      				su $username -c "echo "exec dbus-launch --exit-with-session startlxde " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session startlxde " > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 4 ]; then
@@ -441,7 +443,7 @@ while true ; do
       				elif [ initsys == 2 ]; then
       					USE=" mtp elogind -consolekit -systemd" emerge -qv lxqt-meta
       				fi
-      				su $username -c "echo "exec dbus-launch --exit-with-session startlxqt " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session startlxqt " > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 5 ]; then
@@ -450,7 +452,7 @@ while true ; do
       				elif [ $initsys == 2 ]; then
       					USE="base bluetooth extras notification mtp themes -elogind -consolekit systemd" emerge -qv --changed-use mate-base/mate caja-extensions
       				fi
-      				su $username -c "echo "exec dbus-launch --exit-with-session mate-session " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session mate-session " > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 6 ]; then
@@ -461,7 +463,7 @@ while true ; do
       					rc-update add openrc-settingsd default
       				elif [ initsys == 2 ]; then
       					USE=" bluetooth mtp networkmanager gtk -qt5 -elogind -consolekit systemd" emerge -qv gnome-base/gnome
-      				su $username -c "echo "exec dbus-launch --exit-with-session gnome-session  " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session gnome-session  " > ~/.xinitrc"
       				presskey
               fi
 
@@ -476,12 +478,12 @@ while true ; do
       				fi
       				emerge -qv $i3wm
       				USE=" xinerama filecaps libnotify" emerge -qv dmenu i3status i3lock thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
-      				su $username -c "echo "exec dbus-launch --exit-with-session i3 " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session i3 " > ~/.xinitrc"
       				presskey
 
       			elif [ $proceed == 8 ]; then
       				USE="branding imlib session xdg libnotify" emerge -qv openbox thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
-      				su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " >> .xinitrc"
+      				su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " > ~/.xinitrc"
       				presskey
 
       			elif [ "$proceed" == "d" ]; then
@@ -505,12 +507,19 @@ while true ; do
       				systemctl start bluetooth
       				systemctl enable bluetooth
       			fi
-          fi
-      		if [ $initsys == 1 ]; then
+
+			if [ $proceed != 1 ] || [ $proceed != 6 ]; then
+				emerge -qav blueman
+			fi
+          	fi
+
+		if [ $initsys == 1 ]; then
                   rc-update add elogind boot
-      		fi
+
       		rc-update add dbus default
-      		gpasswd -a $username plugdev
+      		fi
+		emerge -qv pavucontrol
+		gpasswd -a $username plugdev
 
 #ACCESSORIES
   	 elif [ $menu == 3 ]; then
@@ -540,7 +549,7 @@ while true ; do
           ;;
         esac
           presskey
-          
+
         done
 
 #DEVELOPMENT
@@ -551,7 +560,7 @@ while true ; do
           	development
             read  proceed
             case "$proceed" in
-              1)  emerge -qv atom
+              1) flatpak install flathub io.atom.Atom
               ;;
               2)  emerge -qv gvim
               ;;
@@ -573,13 +582,19 @@ while true ; do
               ;;
               11) flatpak install flathub org.apache.netbeans
               ;;
-              "d") break
+              12) #licenseHERE
+	      	  echo ">=dev-qt/qtwebengine-5.14.2 widgets" | ./auxPrograms/unmasker
+	      	  echo ">=dev-qt/qtwebchannel-5.14.2 qml" | ./auxPrograms/unmasker
+		  USE="jumbo-build" emerge -qv qt-creator qtdeclarative
+
+	      ;;
+	      "d") break
               ;;
               "*") printf "${Red}Invalid Selection !\n"
               ;;
             esac
               presskey
-              
+
             done
 
 #OFFICE
@@ -590,9 +605,11 @@ while true ; do
           officemenu
           read  proceed
           case "$proceed" in
-            1)  USE="cups pdfimport gstreamer" emerge -qv libreoffice
+            1)  emerge --unmerge icu
+	    	USE="cups pdfimport gstreamer" emerge -qv libreoffice
             ;;
-            2)  USE="cups pdfimport gstreamer" emerge -qv libreoffice-bin
+            2)  emerge --unmerge icu
+	    	USE="cups pdfimport gstreamer" emerge -qv libreoffice-bin
             ;;
             3) emerge -qv evince
             ;;
@@ -607,7 +624,7 @@ while true ; do
             ;;
             esac
             presskey
-            
+
             done
 
 #SYSTEMTOOLS
@@ -627,11 +644,13 @@ while true ; do
         ;;
         4) emerge -qv htop
         ;;
-        5)  winereqs
-            emerge -qv wine-vanilla
+        5)  steamreqs
+	    winereqs
+            USE="-gpm" emerge -qv wine-vanilla
         ;;
-        6)  winereqs
-            emerge -qv wine-staging
+        6)  steamreqs
+	    winereqs
+            USE="-gpm" emerge -qv wine-staging
         ;;
         7)  echo "stefantalpalaru" "https://github.com/stefantalpalaru/gentoo-overlay" | ./auxPrograms/repoAdder
             if [ $initsys == 1 ]; then
@@ -646,7 +665,7 @@ while true ; do
         ;;
         esac
         presskey
-        
+
         done
 
 #GRAPHICS APPS
@@ -683,7 +702,7 @@ while true ; do
         ;;
         esac
         presskey
-        
+
         done
 
 #INTERNETAPPS
@@ -784,7 +803,7 @@ while true ; do
         ;;
         esac
         presskey
-        
+
       done
 
 #AUDIOAPPS
@@ -841,7 +860,7 @@ while true ; do
         ;;
         esac
         presskey
-        
+
       done
 #VIDEOAPPS
     elif [ $menu == 10 ]; then
@@ -855,8 +874,11 @@ while true ; do
              vplayers
              read play
              case "$play" in
-               1) echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
-                  USE="opus +matroska" emerge -qv media-video/vlc
+
+               1) #licenseHERE
+	       	  echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
+                  echo ">=sys-libs/zlib-1.2.11-r2 minizip" | ./auxPrograms/unmasker
+		  USE="opus matroska" emerge -qv media-video/vlc
                ;;
                2) USE="libnotify taglib" emerge -qv media-video/parole
                ;;
@@ -875,7 +897,7 @@ while true ; do
               veditors
           ;;
           3) printf "Installing codecs....\n"
-             emerge -qv media-libs/{libdvdnav,libdvdcss,cdrdao} media-video/{ffmpeg,ffmpegthumbnailer} app-cdr/cdrtools kde-apps/ffmpegthumbs
+             emerge -qv media-libs/{libdvdnav,libdvdcss} media-video/{ffmpeg,ffmpegthumbnailer} app-cdr/cdrtools kde-apps/ffmpegthumbs
           ;;
           "d") break
           ;;
@@ -883,7 +905,7 @@ while true ; do
           ;;
           esac
           presskey
-          
+
         done
 #GAMES
     elif [ $menu == 11 ]; then
@@ -900,7 +922,10 @@ while true ; do
              emerge --changed-use --deep @world
              printf "\nshm        /dev/shm        tmpfs        nodev,nosuid,noexec  0 0" >> /etc/fstab
              echo "steam-overlay" "https://github.com/anyc/steam-overlay.git" | ./auxPrograms/repoAdder
-             emerge -qv games-util/steam-meta
+             echo ">=games-util/steam-launcher-1.0.0.62 ValveSteamLicense" | ./auxPrograms/accepter
+	     echo ">=dev-util/pkgconf-1.6.3 abi_x86_32" | ./auxPrograms/unmasker
+	     emerge --unmerge icu
+	     emerge -qv games-util/steam-meta
           ;;
           "d") break
           ;;
@@ -908,7 +933,7 @@ while true ; do
           ;;
           esac
           presskey
-          
+
         done
 #CLEANINGUP
     elif [ $menu == 12 ]; then
@@ -928,7 +953,7 @@ while true ; do
           ;;
           esac
           presskey
-          
+
         done
   fi #MENU's
 done
