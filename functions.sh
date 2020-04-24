@@ -190,7 +190,8 @@ development(){
         printf "${White}9. Android Studio ${Cyan}(flatpak)  \n"
         printf "${White}10. GitKraken ${Cyan}(flatpak)  \n"
         printf "${White}11. NetBeans ${Cyan}(flatpak)  \n"
-        printf "${White}12. Qt Creator \n\n" 
+        printf "${White}12. Qt Creator \n"
+        printf "13. Android Platform Tools \n\n"
 	printf "${White}d. Done(go back to main menu)\n"
 
 }
@@ -210,7 +211,9 @@ systemtoolsmenu(){
           printf "${White}4. Htop \n"
           printf "${White}5. Wine \n"
           printf "${White}6. Wine Staging ${BRed} \"Recommended\" \n"
-          printf "${White}7. VMware Workstation 15 ${BPurple}(overlays) \n\n"
+          printf "${White}7. VMware Workstation 15 ${BPurple}(overlays) \n"
+          printf "${White}8. Android SDK manager\n"
+          printf "9. Android NDK\n\n"
           printf "${White}d. Done(go back to main menu)\n"
 }
 graphicsmenu(){
@@ -227,7 +230,9 @@ internetmenu(){
           printf "${White}1. Browsers\n"
           printf "${White}2. Download managers & file sharing\n"
           printf "${White}3. Mail readers\n"
-          printf "${White}4. IM & Video chatting\n\n"
+          printf "${White}4. IM & Video chatting\n"
+          printf "${White}5. Desktop sharing\n\n"
+          #>=net-misc/anydesk-5.5.1 AnyDesk-TOS
           printf "${White}d. Done(go back to main menu)\n"
 }
 browsers(){
@@ -256,9 +261,14 @@ mail(){
           printf "${White}d. Done\n"
 }
 IM(){
-  printf "${White}1. Microsoft Teams\n"
-  printf "${White}2. Telegram\n\n"
-  printf "d. Done\n"
+          printf "${White}1. Microsoft Teams\n"
+          printf "${White}2. Telegram\n\n"
+          printf "d. Done\n"
+}
+desktopSharing(){
+          printf "${White}1. Anydesk\n"
+          printf "${White}2. Teamviewer\n\n"
+          printf "${White}d. Done\n"
 }
 audiomenu(){
           printf "${White}1. Players\n"

@@ -275,7 +275,7 @@ done
 	header
 	presetup
 	printf "\n${White}Installing Some Useful Filesystems....\n\n";
-	emerge -qv ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso
+	USE="fuse" emerge -qv ntfs3g dosfstools f2fs-tools sys-fs/fuse exfat-utils autofs fuse-exfat mtpfs fuseiso sys-fs/android-file-transfer-linux
 	presskey
 
 
@@ -564,7 +564,7 @@ while true ; do
               ;;
               2)  emerge -qv gvim
               ;;
-              3) flatpak install flathub com.visualstudio.code
+              3)  emerge -qv dev-util/android-studio
               ;;
               4) emerge -qv jre
               ;;
@@ -583,12 +583,14 @@ while true ; do
               11) flatpak install flathub org.apache.netbeans
               ;;
               12) #licenseHERE
-	      	  echo ">=dev-qt/qtwebengine-5.14.2 widgets" | ./auxPrograms/unmasker
-	      	  echo ">=dev-qt/qtwebchannel-5.14.2 qml" | ./auxPrograms/unmasker
-		  USE="jumbo-build" emerge -qv qt-creator qtdeclarative
-
-	      ;;
-	      "d") break
+                  #https://download.qt.io/official_releases/qtcreator/4.11/4.11.2/qt-creator-opensource-linux-x86_64-4.11.2.run
+                  echo ">=dev-qt/qtwebengine-5.14.2 widgets" | ./auxPrograms/unmasker
+	      	        echo ">=dev-qt/qtwebchannel-5.14.2 qml" | ./auxPrograms/unmasker
+		              USE="jumbo-build" emerge -qv qt-creator qtdeclarative
+	            ;;
+              13) emerge -qv dev-util/android-tools
+              ;;
+	            "d") break
               ;;
               "*") printf "${Red}Invalid Selection !\n"
               ;;
@@ -653,11 +655,22 @@ while true ; do
             USE="-gpm" emerge -qv wine-staging
         ;;
         7)  echo "stefantalpalaru" "https://github.com/stefantalpalaru/gentoo-overlay" | ./auxPrograms/repoAdder
+            echo ">=media-plugins/alsa-plugins-1.2.2 speex" | ./auxPrograms/unmasker
+            echo ">=media-libs/speex-1.2.0-r1 abi_x86_32" | ./auxPrograms/unmasker
+            echo ">=media-libs/speexdsp-1.2_rc3-r2 abi_x86_32" | ./auxPrograms/unmasker
+            echo ">=app-emulation/vmware-workstation-15.5.2.15785246 vmware" | ./auxPrograms/accepter
             if [ $initsys == 1 ]; then
-              emerge USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" vmware-workstation -qv
+              USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
             elif [ $initsys == 2 ]; then
-              emerge USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" vmware-workstation -qv
+              USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
             fi
+        ;;
+        8) echo ">=sys-libs/ncurses-compat-6.1_p20190609 abi_x86_32" | ./auxPrograms/unmasker
+           echo ">=dev-util/android-sdk-update-manager-24.4.1 android" | ./auxPrograms/accepter
+           emerge -qv dev-util/android-sdk-update-manager
+        ;;
+        9) echo ">=dev-util/android-ndk-18 android" | ./auxPrograms/accepter
+           emerge -qv android-ndk
         ;;
         "d") break
         ;;
@@ -797,6 +810,47 @@ while true ; do
            esac
          done
         ;;
+        5) desktopSharing
+          while true ; do
+            read desktop
+            case "$desktop" in
+              1) #licenseHERE
+                echo ">=net-misc/anydesk-5.5.1 AnyDesk-TOS" | ./auxPrograms/accepter
+                emerge -qv anydesk
+              ;;
+              2) #licenseHERE
+                echo ">=dev-ruby/minitest-5.14.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/kpeg-1.1.0-r1 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/racc-1.4.16-r1 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=virtual/ruby-ssl-11 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/net-telnet-0.2.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/power_assert-1.2.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/rake-13.0.1 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/test-unit-3.3.5 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/xmlrpc-0.3.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/bundler-2.1.4 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/did_you_mean-1.4.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/json-2.3.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/rdoc-6.2.0 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=virtual/rubygems-16 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=dev-ruby/rubygems-3.1.2 ruby_targets_ruby27" | ./auxPrograms/unmasker
+                echo ">=net-misc/teamviewer-15.4.4445 TeamViewer" | ./auxPrograms/accepter
+                emerge -qv teamviewer
+                if [ $initsys == 1 ]; then
+                  rc-update add teamviewerd default
+                  rc-service teamviewerd start
+                else
+                  systemctl start teamviewerd.service
+                  systemctl enable teamviewerd.service
+                fi
+                ;;
+                "d") break
+                ;;
+                "*") printf "${Red}Invalid Selection !\n"
+                ;;
+              esac
+            done
+          ;;
         "d") break
         ;;
         "*") printf "${Red}Invalid Selection !\n"
@@ -945,7 +999,7 @@ while true ; do
         case "$proceed" in
           1) rm /stage3-*
           ;;
-          2) rm -rf ~/schwifter
+          2) rm -rf `pwd`schwifter
           ;;
           "d") break
           ;;
