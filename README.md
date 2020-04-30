@@ -2,7 +2,7 @@
 - Configuring Gentoo linux has never been easier 😇.
 - Inspired from [Helmuthdu's](https://github.com/helmuthdu)   [AUI](https://github.com/helmuthdu/aui)
 - Feel free to edit and use it as you want but tell me first :)
-- Also there was a C++ version of it, all merged together now, but if you want to see the C++ branch contact me :)
+- Also there is a C++ version of it see the [cpp](https://github.com/baraa-almasri/schwifter/tree/cpp) branch
 
 ## Requirements:
 - A working internet connection
