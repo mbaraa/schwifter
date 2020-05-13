@@ -298,8 +298,7 @@ vplayers(){
           printf "${White}d. Done\n"
 }
 veditors(){
-          printf "${White}Soon...."
-          printf "${White}1. NULL\n"
+          printf "${White}1. KDE N Live\n"
           printf "${White}2. NULL\n"
           printf "${White}3. NULL\n\n"
           printf "${White}d. Done\n"

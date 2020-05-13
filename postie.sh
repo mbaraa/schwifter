@@ -383,6 +383,19 @@ while true ; do
       basicsetup
       printf "${White}Installing CUPS (aka Commom Unix Printing System ) ....\n"
       USE=" X acl dbus static-libs zeroconf " emerge -qv net-print/cups
+      #LicenseHERE
+      echo "net-fs/samba cups" | ./auxPrograms/unmasker
+      emerge -qv net-fs/samba
+      gpasswd -a $username lp
+      gpasswd -a $username lpadmin
+      
+      if [ $initsys == 1 ]; then
+        rc-service cupsd start
+        rc-update add cupsd default 
+      else 
+        systemctl enable cups.service
+        systemctl start cups.service
+      fi
       presskey
       continue
 
@@ -693,13 +706,14 @@ while true ; do
         ;;
         2)  USE="graphicsmagick imagemagick jemalloc jpeg nls openmp postscript spell" emerge -qv media-gfx/inkscape
         ;;
-        3)  echo "media-gfx/blender python_single_target_python3_5 cycles boost openexr tiff openimageio player game-engine bullet fftw openal jemalloc opensubdiv openvdb openvdb-compression" | ./unmasker
-            echo "media-libs/opencv cuda opencl" | ./auxPrograms/unmasker
+        3)  echo "media-gfx/blender cycles boost openexr tiff openimageio player game-engine bullet fftw openal jemalloc opensubdiv openvdb openvdb-compression" | ./auxPrograms/unmasker
+            echo "media-libs/opencv opencl" | ./auxPrograms/unmasker
             echo "media-libs/openimageio opencv" | ./auxPrograms/unmasker
-            echo "media-libs/opensubdiv cuda opencl ptex tbb" | ./auxPrograms/unmasker
+            echo "media-libs/opensubdiv opencl ptex tbb" | ./auxPrograms/unmasker
             echo "media-gfx/blender ~amd64" | ./auxPrograms/keyword
             echo "sci-libs/ldl ~amd64" | ./auxPrograms/keyword
-            USE="ffmpeg X opengl threads tiff openal jack sdl fftw openexr expat" emerge -qv --autounmask-write  ~media-gfx/blender-2.79
+
+	    emerge -qv media-gfx/blender
         ;;
         4)  flatpak install flathub org.blender.Blender
         ;;
@@ -932,7 +946,7 @@ while true ; do
                1) #licenseHERE
 	       	  echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
                   echo ">=sys-libs/zlib-1.2.11-r2 minizip" | ./auxPrograms/unmasker
-		  USE="opus matroska" emerge -qv media-video/vlc
+		              USE="opus matroska" emerge -qv media-video/vlc
                ;;
                2) USE="libnotify taglib" emerge -qv media-video/parole
                ;;
@@ -947,9 +961,21 @@ while true ; do
              esac
            done
           ;;
-          2)  #such empty
+          2)  while true; do
               veditors
+              read edit
+              case "$edit" in
+                1) echo ">=media-libs/mlt-6.20.0-r1 ffmpeg frei0r melt kdenlive" | ./auxPrograms/unmasker
+                   emerge -qv kdenlive
+                ;;
+                "d") break
+                ;;
+                "*") printf "${Red}Invalid Selection !\n"
+                ;;
+              esac
+            done
           ;;
+
           3) printf "Installing codecs....\n"
              emerge -qv media-libs/{libdvdnav,libdvdcss} media-video/{ffmpeg,ffmpegthumbnailer} app-cdr/cdrtools kde-apps/ffmpegthumbs
           ;;
