@@ -223,6 +223,7 @@ system; it is up to the author/donor to decide if he or she is willing
 to distribute software through any other system and a licensee cannot
 impose that choice.
 
+
 This section is intended to make thoroughly clear what is believed to
 be a consequence of the rest of this License.
 
