@@ -20,7 +20,7 @@
 # Run this script after your first boot with gentoolinux (as root)
 ##
 
-##files and distro checks
+# files check
 if [[ -f `pwd`/functions.sh ]]; then
   source ./functions.sh
 else
@@ -34,27 +34,37 @@ else
   echo "missing file!: unmaskList.sh"
   exit 1
 fi
-
+# distro check
 cat /etc/gentoo-release || (non_gentoo && exit 1)
-
+# Making auxilary programs executable
 chmod +x ./auxPrograms/*
-
+# welcome message
 welcome
+# superuser checker
+iam=`whoami`
+if [ "$iam" != "root" ]; then
+  printf "\n\n${BRed}upa no superuser detected\n\n"
+  exit 1
+fi
+# move on
 presskey
 header
 print_enter
+# Timezone select
 printf "${Green}Select your time zone.... \n"
 timezones
 header
+# Hmm
 print_enter && print_enter
 
-#repos update prompt
+# repos update prompt
 printf "${White}Update Ebuild Repository? (y/n):   "
 read  proceed
 (echo $proceed | grep 'y') && printf "${White}Updating Repos....\n" && emerge-webrsync && emerge --sync && presskey
 
-#declare here use later
+# declare here use later
 declare -i initsys
+# profile select
 while true ; do
   header
   printf "${White}Current profile: \n"
@@ -100,9 +110,9 @@ while true ; do
           presskey
           continue
     ;;
-    #for future reference (;;) means break in other languages
+    # for future reads (;;) means break in other languages
     esac
-
+  # final profile checks
   header
   printf "${White}Your selected profile is:\n"
   eselect profile show
@@ -118,7 +128,7 @@ while true ; do
     continue
   fi
 done #Loop's
-
+# update system prompt
 printf "${White}Update system with the selected profile? (y/n):    "
 read proceed
 if [ "$proceed" == "y" ]; then
@@ -144,12 +154,12 @@ while true; do
 	     printf "\n${White}Enter username: "
 	     read username
        useradd -m -G wheel,audio,video,portage,adm,disk,tty -s /bin/bash $username
-       #user details
+       # user details & password
        passwd $username
        chfn $username
        presskey
 
-       #sudoing the user
+       # sudoing the user
        while true ; do
                printf "\n${White}Installing sudo \n"
        			   emerge -qvt sudo
@@ -173,7 +183,7 @@ while true; do
                  continue
                fi
              done
-	break
+	           break
 
     elif [ "$proceed" == "n" ]; then
        		printf "\n${White}Enter your current(already added) username :    "
@@ -194,21 +204,26 @@ while true ; do
 	  printf "${White}\nSelect a default editor: \n\n"
 		printf "\n${White}1.vim \n2.vi \n3.nano \n4.emacs \n"
     read  editor
+    # vim
 		if [ $editor == 1 ]; then
 			emerge -qvt vim ctags
 		  su $username -c "echo export EDITOR='vim' >> ~/.bashrc"
 			break
+    # vi
 		elif [ $editor == 2 ]; then
 			su $username -c "echo export EDITOR='vi' >> ~/.bashrc"
 			break
+    # nano
 		elif [ $editor == 3 ]; then
 			emerge -qvt nano
 			su $username -c "echo export EDITOR='nano' >> ~/.bashrc"
 			break
+    # emacs
 		elif [ $editor == 4 ]; then
 			emerge -qvt emacs
 			su $username -c "echo export EDITOR='emacs' >> ~/.bashrc"
 			break
+    # hmm
 		else
       printf "\n${Red}Invalid selection !!!! \n"
       presskey
@@ -388,11 +403,11 @@ while true ; do
       emerge -qv net-fs/samba
       gpasswd -a $username lp
       gpasswd -a $username lpadmin
-      
+
       if [ $initsys == 1 ]; then
         rc-service cupsd start
-        rc-update add cupsd default 
-      else 
+        rc-update add cupsd default
+      else
         systemctl enable cups.service
         systemctl start cups.service
       fi
@@ -406,6 +421,7 @@ while true ; do
       			dewm
       			desktops
       			read proceed
+            #KDE
       			if [ $proceed == 1 ]; then
       				if [ $initsys == 1 ]; then
       				 	USE="bluetooth browser-integration elogind -consolekit -systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " emerge -qv kde-plasma/plasma-meta
@@ -425,7 +441,7 @@ while true ; do
 
       				su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" > ~/.xinitrc"
       				presskey
-
+            #Xfce
       			elif [ $proceed == 2 ]; then
       				if [ $initsys == 1 ]; then
       						USE=" mtp elogind -consolekit -systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
@@ -433,41 +449,45 @@ while true ; do
       						USE=" mtp -elogind -consolekit systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
 
       				fi
-				#licenseHERE
-				echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
-				emerge -qv xarchiver thunar-archive-plugin
-				emerge -qv nm-applet
-				emerge -qv xfce4-screenshooter
-      				su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " > ~/.xinitrc"
-      				presskey
-
+				    #licenseHERE
+    				echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
+    				emerge -qv xarchiver thunar-archive-plugin
+    				emerge -qv nm-applet
+    				emerge -qv xfce4-screenshooter
+            USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
+      			su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " > ~/.xinitrc"
+      			presskey
+            #LXDE
       			elif [ $proceed == 3 ]; then
       				if [ $initsys == 1 ]; then
       						USE=" mtp elogind -consolekit -systemd" emerge -qv lxde-meta
       				elif [ $initsys == 2 ]; then
       						USE=" mtp -elogind -consolekit systemd" emerge -qv lxde-meta
       				fi
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
       				su $username -c "echo "exec dbus-launch --exit-with-session startlxde " > ~/.xinitrc"
       				presskey
-
+            #LXQt
       			elif [ $proceed == 4 ]; then
       				if [ $initsys == 1 ]; then
       					USE=" mtp elogind -consolekit -systemd" emerge -qv lxqt-meta
       				elif [ initsys == 2 ]; then
-      					USE=" mtp elogind -consolekit -systemd" emerge -qv lxqt-meta
+      					USE=" mtp elogind -consolekit systemd" emerge -qv lxqt-meta
       				fi
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
       				su $username -c "echo "exec dbus-launch --exit-with-session startlxqt " > ~/.xinitrc"
       				presskey
-
+            #Mate
       			elif [ $proceed == 5 ]; then
       				if [ $initsys == 1 ]; then
       					USE="base bluetooth extras notification mtp themes elogind -consolekit -systemd" emerge -qv --changed-use mate-base/mate caja-extensions
       				elif [ $initsys == 2 ]; then
       					USE="base bluetooth extras notification mtp themes -elogind -consolekit systemd" emerge -qv --changed-use mate-base/mate caja-extensions
       				fi
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
       				su $username -c "echo "exec dbus-launch --exit-with-session mate-session " > ~/.xinitrc"
       				presskey
-
+            #Gnome
       			elif [ $proceed == 6 ]; then
               #license Here
       				gnomereqs
@@ -479,7 +499,7 @@ while true ; do
       				su $username -c "echo "exec dbus-launch --exit-with-session gnome-session  " > ~/.xinitrc"
       				presskey
               fi
-
+            #i3-wm
       			elif [ $proceed == 7 ]; then
       				printf "${White}Do you want i3-gaps? (y/n):    "
       				read proceed2
@@ -491,14 +511,16 @@ while true ; do
       				fi
       				emerge -qv $i3wm
       				USE=" xinerama filecaps libnotify" emerge -qv dmenu i3status i3lock thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
-      				su $username -c "echo "exec dbus-launch --exit-with-session i3 " > ~/.xinitrc"
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
+              su $username -c "echo "exec dbus-launch --exit-with-session i3 " > ~/.xinitrc"
       				presskey
-
+            #Obenbox
       			elif [ $proceed == 8 ]; then
       				USE="branding imlib session xdg libnotify" emerge -qv openbox thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
-      				su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " > ~/.xinitrc"
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
+              su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " > ~/.xinitrc"
       				presskey
-
+            #Hmm
       			elif [ "$proceed" == "d" ]; then
       				break
       			else
