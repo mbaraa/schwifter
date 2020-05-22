@@ -931,7 +931,8 @@ while true ; do
               ;;
               2) emerge -qv media-sound/easytag
               ;;
-              3) USE="classic metadata alsa dbus libsamplerate opus sndfile" emerge -qv media-sound/jack2
+              3) echo ">=media-libs/opus-1.3.1-r1 custom-modes" | ./auxPrograms/unmasker
+		 USE="classic metadata alsa dbus libsamplerate opus sndfile" emerge -qv media-sound/jack2
                  emerge -qv media-sound/guitarix
               ;;
               "d") break
