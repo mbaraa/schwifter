@@ -428,13 +428,16 @@ while true ; do
       				elif [ $initsys == 2 ]; then
       				 	USE="bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " emerge -qv kde-plasma/plasma-meta
       				fi
-
+				clear
+				header
+				dewm
       				printf "\n${White}Install KDE apps? (y/n)    "
       				read proceed2
       				if [ "$proceed2" == "y" ]; then
                 #license Here
       					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " | ./auxPrograms/accepter
-      					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
+      					echo ">=dev-qt/qtmultimedia-5.14.2 gstreamer" | ./auxPrograms/unmasker
+					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
       				elif [ "$proceed2" == "n" ]; then
       					printf "${White}ok whatever \n"
       				fi
