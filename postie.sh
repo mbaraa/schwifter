@@ -428,22 +428,24 @@ while true ; do
       				elif [ $initsys == 2 ]; then
       				 	USE="bluetooth browser-integration -elogind -consolekit systemd desktop-portal networkmanager display-manager gtk legacy-systray pam pm-utils pulseaudio sddm wallpapers mtp jumbo-build " emerge -qv kde-plasma/plasma-meta
       				fi
-				clear
-				header
-				dewm
-      				printf "\n${White}Install KDE apps? (y/n)    "
-      				read proceed2
-      				if [ "$proceed2" == "y" ]; then
-                #license Here
-      					echo ">=media-libs/faac-1.29.9.2 MPEG-4 " | ./auxPrograms/accepter
-      					echo ">=dev-qt/qtmultimedia-5.14.2 gstreamer" | ./auxPrograms/unmasker
-					USE="mtp" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
-      				elif [ "$proceed2" == "n" ]; then
-      					printf "${White}ok whatever \n"
-      				fi
+              clear
+              header
+              dewm
+              printf "\n${White}Install KDE apps? (y/n)    "
+              read proceed2
 
-      				su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" > ~/.xinitrc"
-      				presskey
+              if [ "$proceed2" == "y" ]; then
+                #license Here
+                echo ">=media-libs/faac-1.29.9.2 MPEG-4 " | ./auxPrograms/accepter
+                echo ">=dev-qt/qtmultimedia-5.14.2 gstreamer" | ./auxPrograms/unmasker
+                USE="mtp jumbo-build" emerge -qv kde{accessibility,admin,core,graphics,multimedia,network,utils}-meta
+      			  elif [ "$proceed2" == "n" ]; then
+      				  printf "${White}ok whatever \n"
+      			  fi
+
+      			  su $username -c "echo "exec dbus-launch --exit-with-session startplasma-x11" > ~/.xinitrc"
+      			  presskey
+
             #Xfce
       			elif [ $proceed == 2 ]; then
       				if [ $initsys == 1 ]; then
@@ -452,14 +454,15 @@ while true ; do
       						USE=" mtp -elogind -consolekit systemd" emerge -qv xfce4-meta xfce4-notifyd xfce4-volumed-pulse
 
       				fi
-				    #licenseHERE
-    				echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
-    				emerge -qv xarchiver thunar-archive-plugin
-    				emerge -qv nm-applet
-    				emerge -qv xfce4-screenshooter
-            USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
-      			su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " > ~/.xinitrc"
-      			presskey
+              #licenseHERE
+              echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
+    				  emerge -qv xarchiver thunar-archive-plugin
+              emerge -qv nm-applet
+              emerge -qv xfce4-screenshooter
+              USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
+              su $username -c "echo "exec dbus-launch --exit-with-session xfce4-session " > ~/.xinitrc"
+              presskey
+
             #LXDE
       			elif [ $proceed == 3 ]; then
       				if [ $initsys == 1 ]; then
@@ -468,8 +471,9 @@ while true ; do
       						USE=" mtp -elogind -consolekit systemd" emerge -qv lxde-meta
       				fi
               USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
-      				su $username -c "echo "exec dbus-launch --exit-with-session startlxde " > ~/.xinitrc"
-      				presskey
+              su $username -c "echo "exec dbus-launch --exit-with-session startlxde " > ~/.xinitrc"
+              presskey
+
             #LXQt
       			elif [ $proceed == 4 ]; then
       				if [ $initsys == 1 ]; then
@@ -480,6 +484,7 @@ while true ; do
               USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
       				su $username -c "echo "exec dbus-launch --exit-with-session startlxqt " > ~/.xinitrc"
       				presskey
+
             #Mate
       			elif [ $proceed == 5 ]; then
       				if [ $initsys == 1 ]; then
@@ -490,6 +495,7 @@ while true ; do
               USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
       				su $username -c "echo "exec dbus-launch --exit-with-session mate-session " > ~/.xinitrc"
       				presskey
+
             #Gnome
       			elif [ $proceed == 6 ]; then
               #license Here
@@ -502,6 +508,7 @@ while true ; do
       				su $username -c "echo "exec dbus-launch --exit-with-session gnome-session  " > ~/.xinitrc"
       				presskey
               fi
+
             #i3-wm
       			elif [ $proceed == 7 ]; then
       				printf "${White}Do you want i3-gaps? (y/n):    "
@@ -517,12 +524,14 @@ while true ; do
               USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
               su $username -c "echo "exec dbus-launch --exit-with-session i3 " > ~/.xinitrc"
       				presskey
+
             #Obenbox
       			elif [ $proceed == 8 ]; then
       				USE="branding imlib session xdg libnotify" emerge -qv openbox thunar arandr lxappearance nitrogen dmenu pavucontrol volumeicon xarchiver
               USE="pulseaudio vlc" emerge -qv kde-apps/gwenview
               su $username -c "echo "exec dbus-launch --exit-with-session openbox-session " > ~/.xinitrc"
       				presskey
+
             #Hmm
       			elif [ "$proceed" == "d" ]; then
       				break
@@ -532,6 +541,8 @@ while true ; do
                       continue
             fi
       		done #Loop's
+
+          # necessary procedures :)
       		header
       		dewm
       		printf "${White}Add bluetooth support? (y/n):    "
@@ -544,20 +555,22 @@ while true ; do
       			elif [ $initsys == 2 ]; then
       				systemctl start bluetooth
       				systemctl enable bluetooth
-      			fi
+      			fi # init's
 
-			if [ $proceed != 1 ] || [ $proceed != 6 ]; then
-				emerge -qav blueman
-			fi
-          	fi
+            if [ $proceed != 1 ] || [ $proceed != 6 ]; then
+              emerge -qav blueman
+            fi # DE chaecker's
+      		fi # main choice's
 
-		if [ $initsys == 1 ]; then
-                  rc-update add elogind boot
+          if [ $initsys == 1 ]; then
+            rc-update add elogind boot
+            rc-update add dbus default
+      		fi # openrc procedures
 
-      		rc-update add dbus default
-      		fi
-		emerge -qv pavucontrol
-		gpasswd -a $username plugdev
+          # final touches
+          emerge -qv pavucontrol
+          emerge -qv xdg-user-dirs-gtk
+          gpasswd -a $username plugdev
 
 #ACCESSORIES
   	 elif [ $menu == 3 ]; then
@@ -570,7 +583,7 @@ while true ; do
           1)  emerge -qv albert
           ;;
           2)  	echo "ACCEPT_KEYWORDS=\"~amd64\"" >> /etc/portage/make.conf
-	  	emerge -qv kitty
+	  	          emerge -qv kitty
           ;;
           3) echo ">=media-libs/gst-plugins-base-1.14.5-r1 theora" | ./auxPrograms/unmasker
               emerge -qv cheese
@@ -640,214 +653,216 @@ while true ; do
 #OFFICE
     elif [ $menu == 5 ]; then
           while true ; do
-          header
-          office
-          officemenu
-          read  proceed
-          case "$proceed" in
-            1)  emerge --unmerge icu
-	    	USE="cups pdfimport gstreamer" emerge -qv libreoffice
-            ;;
-            2)  emerge --unmerge icu
-	    	USE="cups pdfimport gstreamer" emerge -qv libreoffice-bin
-            ;;
-            3) emerge -qv evince
-            ;;
-            4) emerge -qv ghostwriter
-            ;;
-            5) echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" | ./auxPrograms/accepter
-                emerge -qv openoffice-bin
-            ;;
-            "d") break
-            ;;
-            "*") printf "${Red}Invalid Selection !\n"
-            ;;
-            esac
-            presskey
+            header
+            office
+            officemenu
+            read  proceed
+            case "$proceed" in
+              1)  emerge --unmerge icu
+	    	          USE="cups pdfimport gstreamer" emerge -qv libreoffice
+              ;;
+              2)  emerge --unmerge icu
+	    	          USE="cups pdfimport gstreamer" emerge -qv libreoffice-bin
+              ;;
+              3) emerge -qv evince
+              ;;
+              4) emerge -qv ghostwriter
+              ;;
+              5) echo ">=app-office/wps-office-11.1.0.9080 WPS-EULA" | ./auxPrograms/accepter
+                 emerge -qv openoffice-bin
+              ;;
+              "d") break
+              ;;
+              "*") printf "${Red}Invalid Selection !\n"
+              ;;
+              esac
+              presskey
 
-            done
+          done # Loop's
 
 #SYSTEMTOOLS
     elif [ $menu == 6 ]; then
       while true ; do
-      header
-      sys
-      systemtoolsmenu
-      read  proceed
-      case "$proceed" in
-        1)  emerge --unmerge iptables
-            USE="gui" emerge -qv net-firewalld/firewalld
-        ;;
-        2)  USE="(policykit) btrfs cryptsetup dmraid f2fs fat hfs jfs mdadm ntfs reiser4 reiserfs -test udf -wayland xfs" emerge -qv gparted
-        ;;
-        3) emerge -qv gnome-disk-utility
-        ;;
-        4) emerge -qv htop
-        ;;
-        5)  steamreqs
-	    winereqs
-            USE="-gpm" emerge -qv wine-vanilla
-        ;;
-        6)  steamreqs
-	    winereqs
-            USE="-gpm" emerge -qv wine-staging
-        ;;
-        7)  echo "stefantalpalaru" "https://github.com/stefantalpalaru/gentoo-overlay" | ./auxPrograms/repoAdder
-            echo ">=media-plugins/alsa-plugins-1.2.2 speex" | ./auxPrograms/unmasker
-            echo ">=media-libs/speex-1.2.0-r1 abi_x86_32" | ./auxPrograms/unmasker
-            echo ">=media-libs/speexdsp-1.2_rc3-r2 abi_x86_32" | ./auxPrograms/unmasker
-            echo ">=app-emulation/vmware-workstation-15.5.2.15785246 vmware" | ./auxPrograms/accepter
-            if [ $initsys == 1 ]; then
-              USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
-            elif [ $initsys == 2 ]; then
-              USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
-            fi
-        ;;
-        8) echo ">=sys-libs/ncurses-compat-6.1_p20190609 abi_x86_32" | ./auxPrograms/unmasker
-           echo ">=dev-util/android-sdk-update-manager-24.4.1 android" | ./auxPrograms/accepter
-           emerge -qv dev-util/android-sdk-update-manager
-        ;;
-        9) echo ">=dev-util/android-ndk-18 android" | ./auxPrograms/accepter
-           emerge -qv android-ndk
-        ;;
-        "d") break
-        ;;
-        "*") printf "${Red}Invalid Selection !\n"
-        ;;
+        header
+        sys
+        systemtoolsmenu
+        read  proceed
+        case "$proceed" in
+          1)  emerge --unmerge iptables
+              USE="gui" emerge -qv net-firewalld/firewalld
+          ;;
+          2)  USE="(policykit) btrfs cryptsetup dmraid f2fs fat hfs jfs mdadm ntfs reiser4 reiserfs -test udf -wayland xfs" emerge -qv gparted
+          ;;
+          3) emerge -qv gnome-disk-utility
+          ;;
+          4) emerge -qv htop
+          ;;
+          5)  # for media codecs
+              steamreqs
+	            winereqs
+              USE="-gpm" emerge -qv wine-vanilla
+          ;;
+          6)  # for media codecs
+              steamreqs
+	            winereqs
+              USE="-gpm" emerge -qv wine-staging
+          ;;
+          7)  echo "stefantalpalaru" "https://github.com/stefantalpalaru/gentoo-overlay" | ./auxPrograms/repoAdder
+              echo ">=media-plugins/alsa-plugins-1.2.2 speex" | ./auxPrograms/unmasker
+              echo ">=media-libs/speex-1.2.0-r1 abi_x86_32" | ./auxPrograms/unmasker
+              echo ">=media-libs/speexdsp-1.2_rc3-r2 abi_x86_32" | ./auxPrograms/unmasker
+              echo ">=app-emulation/vmware-workstation-15.5.2.15785246 vmware" | ./auxPrograms/accepter
+              if [ $initsys == 1 ]; then
+                USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
+              elif [ $initsys == 2 ]; then
+                USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
+              fi
+          ;;
+          8) echo ">=sys-libs/ncurses-compat-6.1_p20190609 abi_x86_32" | ./auxPrograms/unmasker
+             echo ">=dev-util/android-sdk-update-manager-24.4.1 android" | ./auxPrograms/accepter
+             emerge -qv dev-util/android-sdk-update-manager
+          ;;
+          9) echo ">=dev-util/android-ndk-18 android" | ./auxPrograms/accepter
+             emerge -qv android-ndk
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
         esac
         presskey
 
-        done
+      done # Loop's
 
 #GRAPHICS APPS
     elif [ $menu == 7 ]; then
       while true ; do
-      header
-      graphics
-      graphicsmenu
-      read  proceed
-      case "$proceed" in
-        1)  USE="aalib alsa gnome-keyring javascript jpeg2k lua postscript python" emerge -qv media-gfx/gimp
-        ;;
-        2)  USE="graphicsmagick imagemagick jemalloc jpeg nls openmp postscript spell" emerge -qv media-gfx/inkscape
-        ;;
-        3)  echo "media-gfx/blender cycles boost openexr tiff openimageio player game-engine bullet fftw openal jemalloc opensubdiv openvdb openvdb-compression" | ./auxPrograms/unmasker
-            echo "media-libs/opencv opencl" | ./auxPrograms/unmasker
-            echo "media-libs/openimageio opencv" | ./auxPrograms/unmasker
-            echo "media-libs/opensubdiv opencl ptex tbb" | ./auxPrograms/unmasker
-            echo "media-gfx/blender ~amd64" | ./auxPrograms/keyword
-            echo "sci-libs/ldl ~amd64" | ./auxPrograms/keyword
+        header
+        graphics
+        graphicsmenu
+        read  proceed
+        case "$proceed" in
+          1)  USE="aalib alsa gnome-keyring javascript jpeg2k lua postscript python" emerge -qv media-gfx/gimp
+          ;;
+          2)  USE="graphicsmagick imagemagick jemalloc jpeg nls openmp postscript spell" emerge -qv media-gfx/inkscape
+          ;;
+          3)  echo "media-gfx/blender cycles boost openexr tiff openimageio player game-engine bullet fftw openal jemalloc opensubdiv openvdb openvdb-compression" | ./auxPrograms/unmasker
+              echo "media-libs/opencv opencl" | ./auxPrograms/unmasker
+              echo "media-libs/openimageio opencv" | ./auxPrograms/unmasker
+              echo "media-libs/opensubdiv opencl ptex tbb" | ./auxPrograms/unmasker
+              echo "media-gfx/blender ~amd64" | ./auxPrograms/keyword
+              echo "sci-libs/ldl ~amd64" | ./auxPrograms/keyword
 
-	    emerge -qv media-gfx/blender
-        ;;
-        4)  flatpak install flathub org.blender.Blender
-        ;;
-        5)  emerge -qv media-gfx/mypaint
-        ;;
-        6)  emerge -qv media-gfx/pencil
-        ;;
-        7)  emerge -qv media-gfx/shotwell
-        ;;
-        "d") break
-        ;;
-        "*") printf "${Red}Invalid Selection !\n"
-        ;;
+	            emerge -qv media-gfx/blender
+          ;;
+          4)  flatpak install flathub org.blender.Blender
+          ;;
+          5)  emerge -qv media-gfx/mypaint
+          ;;
+          6)  emerge -qv media-gfx/pencil
+          ;;
+          7)  emerge -qv media-gfx/shotwell
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
         esac
         presskey
 
-        done
+      done # loop's
 
 #INTERNETAPPS
     elif [ $menu == 8 ]; then
       while true ; do
-      header
-      interN
-      internetmenu
-      read proceed
-      case "$proceed" in
-        1) while true ; do
-           browsers
-           read browser
-           case "$browser" in
-             1) USE="bindist clang custom-optimization screenshot" emerge -qv www-client/firefox
-             ;;
-             2) emerge -qv www-client/firefox-bin
-             ;;
-             3)	#licenseHERE
-	     	echo ">=www-client/opera-67.0.3575.137 OPERA-2014" | ./auxPrograms/accepter
-	     	emerge -qv www-client/opera
-             ;;
-             4) emerge -qv www-client/google-chrome
-             ;;
-             5) emerge -qv www-client/chromium
-             ;;
-             6) #licenseHERE
-	     	echo ">=www-client/vivaldi-2.11.1811.52_p1 Vivaldi" | ./auxPrograms/accepter
-	     	emerge -qv www-client/vivaldi
-             ;;
-             7) emerge -qv www-client/falcon
-             ;;
-             "d") break
-             ;;
-             "*") printf "${Red}Invalid Selection !\n"
-             ;;
-           esac
-         done
+        header
+        interN
+        internetmenu
+        read proceed
+        case "$proceed" in
+          1) while true ; do
+              browsers
+              read browser
+              case "$browser" in
+                1) USE="bindist clang custom-optimization screenshot" emerge -qv www-client/firefox
+                ;;
+                2) emerge -qv www-client/firefox-bin
+                ;;
+                3)	#licenseHERE
+	     	            echo ">=www-client/opera-67.0.3575.137 OPERA-2014" | ./auxPrograms/accepter
+	     	            emerge -qv www-client/opera
+                ;;
+                4) emerge -qv www-client/google-chrome
+                ;;
+                5) emerge -qv www-client/chromium
+                ;;
+                6) #licenseHERE
+	     	           echo ">=www-client/vivaldi-2.11.1811.52_p1 Vivaldi" | ./auxPrograms/accepter
+	     	           emerge -qv www-client/vivaldi
+                ;;
+                7) USE="jumbo-build" emerge -qv www-client/falcon
+                ;;
+                "d") break
+                ;;
+                "*") printf "${Red}Invalid Selection !\n"
+                ;;
+              esac
+            done
         ;;
         2)  while true ; do
-            download
-            read down
-            case "$down" in
-              1) emerge -qv qbittorrent
+              download
+              read down
+              case "$down" in
+                1) emerge -qv qbittorrent
+                ;;
+                2) emerge -qv uget aria2
+                ;;
+                3) flatpak install flathub com.dropbox.Client
+                ;;
+                4) emerge -qv net-misc/dropbox-cli
+                ;;
+                5) emerge -qv kde-apps/kget
+                ;;
+                6) emerge -qv net-misc/youtube-dl
+                ;;
+                7) emerge -qv net-p2p/transmission
+                ;;
+                "d") break
+                ;;
+                "*") printf "${Red}Invalid Selection !\n"
+                ;;
+              esac
+            done
+        ;;
+        3) while true; do
+            mail
+            read m
+            case "$m" in
+              1) emerge -qv mail-client/thunderbird-bin
               ;;
-              2) emerge -qv uget aria2
-              ;;
-              3) flatpak install flathub com.dropbox.Client
-              ;;
-              4) emerge -qv net-misc/dropbox-cli
-              ;;
-              5) emerge -qv kde-apps/kget
-              ;;
-              6) emerge -qv net-misc/youtube-dl
-              ;;
-              7) emerge -qv net-p2p/transmission
+              2) emerge -qv mail-client/evolution
               ;;
               "d") break
               ;;
               "*") printf "${Red}Invalid Selection !\n"
               ;;
             esac
-            done
-        ;;
-        3) while true; do
-           mail
-           read m
-           case "$m" in
-            1) emerge -qv mail-client/thunderbird-bin
-            ;;
-            2) emerge -qv mail-client/evolution
-            ;;
-            "d") break
-            ;;
-            "*") printf "${Red}Invalid Selection !\n"
-            ;;
-           esac
           done
         ;;
         4) IM
            while true ; do
-           read im
-           case "$im" in
-             1) flatpak install flathub com.microsoft.Teams
-             ;;
-             2) emerge -qv net-im/telegram-desktop-bin
-             ;;
-             "d") break
-             ;;
-             "*") printf "${Red}Invalid Selection !\n"
-             ;;
-           esac
-         done
+             read im
+             case "$im" in
+               1) flatpak install flathub com.microsoft.Teams
+               ;;
+               2) emerge -qv net-im/telegram-desktop-bin
+               ;;
+               "d") break
+               ;;
+               "*") printf "${Red}Invalid Selection !\n"
+               ;;
+             esac
+           done
         ;;
         5) desktopSharing
           while true ; do
@@ -902,56 +917,56 @@ while true ; do
 #AUDIOAPPS
     elif [ $menu == 9 ]; then
       while true ; do
-      header
-      audio
-      audiomenu
-      read proceed
-      case "$proceed" in
-        1) while true ; do
-           players
-           read play
-           case "$play" in
-             1) emerge -qv media-sound/clementine
-             ;;
-             2) USE="cdr" emerge -qv media-sound/rhythmbox
-             ;;
-             3) emerge -qv media-sound/lollypop
-             ;;
-             4) emerge -qv media-sound/moc
-             ;;
-             "d") break
-             ;;
-             "*") printf "${Red}Invalid Selection !\n"
-             ;;
-           esac
-         done
-        ;;
-        2)  while true ; do
-            editors
-            read edit
-            case "$edit" in
-              1) USE="id3tag lv2 midi portmixer sbsms soundtouch twolame vamp vst" emerge -qv media-sound/audacity
-              ;;
-              2) emerge -qv media-sound/easytag
-              ;;
-              3) echo ">=media-libs/opus-1.3.1-r1 custom-modes" | ./auxPrograms/unmasker
-		 USE="classic metadata alsa dbus libsamplerate opus sndfile" emerge -qv media-sound/jack2
-                 emerge -qv media-sound/guitarix
-              ;;
-              "d") break
-              ;;
-              "*") printf "${Red}Invalid Selection !\n"
-              ;;
-            esac
+        header
+        audio
+        audiomenu
+        read proceed
+        case "$proceed" in
+          1) while true ; do
+              players
+              read play
+              case "$play" in
+                1) emerge -qv media-sound/clementine
+                ;;
+                2) USE="cdr" emerge -qv media-sound/rhythmbox
+                ;;
+                3) emerge -qv media-sound/lollypop
+                ;;
+                4) emerge -qv media-sound/moc
+                ;;
+                "d") break
+                ;;
+                "*") printf "${Red}Invalid Selection !\n"
+                ;;
+              esac
             done
-        ;;
-        3) printf "Installing codecs....\n"
-           emerge -qv media-libs/{gst-plugins-base,gst-plugins-good,gst-plugins-bad,gst-plugins-ugly}
-        ;;
-        "d") break
-        ;;
-        "*") printf "${Red}Invalid Selection !\n"
-        ;;
+          ;;
+          2)  while true ; do
+                editors
+                read edit
+                case "$edit" in
+                  1) USE="id3tag lv2 midi portmixer sbsms soundtouch twolame vamp vst" emerge -qv media-sound/audacity
+                  ;;
+                  2) emerge -qv media-sound/easytag
+                  ;;
+                  3) echo ">=media-libs/opus-1.3.1-r1 custom-modes" | ./auxPrograms/unmasker
+		                 USE="classic metadata alsa dbus libsamplerate opus sndfile" emerge -qv media-sound/jack2
+                     emerge -qv media-sound/guitarix
+                  ;;
+                  "d") break
+                  ;;
+                  "*") printf "${Red}Invalid Selection !\n"
+                  ;;
+                esac
+              done
+          ;;
+          3) printf "Installing codecs....\n"
+             emerge -qv media-libs/{gst-plugins-base,gst-plugins-good,gst-plugins-bad,gst-plugins-ugly}
+          ;;
+          "d") break
+          ;;
+          "*") printf "${Red}Invalid Selection !\n"
+          ;;
         esac
         presskey
 
@@ -970,7 +985,7 @@ while true ; do
              case "$play" in
 
                1) #licenseHERE
-	       	  echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
+	       	        echo "media-video/vlc qt5 gnutls live lua matroska rtsp theora upnp vcdx" | ./auxPrograms/unmasker
                   echo ">=sys-libs/zlib-1.2.11-r2 minizip" | ./auxPrograms/unmasker
 		              USE="opus matroska" emerge -qv media-video/vlc
                ;;
@@ -1016,27 +1031,27 @@ while true ; do
 #GAMES
     elif [ $menu == 11 ]; then
         while true ; do
-        header
-        games
-        gamesmenu
-        read proceed
-        case "$proceed" in
-          1) mkdir -p /etc/portage/sets
-             cp ./configuration_files/steamSet /etc/portage/sets/steam
-             emerge --noreplace @steam
-             steamreqs
-             emerge --changed-use --deep @world
-             printf "\nshm        /dev/shm        tmpfs        nodev,nosuid,noexec  0 0" >> /etc/fstab
-             echo "steam-overlay" "https://github.com/anyc/steam-overlay.git" | ./auxPrograms/repoAdder
-             echo ">=games-util/steam-launcher-1.0.0.62 ValveSteamLicense" | ./auxPrograms/accepter
-	     echo ">=dev-util/pkgconf-1.6.3 abi_x86_32" | ./auxPrograms/unmasker
-	     emerge --unmerge icu
-	     emerge -qv games-util/steam-meta
-          ;;
-          "d") break
-          ;;
-          "*") printf "${Red}Invalid Selection !\n"
-          ;;
+          header
+          games
+          gamesmenu
+          read proceed
+          case "$proceed" in
+            1) mkdir -p /etc/portage/sets
+               cp ./configuration_files/steamSet /etc/portage/sets/steam
+               emerge --noreplace @steam
+               steamreqs
+               emerge --changed-use --deep @world
+               printf "\nshm        /dev/shm        tmpfs        nodev,nosuid,noexec  0 0" >> /etc/fstab
+               echo "steam-overlay" "https://github.com/anyc/steam-overlay.git" | ./auxPrograms/repoAdder
+               echo ">=games-util/steam-launcher-1.0.0.62 ValveSteamLicense" | ./auxPrograms/accepter
+	             echo ">=dev-util/pkgconf-1.6.3 abi_x86_32" | ./auxPrograms/unmasker
+	             emerge --unmerge icu
+               emerge -qv games-util/steam-meta
+            ;;
+            "d") break
+            ;;
+            "*") printf "${Red}Invalid Selection !\n"
+            ;;
           esac
           presskey
 
@@ -1044,19 +1059,19 @@ while true ; do
 #CLEANINGUP
     elif [ $menu == 12 ]; then
         while true ; do
-        header
-        clean
-        cleanmenu
-        read proceed
-        case "$proceed" in
-          1) rm /stage3-*
-          ;;
-          2) rm -rf `pwd`schwifter
-          ;;
-          "d") break
-          ;;
-          "*") printf "${Red}Invalid Selection !\n"
-          ;;
+          header
+          clean
+          cleanmenu
+          read proceed
+          case "$proceed" in
+            1) rm /stage3-*
+            ;;
+            2) rm -rf `pwd`schwifter
+            ;;
+            "d") break
+            ;;
+            "*") printf "${Red}Invalid Selection !\n"
+            ;;
           esac
           presskey
 
