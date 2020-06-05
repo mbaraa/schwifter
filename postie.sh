@@ -46,6 +46,10 @@ if [ "$iam" != "root" ]; then
   printf "\n\n${BRed}upa no superuser detected\n\n"
   exit 1
 fi
+# GLOBAL USE TAGS
+GLOBAL_USE="libinput -xvmc -vdpau -cuda -systemd -consolekit X elogind mtp pulseaudio networkmanager \
+lm-sensors acpi bluetooth policykit polkit kdrive \
+ios"
 # move on
 presskey
 header
@@ -712,10 +716,12 @@ while true ; do
               echo ">=media-libs/speex-1.2.0-r1 abi_x86_32" | ./auxPrograms/unmasker
               echo ">=media-libs/speexdsp-1.2_rc3-r2 abi_x86_32" | ./auxPrograms/unmasker
               echo ">=app-emulation/vmware-workstation-15.5.2.15785246 vmware" | ./auxPrograms/accepter
+              echo ">=app-crypt/pinentry-1.1.0-r3 gnome-keyring" | ./auxPrograms/unmasker
+              emerge --unmerge dev-util/gdbus-codegen
               if [ $initsys == 1 ]; then
-                USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
+                ACCEPT_KEYWORDS="~amd64 ~x86 " USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool -systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
               elif [ $initsys == 2 ]; then
-                USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
+                ACCEPT_KEYWORDS="~amd64 ~x86 " USE="cups macos-guests* modules vmware-tools-darwin* vmware-tools-darwinPre15* vmware-tools-linux* vmware-tools-netware* vmware-tools-solaris* vmware-tools-winPreVista* vmware-tools-windows* -doc -ovftool systemd -vix -vmware-tools-linuxPreGlibc25 -vmware-tools-winPre2k" emerge vmware-workstation -qv
               fi
           ;;
           8) echo ">=sys-libs/ncurses-compat-6.1_p20190609 abi_x86_32" | ./auxPrograms/unmasker
