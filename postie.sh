@@ -1,6 +1,6 @@
 #!/bin/sh
 ########################################################################################
-#Created by Baraa Al-Masri | E-Mail : baraa.masri@asu.edu.jo | Twitter : @Baraa_Da_Boss
+#Created by Baraa Al-Masri | E-Mail : baraa.masri@asu.edu.jo | Twitter : @hexagon16rpm
 #Grab me a cup of coffee : https://www.paypal.me/baraamasri
 #Contributer: Baraa Al-Masri
 #######################################################################################
