@@ -181,7 +181,7 @@ accessories(){
 development(){
         printf "${White}1. Atom ${Cyan}(flatpak)\n"
         printf "${White}2. Gvim \n"
-        printf "3. Visual Studio Code \n"
+        printf "3. Android Studio\n"
         printf "${White}4. JRE \n"
         printf "5. JDK  \n"
         printf "6. Clang \n"
@@ -192,6 +192,7 @@ development(){
         printf "${White}11. NetBeans ${Cyan}(flatpak)  \n"
         printf "${White}12. Qt Creator \n"
         printf "13. Android Platform Tools \n\n"
+	printf "14. Visual Studio Code \n"
 	printf "${White}d. Done(go back to main menu)\n"
 
 }
