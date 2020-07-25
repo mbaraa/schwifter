@@ -181,7 +181,7 @@ accessories(){
 development(){
         printf "${White}1. Atom ${Cyan}(flatpak)\n"
         printf "${White}2. Gvim \n"
-        printf "3. Visual Studio Code ${Cyan}(flatpak)  \n"
+        printf "3. Visual Studio Code \n"
         printf "${White}4. JRE \n"
         printf "5. JDK  \n"
         printf "6. Clang \n"

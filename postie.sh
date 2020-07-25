@@ -640,12 +640,15 @@ while true ; do
               12) #licenseHERE
                   #https://download.qt.io/official_releases/qtcreator/4.11/4.11.2/qt-creator-opensource-linux-x86_64-4.11.2.run
                   echo ">=dev-qt/qtwebengine-5.14.2 widgets" | ./auxPrograms/unmasker
-	      	        echo ">=dev-qt/qtwebchannel-5.14.2 qml" | ./auxPrograms/unmasker
-		              USE="jumbo-build" emerge -qv qt-creator qtdeclarative
-	            ;;
+	      	  echo ">=dev-qt/qtwebchannel-5.14.2 qml" | ./auxPrograms/unmasker
+		  USE="jumbo-build" emerge -qv qt-creator qtdeclarative
+	      ;;
               13) emerge -qv dev-util/android-tools
               ;;
-	            "d") break
+	      14) echo "telans" "https://github.com/telans/EBUILDS" | ./auxPrograms/repoAdder
+	          emerge -qv visual-studio-code
+	      ;;
+	      "d") break
               ;;
               "*") printf "${Red}Invalid Selection !\n"
               ;;
@@ -859,7 +862,9 @@ while true ; do
            while true ; do
              read im
              case "$im" in
-               1) flatpak install flathub com.microsoft.Teams
+	       1)  echo "=media-video/ffmpeg-4.2.4 chromium" | ./auxPrograms/unmasker
+	      	   echo ">=net-im/teams-1.3.00.16851 ms-teams-pre" | ./auxPrograms/accepter
+		   emerge -qv net-im/teams
                ;;
                2) emerge -qv net-im/telegram-desktop-bin
                ;;
